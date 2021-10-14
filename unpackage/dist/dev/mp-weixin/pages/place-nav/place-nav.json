@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "玩场分类",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",
+    "place-list": "/components/place/place-list",
+    "load-more": "/components/common/load-more"
+  }
+}

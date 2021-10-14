@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",
+    "uni-notice-bar": "/components/uni-ui/uni-notice-bar/uni-notice-bar",
+    "uni-calendar": "/components/uni-ui/uni-calendar/uni-calendar"
+  }
+}

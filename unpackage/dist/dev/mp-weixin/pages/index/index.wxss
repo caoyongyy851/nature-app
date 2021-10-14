@@ -1,0 +1,16 @@
+
+.swiperContainer {
+	position: relative;
+}
+.imageCount {
+	width: 70rpx;
+	height: 40rpx;
+	background-color: rgba(0, 0, 0, 0.3);
+	border-radius: 40rpx;
+	color: #fff;
+	font-size: 25rpx;
+	position: absolute;
+	right: 10rpx;
+	bottom: 10rpx;
+}
+

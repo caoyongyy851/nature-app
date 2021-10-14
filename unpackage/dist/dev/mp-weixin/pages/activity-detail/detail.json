@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "活动详情",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",
+    "u-circle-progress": "/node-modules/uview-ui/components/u-circle-progress/u-circle-progress",
+    "uni-popup": "/components/uni-ui/uni-popup/uni-popup"
+  }
+}

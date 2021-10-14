@@ -1,0 +1,10 @@
+/* 本项目公共样式 */
+.bg-main{
+	background-color: #8aa167!important;
+}
+.bg-main-disabled{
+	background-color: #F87F97!important;
+}
+.text-main{
+	color: #8aa167;
+}

@@ -1,0 +1,56 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/place/place",
+    "pages/my/my",
+    "pages/add-input/add-input",
+    "pages/place-nav/place-nav",
+    "pages/place-detail/place-detail",
+    "pages/user-set/user-set",
+    "pages/user-space/user-space",
+    "pages/detail/detail",
+    "pages/detail/comments",
+    "pages/add-card/add-card",
+    "pages/activity-detail/detail",
+    "pages/activity-detail/comments",
+    "pages/add-activity/add-activity"
+  ],
+  "subPackages": [],
+  "window": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "自然玩主",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#FFFFFF"
+  },
+  "tabBar": {
+    "color": "#323232",
+    "selectedColor": "#85a363",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "玩主",
+        "iconPath": "static/tabbar/index.png",
+        "selectedIconPath": "static/tabbar/indexed.png"
+      },
+      {
+        "pagePath": "pages/place/place",
+        "text": "玩场",
+        "iconPath": "static/tabbar/place.png",
+        "selectedIconPath": "static/tabbar/placed.png"
+      },
+      {
+        "pagePath": "pages/my/my",
+        "text": "我的",
+        "iconPath": "static/tabbar/my.png",
+        "selectedIconPath": "static/tabbar/myed.png"
+      }
+    ]
+  },
+  "usingComponents": {
+    "divider": "/components/common/divider",
+    "no-thing": "/components/common/no-thing"
+  },
+  "sitemapLocation": "sitemap.json"
+}

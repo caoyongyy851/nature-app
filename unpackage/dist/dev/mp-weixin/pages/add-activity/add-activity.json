@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "发活动",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",
+    "u-input": "/node-modules/uview-ui/components/u-input/u-input",
+    "u-upload": "/node-modules/uview-ui/components/u-upload/u-upload",
+    "u-picker": "/node-modules/uview-ui/components/u-picker/u-picker"
+  }
+}

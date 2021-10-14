@@ -1,0 +1,41 @@
+
+@charset "UTF-8";
+.uni-popup.data-v-34873f8c {
+	position: fixed;
+
+	z-index: 99;
+}
+.uni-popup.top.data-v-34873f8c,
+.uni-popup.left.data-v-34873f8c,
+.uni-popup.right.data-v-34873f8c {
+
+
+
+
+	top: 0;
+}
+.uni-popup .uni-popup__wrapper.data-v-34873f8c {
+
+	display: block;
+
+	position: relative;
+	/* iphonex 等安全区设置，底部安全区适配 */
+}
+.uni-popup .uni-popup__wrapper.left.data-v-34873f8c,
+.uni-popup .uni-popup__wrapper.right.data-v-34873f8c {
+
+
+
+
+	padding-top: 0;
+
+	flex: 1;
+}
+.fixforpc-z-index.data-v-34873f8c {
+
+	z-index: 999;
+}
+.fixforpc-top.data-v-34873f8c {
+	top: 0;
+}
+
