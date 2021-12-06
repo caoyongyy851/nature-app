@@ -8,7 +8,9 @@ const store=new Vuex.Store({
 		userinfo:{},
 		needAuth:true,
 		isLogin:false,
-		imgBase: "http://192.168.10.173:7777/nature"
+		isAuthPhone: false,
+		// imgBase: "http://192.168.2.10:7777/nature"
+		imgBase: "https://ziranwanzhu.com/nature"
 	},
 	//computed
 	getters:{
@@ -20,6 +22,9 @@ const store=new Vuex.Store({
 		},
 		getIsLogin(state){
 			return state.isLogin
+		},
+		getIsAuthPhone(state){
+			return state.isAuthPhone
 		},
 		getImgBase(state){
 			return state.imgBase
@@ -36,6 +41,9 @@ const store=new Vuex.Store({
 		setIsLogin(state,isLogin){
 			state.isLogin=isLogin;
 		},
+		setIsAuthPhone(state, isAuthPhone){
+			state.isAuthPhone=isAuthPhone;
+		}
 	},
 	//异步的方法
 	actions:{
@@ -56,6 +64,9 @@ const store=new Vuex.Store({
 								context.commit('setUserinfo',res.data.user);
 								context.commit('setNeedAuth',false);
 								context.commit('setIsLogin',true);
+								if(res.data.user.phone){
+									context.commit('setIsAuthPhone',true);
+								}
 							}else if (res.msg=="未登录,请授权" || res.msg=="非首次,未授权"){
 								context.commit('setUserinfo',res.data.user);
 								context.commit('setNeedAuth',true);
@@ -79,13 +90,15 @@ const store=new Vuex.Store({
 			return new Promise((resolve,reject)=>{
 				wx.getUserProfile({
 					lang:'zh_CN',
-					desc:'注册',
+					desc:'获取您的昵称、头像、地区及性别',
 					success(res) {
 						context.commit('setUserinfo',{
 							nickname: res.userInfo.nickName,
 							sex: res.userInfo.gender,
 							avatar: res.userInfo.avatarUrl,
-							city: res.userInfo.city
+							city: res.userInfo.city,
+							rawData: res.rawData,
+							signature: res.signature
 						})
 						Vue.prototype.$u.api.auth(context.state.userinfo)
 						.then(res=>{
@@ -104,6 +117,12 @@ const store=new Vuex.Store({
 			}).catch((e)=>{
 				console.log(e)
 			})
+		},
+		setPhone(context, phone){
+			context.commit('setIsAuthPhone',true);
+			context.state.userinfo.phone = phone
+			context.commit('setUserinfo',context.state.userinfo);
+			console.log(context.state.userinfo)
 		}
 		
 		

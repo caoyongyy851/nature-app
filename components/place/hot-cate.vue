@@ -1,6 +1,9 @@
 <template>
 	<view>
-		<view class="flex flex-row-reverse align-center px-4 py-2">
+		<view class="flex justify-between align-center px-2 py-2">
+			<view class="font-md">
+				预定玩场
+			</view>
 			<view @click="openMore" class="flex align-center font text-secondary animated faster" hover-class="bounceIn">
 				更多<text class="iconfont icon-jinru"></text>
 			</view>

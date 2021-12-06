@@ -44,7 +44,7 @@ const install = (Vue, vm) => {
 
 	// 获取活动列表
 	let getCardList = (params = {}) => vm.$u.get(
-		`/nature/front/getCardList/${params.pageNum}/${params.pageSize}`);
+		`/nature/nocheck/getCardList/${params.pageNum}/${params.pageSize}`);
 	// 获取活动列表
 	let getCardGuanzhuList = (params = {}) => vm.$u.get(
 		`/nature/front/getCardGuanzhuList/${params.pageNum}/${params.pageSize}`);
@@ -92,7 +92,8 @@ const install = (Vue, vm) => {
 	// 点赞评论
 	let acommentAppreciate = (params = {}) => vm.$u.get(`/nature/front/acommentAppreciate/${params.cid}`);
 	// 取消点赞评论
-	let acommentAppreciateCancel = (params = {}) => vm.$u.get(`/nature/front/acommentAppreciateCancel/${params.cid}`);
+	let acommentAppreciateCancel = (params = {}) => vm.$u.get(
+		`/nature/front/acommentAppreciateCancel/${params.cid}`);
 	// 获取所有评论
 	let getAllCommentsByAid = (params = {}) => vm.$u.get(`/nature/front/getAllCommentsByAid/${params.aid}`);
 	// 创建活动
@@ -104,7 +105,106 @@ const install = (Vue, vm) => {
 	let getPlaceDetailById = (params = {}) => vm.$u.get(`/nature/nocheck/getPlaceDetailById/${params.id}`);
 	// 收藏
 	let placeToCollect = (params = {}) => vm.$u.get(`/nature/front/placeToCollect/${params.pid}`);
+	// 获取个人信息
+	let getSelfDetail = (params = {}) => vm.$u.get(`/nature/front/getSelfDetail/${params.uid}`);
+	// 保存用户信息
+	let saveUserInfo = (params = {}) => vm.$u.post(`/nature/front/saveUserInfo`, params);
+	// 获取场地分类
+	let getPlaceCategoryList = () => vm.$u.get(`/nature/nocheck/getPlaceCategoryList`);
+	// 根据分类id获取场地
+	let getPlaceByCategoryId = (params = {}) => vm.$u.get(
+		`/nature/nocheck/getPlaceByCategoryId/${params.categoryId}`);
+	// 获取个人空间用户信息
+	let getUserSpace = (params = {}) => vm.$u.get(`/nature/nocheck/getUserSpace/${params.uid}`);
+	// 获取个人空间帖子
+	let getCardListByUid = (params = {}) => vm.$u.get(
+		`/nature/nocheck/getCardListByUid/${params.uid}/${params.pageNum}/${params.pageSize}`);
+	// 获取封面
+	let getCover = (params = {}) => vm.$u.get(`/nature/nocheck/getCover`);
+	// 获取话题列表
+	let getTopicList = (params = {}) => vm.$u.get(
+		`/nature/nocheck/getTopicList/${params.type}/${params.pageNum}/${params.pageSize}`);
+	// 创建话题
+	let createTopic = (params = {}) => vm.$u.post(`/nature/front/createTopic`, params);
+	// 获取话题详情
+	let getTopicDetailById = (params = {}) => vm.$u.get(`/nature/nocheck/getTopicDetailById/${params.id}`);
+	// 获取话题最新帖子
+	let getNewCardByTopicId = (params = {}) => vm.$u.get(
+		`/nature/nocheck/getNewCardByTopicId/${params.id}/${params.pageNum}/${params.pageSize}`);
+	// 获取话题热门帖子
+	let getHotCardByTopicId = (params = {}) => vm.$u.get(
+		`/nature/nocheck/getHotCardByTopicId/${params.id}/${params.pageNum}/${params.pageSize}`);
 	// 将各个定义的接口名称，统一放进对象挂载到vm.$u.api(因为vm就是this，也即this.$u.api)下
+	// 获取封面
+	let getTopicSelect = (params = {}) => vm.$u.get(`/nature/nocheck/getTopicSelect`);
+	// 获取话题轮播图
+	let getTopicSwiper = (params = {}) => vm.$u.get(`/nature/nocheck/getTopicSwiper`);
+	// 获取当前话题用户相关状态
+	let getTopicUserStatus = (params = {}) => vm.$u.get(`/nature/front/getTopicUserStatus/${params.id}`);
+	// 获取用户话题
+	let getTopicByUid = (params = {}) => vm.$u.get(
+		`/nature/front/getTopicByUid/${params.pageNum}/${params.pageSize}`);
+
+	// 用户删除话题
+	let deleteTopic = (params = {}) => vm.$u.post(
+		`/nature/front/deleteTopic`, params);
+
+	// 获取用户帖子
+	let getCardByUid = (params = {}) => vm.$u.get(
+		`/nature/front/getCardByUid/${params.pageNum}/${params.pageSize}`);
+
+	// 用户删除帖子
+	let deleteCard = (params = {}) => vm.$u.post(
+		`/nature/front/deleteCard`, params);
+
+	// 获取文档
+	let getDoc = (params = {}) => vm.$u.get(
+		`/nature/nocheck/getDoc/${params.type}`);
+
+	// 喜欢
+	let placeToLike = (params = {}) => vm.$u.get(`/nature/front/placeToLike/${params.pid}`);
+
+
+
+	// 获取手机号
+	let phone = (params = {}) => vm.$u.get(
+		`/nature/pay/phone/${params.appid}`, params);
+
+	// 获取订单号
+	let getOrderById = (params = {}) => vm.$u.get(
+		`/nature/pay/getOrderById`, params);
+
+	// 创建玩场订单
+	let createCOrder = (params = {}) => vm.$u.post(
+		`/nature/pay/createCOrder`, params);
+	// 创建微信预支付订单
+	let createOrder = (params = {}) => vm.$u.post(
+		`/nature/pay/createOrder`, params);
+	// 获取用户订单列表
+	let getOrderByUid = (params = {}) => vm.$u.get(
+		`/nature/front/getOrderByUid/${params.pageNum}/${params.pageSize}`, params);
+	// 取消订单
+	let closeOrder = (params = {}) => vm.$u.get(
+		`/nature/pay/closeOrder/${params.orderNo}`, params);
+	// 申请退款
+	let refundAudit = (params = {}) => vm.$u.post(
+		`/nature/front/refundAudit`, params);
+	// 创建公司申请入驻
+	let createCompany = (params = {}) => vm.$u.post(`/nature/front/createCompany`, params);
+
+	// 获取公司申请入驻
+	let getCompanyByUid = () => vm.$u.get(`/nature/front/getCompanyByUid`);
+	// 获取用户线下活动
+	let getActivityByUid = (params = {}) => vm.$u.get(
+		`/nature/front/getActivityByUid/${params.pageNum}/${params.pageSize}`);
+
+	// 用户删除活动
+	let deleteActivity = (params = {}) => vm.$u.post(
+		`/nature/front/deleteActivity`, params);
+	// 修改活动
+	let modifyActivity = (params = {}) => vm.$u.post(`/nature/front/modifyActivity`, params);
+	// 修改话题
+	let modifyTopic = (params = {}) => vm.$u.post(`/nature/front/modifyTopic`, params);
 	vm.$u.api = {
 		login,
 		auth,
@@ -136,7 +236,41 @@ const install = (Vue, vm) => {
 		createActivity,
 		getReferPlaceList,
 		getPlaceDetailById,
-		placeToCollect
+		placeToCollect,
+		getSelfDetail,
+		saveUserInfo,
+		getPlaceCategoryList,
+		getPlaceByCategoryId,
+		getUserSpace,
+		getCardListByUid,
+		getCover,
+		getTopicList,
+		createTopic,
+		getTopicDetailById,
+		getNewCardByTopicId,
+		getHotCardByTopicId,
+		getTopicSelect,
+		getTopicSwiper,
+		getTopicUserStatus,
+		getTopicByUid,
+		deleteTopic,
+		getCardByUid,
+		deleteCard,
+		getDoc,
+		placeToLike,
+		createCOrder,
+		phone,
+		getOrderById,
+		createOrder,
+		getOrderByUid,
+		closeOrder,
+		refundAudit,
+		createCompany,
+		getCompanyByUid,
+		getActivityByUid,
+		deleteActivity,
+		modifyActivity,
+		modifyTopic
 	};
 }
 

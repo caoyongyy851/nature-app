@@ -1,12 +1,17 @@
 <template>
 	<view>
+		<uni-nav-bar left-icon="back" :title="activityDetail.title" @clickLeft="clickLeft" :fixed="true">
+			<view slot="left" class="flex align-center mt-4" @click="toIndex">
+				<image src="/static/logo.png" mode="aspectFill" style="width: 120rpx; height: 120rpx;" lazy-load="true"></image>
+			</view>
+		</uni-nav-bar>
 		<!-- 轮播图 -->
 		<u-toast ref="uToast" />
 		<view class="swiperContainer mb-2">
-			<swiper @change="swiperChange" :autoplay="true" :interval="3000" :duration="1000" class=""
-				style="width: 750rpx; height: 450rpx;">
+			<swiper @change="swiperChange" :autoplay="false" :interval="3000" :duration="1000" class=""
+				style="width: 750rpx; height: 750rpx;">
 				<swiper-item v-for="(item, index) in activityDetail.imgsList" :key="index">
-					<image :src="getImgBase + item" mode="aspectFill" style="width: 750rpx; height: 1000rpx;">
+					<image :src="getImgBase + item" mode="aspectFill" style="width: 750rpx; height: 750rpx;" lazy-load="true">
 					</image>
 				</swiper-item>
 			</swiper>
@@ -16,38 +21,39 @@
 		<view class="flex align-center justify-between p-3 pt-2">
 			<view class="flex align-center">
 				<!-- 头像 -->
-				<image :src="activityDetail.avatar" class="rounded-circle mr-2" @click="openSpace"
-					style="width: 65rpx;height: 65rpx;" lazy-load>
+				<image :src="activityDetail.avatar" class="rounded-circle mr-2" @click="openSpace(activityDetail.pid)"
+					style="width: 65rpx;height: 65rpx;" lazy-load="true">
 				</image>
 				<!-- 昵称 | 发布时间 -->
 				<view class="flex flex-column">
 					<view class="font" style="line-height: 1.5;">
-						{{activityDetail.nickname}}
+						{{activityDetail.companyName ? activityDetail.companyName :activityDetail.nickname}}
 					</view>
-					<text class="font-small text-light-muted" style="line-height: 1.5;">{{activityDetail.createTime}}</text>
+					<text class="font-small text-light-muted"
+						style="line-height: 1.5;">{{activityDetail.createTime}}</text>
 				</view>
 			</view>
-		
+
 		</view>
-		<view class="flex align-center justify-between px-3 ">
+		<view class="px-3 py-2">
+			<view class="text-main font-md font-weight-bold mb-1">
+				{{activityDetail.title}}
+			</view>
+			<text class="font text-muted" style="line-height: 1.8;">
+				{{activityDetail.detail}}
+			</text>
+			<view class="pt-3 animated faster" hover-class="bounceIn" v-if="activityDetail.position">
+				<text class="font-sm  text-light-muted iconfont icon-dizhi mr-1"></text>
+				<text class="font-sm text-light-muted">{{activityDetail.position}}</text>
+			</view>
+		</view>
+		<!-- <view class="flex align-center justify-between px-3 ">
 			<view class="rounded-circle px-2 py-1"
 				style="border: 1rpx solid #0E151D;">
-				<!-- <text class="font iconfont icon-dizhi mr-1"></text> -->
+				<text class="font iconfont icon-dizhi mr-1"></text>
 				<text class="font">{{activityDetail.position}}</text>
 			</view>
-		</view>
-		<view class="flex align-center justify-between px-3 ">
-			<view class="rounded-circle px-2 py-1 animated faster bg-main" hover-class="bounceIn" @click="joinActivity">
-				<text class="font-md text-white">{{isJoin ? '已报名' : '报名活动'}}</text>
-			</view>
-			<view class="">
-				<u-circle-progress width=120 :percent="(activityDetail.perLimit/activityDetail.person)*100" :active-color="activeColor">
-					<view class="">
-						<text class='font-sm'>{{activityDetail.perLimit}}/{{activityDetail.person}}</text>
-					</view>
-				</u-circle-progress>
-			</view>
-		</view>
+		</view> -->
 		<!-- 地点 | 举报 -->
 		<view class="flex align-center justify-between px-3">
 
@@ -57,16 +63,27 @@
 			</view> -->
 		</view>
 		<!-- 内容区域 -->
-		<view class="px-3 py-4">
-			<text class="font text-muted" style="line-height: 1.8;">
-				{{activityDetail.detail}}
-			</text>
-		</view>
+
 		<!-- 发布时间 -->
 		<view class="px-3 pb-3">
 			<text class="font" style="color: #bdbfc2;">报名截止于{{activityDetail.time}}</text>
 		</view>
-
+		<view class="flex align-center justify-between px-3">
+			<view class="rounded-circle px-2 py-1 animated faster border btn-main" hover-class="bounceIn"
+				@click="joinActivity">
+				<text v-if="activityDetail.perLimit != activityDetail.person"
+					class="font-md text-main ">{{isJoin ? '已报名' : '报名活动'}}</text>
+				<text v-else class="font-md text-main">名额已满</text>
+			</view>
+			<view class="">
+				<u-circle-progress width=120 :percent="(activityDetail.perLimit/activityDetail.person)*100"
+					:active-color="activeColor">
+					<view class="">
+						<text class='font-sm'>{{activityDetail.perLimit}}/{{activityDetail.person}}</text>
+					</view>
+				</u-circle-progress>
+			</view>
+		</view>
 		<view class="border-bottom mx-3" />
 		<!-- 评论 -->
 		<view class="p-3">
@@ -77,7 +94,7 @@
 			<image src="../../static/default.jpg" mode="aspectFill" style="width: 70rpx; height: 70rpx;"
 				class="rounded-circle"></image>
 			<input type="text" placeholder="来说点什么吧~" disabled
-				class="flex-1 ml-2 text-muted bg-light rounded-circle px-3 py-2" @click="toggle" />
+				class="flex-1 ml-2 text-muted bg-light rounded-circle px-3 py-2" />
 		</view>
 		<!-- 评论区 -->
 		<view class="mx-3 py-3 border-bottom" v-for="(item, index) in comments" :key="index">
@@ -114,26 +131,34 @@
 		<!-- 占位 -->
 		<view class="" style="height: 55px;">
 		</view>
-
+		
 		<!-- 底部操作栏 | 发表评论 -->
-		<view class="flex align-center justify-between px-5 py-2 fixed-bottom shadow bg-white">
-			<view class="flex">
-				<view class="flex align-center animated faster px-5 border-right" hover-class="bounceIn"
-					@click="toggle">
-					<text class="iconfont icon-pinglun2 font-lg mr-1 mr-1"></text>
-					<text class="font">{{activityDetail.comments}}</text>
+
+
+		<view class="fixed-bottom shadow bg-white">
+			<view class="flex align-center justify-around px-5 py-3">
+				<view class="flex align-center">
+
+					<button class="empty font animated faster" hover-class="bounceIn" @click="toLike">
+						<u-icon size="28" name="/static/nature/watered.png" v-if="isLike"></u-icon>
+						<u-icon size="28" name="/static/nature/water.png" v-else></u-icon>浇水
+					</button>
 				</view>
-				<view class="flex align-center animated faster px-5" hover-class="bounceIn" @click="toLike">
-					<text class="iconfont font-lg mr-1"
-						:class="isLike ? 'icon-xihuan text-danger' : 'icon-xihuan1'"></text>
-					<text class="font">{{activityDetail.likes}}</text>
+				<view class="">
+					|
+				</view>
+				<view class="flex align-center">
+					<button class="empty iconfont icon-bianji font animated faster" hover-class="bounceIn"
+						@click="toggle">咨询</button>
+				</view>
+				<view class="">
+					|
+				</view>
+				<view class="flex align-center">
+					<button class="empty iconfont icon-fenxiang font animated faster" hover-class="bounceIn"
+						open-type="share">分享</button>
 				</view>
 			</view>
-			<!-- 分享 -->
-			<button
-				class="flex align-center justify-center ml-5 bg-main rounded-circle text-white font-md animated faster"
-				style="width: 160rpx; height: 75rpx;" open-type="share" hover-class="bounceIn">分享</button>
-			<!-- 底部弹窗 -->
 			<view>
 				<uni-popup ref="popup" background-color="#fff" @change="popupChange">
 					<view class="flex align-center justify-between px-2 py-3">
@@ -149,6 +174,7 @@
 				</uni-popup>
 			</view>
 		</view>
+
 	</view>
 </template>
 
@@ -157,6 +183,7 @@
 		mapGetters
 	} from 'vuex'
 	import uniPopup from '@/components/uni-ui/uni-popup/uni-popup.vue';
+	import uniNavBar from '@/components/uni-ui/uni-nav-bar/uni-nav-bar.vue'
 	export default {
 		data() {
 			return {
@@ -170,11 +197,12 @@
 				imageList: ['/static/bgimg/3.jpg', '/static/demo/datapic/16.jpg'],
 				current: 0,
 				percent: 0,
-				activeColor: '#8aa167',
+				activeColor: '#fd5f40',
 			}
 		},
 		components: {
-			uniPopup
+			uniPopup,
+			uniNavBar
 		},
 		computed: {
 			...mapGetters(['getUserinfo', 'getNeedAuth', 'getIsLogin', 'getImgBase'])
@@ -193,10 +221,7 @@
 					this.activityDetail = res.data;
 					this.activityDetail.imgsList = res.data.img.split(',')
 					this.activityDetail.imgsNum = this.activityDetail.imgsList.length
-					// 修改标题
-					uni.setNavigationBarTitle({
-						title: res.data.title
-					})
+
 				})
 
 				//获取评论
@@ -257,7 +282,7 @@
 			},
 			// 写评论
 			writeAComment() {
-				if(!this.content){
+				if (!this.content) {
 					this.$refs.uToast.show({
 						type: 'warning',
 						title: '评论不能为空哦~'
@@ -351,7 +376,23 @@
 				uni.navigateTo({
 					url: `comments?id=${this.id}`
 				})
-			}
+			},
+			clickLeft() {
+				uni.navigateBack({
+					delta: 1
+				});
+			},
+			toIndex() {
+				uni.switchTab({
+					url: '../index/index'
+				})
+			},
+			// 到个人中心
+			openSpace(uid) {
+				uni.navigateTo({
+					url: `../user-space/user-space?uid=${uid}`
+				})
+			},
 		}
 	}
 </script>
@@ -371,5 +412,24 @@
 		position: absolute;
 		right: 20rpx;
 		bottom: 30rpx;
+	}
+
+	button.empty::after {
+		border: none
+	}
+
+	.empty.plain {
+		border: none;
+		border-color: transparent;
+	}
+
+	.empty.button-hover {
+		background-color: transparent;
+	}
+
+	button.empty {
+		line-height: 47rpx;
+		background-color: transparent;
+		/* padding-bottom: 20rpx; */
 	}
 </style>

@@ -7,8 +7,12 @@
 		'uni-calendar-item--multiple': weeks.multiple,
 		'uni-calendar-item--after-checked':weeks.afterMultiple,
 		}" @click="choiceDate(weeks)">
+		
 		<view class="uni-calendar-item__weeks-box-item">
-			<text v-if="selected&&weeks.extraInfo" class="uni-calendar-item__weeks-box-circle"></text>
+			<text class="uni-calendar-item__weeks-box-text"style="font-size: 25rpx; color: #D39E00;" v-if="weeks.extraInfo.surplus">
+				{{weeks.extraInfo.surplus}}票
+			</text>
+			<text v-if="selected&&weeks.extraInfo&&weeks.extraInfo.surplus>0" class="uni-calendar-item__weeks-box-circle"></text>
 			<text class="uni-calendar-item__weeks-box-text" :class="{
 				'uni-calendar-item--isDay-text': weeks.isDay,
 				'uni-calendar-item--isDay':calendar.fullDate === weeks.fullDate && weeks.isDay,

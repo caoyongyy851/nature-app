@@ -1,6 +1,10 @@
 <template>
 	<view>
 		<u-toast ref="uToast" />
+		<!-- 轮播图 -->
+		<view class="p-2">
+			<u-swiper :list="imgList" height="300" @click="swiperClick"></u-swiper>
+		</view>
 		<scroll-view scroll-x :scroll-into-view="scrollInto" scroll-with-animation
 			class="scroll-row border-bottom border-light-secondary" style="height: 100rpx;">
 			<view class="scroll-row-item px-5 py-2 font-md" v-for="(item, index) in tabBars" :key="index"
@@ -14,9 +18,7 @@
 			<swiper-item v-for="(item, index) in newsList" :key="index">
 				<scroll-view :style="'height: ' + scrollH +'px'" scroll-y="true" @scrolltolower="loadmore(index)">
 					<template v-if="item.list.length > 0">
-						<view class="flex align-center flex-wrap w-100 px-2">
-							<place-list :placeList="item.list"></place-list>
-						</view>
+						<place-list :placeList="item.list"></place-list>
 						<!-- 上拉加载 -->
 						<load-more :loadmore="item.loadmore"></load-more>
 					</template>
@@ -30,6 +32,9 @@
 </template>
 
 <script>
+	import {
+		mapGetters
+	} from 'vuex'
 	import placeList from '@/components/place/place-list.vue';
 	import loadMore from '@/components/common/load-more.vue';
 	export default {
@@ -37,8 +42,12 @@
 			placeList,
 			loadMore
 		},
+		computed: {
+			...mapGetters(['getUserinfo', 'getNeedAuth', 'getIsLogin', 'getImgBase'])
+		},
 		data() {
 			return {
+				imgList: [],
 				scrollH: 600,
 				scrollInto: "",
 				tabIndex: 0,
@@ -54,7 +63,6 @@
 					pageNum: 1,
 					pageSize: 10
 				},
-				activityList: [],
 			}
 		},
 		// 监听原生导航栏按钮事件
@@ -64,17 +72,27 @@
 			})
 		},
 		onLoad() {
-			// this.$u.api.getActivityList(this.queryParams)
-			// .then(res=>{
-			// 	console.log(res)
-			// })
+			this.$u.api.getSwiperActivity().then(res => {
+				this.imgList = res.data.map(item => {
+					return {
+						id: item.id,
+						image: this.getImgBase + item.img.split(",")[0]
+					}
+				})
+			})
+			this.$u.api.getPlaceCategoryList()
+				.then(res => {
+					this.tabBars = res.data
+					console.log(JSON.stringify(res.data));
+					this.getData()
+				})
 			uni.getSystemInfo({
 				success: res => {
 					this.scrollH = res.windowHeight - uni.upx2px(101)
 				}
 			})
 			// 根据选项获取列表
-			this.getData()
+
 		},
 		methods: {
 			// 获取数据
@@ -82,40 +100,14 @@
 				let arr = []
 				for (let i = 0; i < this.tabBars.length; i++) {
 					let obj
-					if (i == 0) {
-						obj = {
-							loadmore: "上拉加载更多",
-							list: [{
-									id: 1,
-									name: "上海湿地公园",
-									label: "公园",
-									price: "50",
-									cover: "/static/demo/datapic/42.jpg",
-								},
-								{
-									id: 2,
-									name: "上海湿地公园",
-									label: "公园",
-									price: "50",
-									cover: "/static/demo/datapic/42.jpg",
-								},
-								{
-									id: 3,
-									name: "上海湿地公园",
-									label: "公园",
-									price: "50",
-									cover: "/static/demo/datapic/42.jpg",
-								},
-							]
-						}
-					} else {
-						obj = {
-							loadmore: "上拉加载更多",
-							list: []
-						}
-					}
-
-					arr.push(obj)
+					this.$u.api.getPlaceByCategoryId({
+						categoryId: this.tabBars[i].id
+					}).then(res => {
+						arr.push({
+							loadmore: "没有更多了...",
+							list: res.data
+						})
+					})
 				}
 				this.newsList = arr
 			},
@@ -143,28 +135,6 @@
 				// })
 
 			},
-			doSupport(e) {
-				let item = this.list[e.index]
-				let msg = e.type === 'support' ? '顶成功' : '踩成功'
-				// 之前没有顶和踩
-				if (item.support.type === '') {
-					item.support[e.type + 'Count']++
-				}
-				// 之前顶过
-				else if (item.support.type === 'support' && e.type === 'unsupport') {
-					item.support.supportCount--
-					item.support.unsupportCount++
-				}
-				// 之前踩过
-				else if (item.support.type === 'unsupport' && e.type === 'support') {
-					item.support.supportCount++
-					item.support.unsupportCount--
-				}
-				item.support.type = e.type
-				uni.showToast({
-					title: msg
-				});
-			},
 			// 上拉加载更多
 			loadmore(index) {
 				let item = this.newsList[index]
@@ -176,13 +146,27 @@
 					item.list = [...item.list, ...item.list]
 					item.loadmore = '上拉加载更多'
 				}, 1000)
-			}
+			},
+			toPlaceDetal(item) {
+				uni.navigateTo({
+					url: `/pages/place-detail/place-detail?id=${item.id}`
+				})
+			},
+			//点击幻灯片
+			swiperClick(e) {
+				let selectId;
+				selectId = this.imgList[e].id
+				uni.navigateTo({
+					url: `../activity-detail/detail?id=${selectId}`
+				})
+			},
 
 		}
 	}
 </script>
 
 <style>
-
-
+	page {
+		background-color: #F7F7F7;
+	}
 </style>

@@ -2,33 +2,42 @@
 	<view class="p-2">
 		<u-toast ref="uToast" />
 		<view class="p-2">
-			<u-input v-model="activity.title" type="text" trim="true" placeholder="请填写标题~" maxlength="12" />
+			<u-input v-model="activity.title" type="text" trim="true" placeholder="活动标题~" maxlength="200" />
+		</view>
+
+		<view class="p-2">
+			<u-input v-model="activity.detail" type="textarea" trim="true" placeholder="活动详情~" maxlength="1000" />
 		</view>
 		<view class="p-2">
-			<u-input v-model="activity.person" type="number" placeholder="活动限制人数~" />
+			<u-input v-model="activity.label" type="text" trim="true" placeholder="标签多个空格隔开~" maxlength="200" />
 		</view>
 		<view class="p-2">
-			<u-input v-model="activity.detail" type="textarea" trim="true" placeholder="请填写活动详情~" maxlength="500" />
-		</view>
-		<view class="p-2">
-			<u-input v-model="activity.label" type="text" trim="true" placeholder="请填写标签(多个空格隔开)~" maxlength="50" />
-		</view>
-		<view class="p-2">
-			<u-input v-model="activity.position" disabled="true" placeholder="请选择地址~" @click="positionShow = true" />
-		</view>
-		<view class="p-2">
-			<u-input v-model="activity.address" type="text" trim="true" placeholder="请填写详细地址(xx路xx弄xx号)~" maxlength="100" />
+			<view class="flex justify-between text-muted" @click="mapShow">
+				<view class="flex align-center font" v-if="!activity.position">
+					<text>选择地址~</text>
+				</view>
+				<view class="flex align-center font" v-else>
+					<text>{{activity.position}}</text>
+				</view>
+				<view class="font">
+					<text class="iconfont icon-jinru"></text>
+				</view>
+			</view>
 		</view>
 		<view class="p-2">
 			<u-input v-model="activity.time" disabled="true" placeholder="活动报名截止时间~" @click="timeShow = true" />
 		</view>
+		<view class="p-2 flex align-center justify-between">
+			<text class="font text-light-muted">活动人数</text>
+			<u-number-box v-model="activity.person"></u-number-box>
+		</view>
 		<view>
-			<u-upload ref="uUpload" :action="getImgBase + '/nature/front/activityFile'" :header="headers"
-				:auto-upload="true" :max-size="5 * 1024 * 1024" max-count="6" @on-success="success" @on-remove="remove">
-			</u-upload>
+			<htz-image-upload :max="6" :action="getImgBase + '/nature/front/activityFile'" :headers="headers"
+				name="file" :chooseNum="6" v-model="picList" @uploadSuccess="successImg" mediaType="image" :compress="true" quality="10">
+			</htz-image-upload>
 		</view>
 		<view class="fixed-bottom">
-			<button @click="activityConfirm" class="font bg-main text-white animated faster" hover-class="bounceIn">
+			<button @click="activityConfirm" class="font btn-main text-main animated faster" hover-class="bounceIn">
 				上传</button>
 		</view>
 		<u-picker mode="region" v-model="positionShow" @confirm="positionConfirm"
@@ -73,25 +82,71 @@
 					this.selector = res.data
 				})
 			},
-			success(data, index, lists, name) {
-				this.picList = lists
-			},
-			remove(index, lists, name) {
-				this.picList = lists
-			},
-			positionConfirm(position) {
-				if (position.province.label === '上海市') {
-					this.activity.position = position.province.label + position.area.label
-				} else {
-					this.$refs.uToast.show({
-						type: 'warning',
-						title: '目前只有上海开通哦~'
-					})
-					this.activity.position = ''
+
+			successImg(e) {
+				var res = JSON.parse(e.data);
+				if (res.code === 200) {
+					this.picList.push(this.getImgBase + res.imgUrl)
 				}
 			},
+
 			timeConfirm(time) {
 				this.activity.time = time.year + '-' + time.month + '-' + time.day
+			},
+			mapShow() {
+				let that = this
+				uni.chooseLocation({
+					success: function(res) {
+						that.activity.position = res.address + '' + res.name
+					},
+					fail: () => {
+						uni.getSetting({
+							success: function(res) {
+								var statu = res.authSetting;
+								if (!statu['scope.userLocation']) {
+									uni.showModal({
+										title: '是否授权当前位置',
+										content: '需要获取您的地理位置，请确认授权，否则地图功能将无法使用',
+										success(tip) {
+											if (tip.confirm) {
+												uni.openSetting({
+													success: function(data) {
+														if (data.authSetting[
+																"scope.userLocation"
+															] === true) {
+															uni.showToast({
+																title: '授权成功',
+																icon: 'success',
+																duration: 1000
+															})
+															//授权成功之后，再调用chooseLocation选择地方
+															setTimeout(
+																function() {
+																	uni.chooseLocation({
+																		success: (
+																			res
+																		) => {
+																			that.activity.position = res.address + '' + res.name
+																		}
+																	})
+																}, 1000)
+														}
+													}
+												})
+											} else {
+												uni.showToast({
+													title: '授权失败',
+													icon: 'none',
+													duration: 1000
+												})
+											}
+										}
+									})
+								}
+							}
+						})
+					}
+				})
 			},
 			activityConfirm() {
 				if (!this.activity.title) {
@@ -122,13 +177,7 @@
 					})
 					return
 				}
-				if (!this.activity.address) {
-					this.$refs.uToast.show({
-						type: 'warning',
-						title: '还没填写详细地址哦~'
-					})
-					return
-				}
+
 				if (!this.activity.time) {
 					this.$refs.uToast.show({
 						type: 'warning',
@@ -143,32 +192,26 @@
 					})
 					return
 				}
-				if(this.activity.label){
-					this.activity.label = this.activity.label.replace(/\s+/g,",")
+				if (this.activity.label) {
+					this.activity.label = this.activity.label.replace(/\s+/g, ",")
 				}
 				this.activity.img = this.picList.map(e => {
-					return e.response.imgUrl
+					return e.replace(this.getImgBase, "")
 				}).join()
-				this.activity.position = this.activity.position + this.activity.address
 				this.$u.api.createActivity(this.activity).then(res => {
 					if (res.code === 200) {
 						this.$refs.uToast.show({
 							type: 'success',
 							title: '上传成功'
 						})
-						uni.switchTab({
-							url: '../place/place',
-							success() {
-								let data = {
-									topIndex: 1,
-									subIndex: 3
-								}
-								let page = getCurrentPages().pop();
-								if (page == undefined || page == null) return
-								page.onLoad(data)
+						let that = this
+						let pages = getCurrentPages(); // 当前页面
+						let beforePage = pages[pages.length - 2]; // 上一页
+						uni.navigateBack({
+							success: function() {
+								beforePage.onLoad() // 执行上一页的onLoad方法
 							}
 						})
-
 					}
 				})
 			},
