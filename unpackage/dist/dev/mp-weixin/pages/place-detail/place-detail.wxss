@@ -23,6 +23,9 @@
 	padding: 5rpx 10rpx;
 	border-radius: 5rpx;
 }
+.border-main {
+	border: 1rpx solid #fd5f40
+}
 button.empty::after {
 	border: none
 }

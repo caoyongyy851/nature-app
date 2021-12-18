@@ -1,0 +1,13 @@
+
+.viewContainer {
+	position: relative;
+}
+.avatar {
+	position: absolute;
+	left: 20rpx;
+	bottom: -32rpx;
+}
+page {
+	background-color: #f7f7f7;
+}
+

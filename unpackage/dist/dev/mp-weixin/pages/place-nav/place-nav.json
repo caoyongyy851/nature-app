@@ -3,6 +3,7 @@
   "enablePullDownRefresh": false,
   "usingComponents": {
     "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",
+    "u-swiper": "/node-modules/uview-ui/components/u-swiper/u-swiper",
     "place-list": "/components/place/place-list",
     "load-more": "/components/common/load-more"
   }

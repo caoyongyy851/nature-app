@@ -9,13 +9,13 @@
 }
 .uni-navbar__content .uni-navbar__content_view {
 	display: flex;
-	align-items: center
+	align-items: center;
+	padding-top: 20rpx
 }
 .uni-navbar__header {
 	display: flex;
 	flex-direction: row;
 	width: 100%;
-	height: 44px;
 	line-height: 44px;
 	font-size: 16px
 }
@@ -48,7 +48,7 @@
 	font-size: 30rpx
 }
 .uni-navbar__placeholder-view {
-	height: 44px
+	height: 65px
 }
 .uni-navbar--fixed {
 	position: fixed;

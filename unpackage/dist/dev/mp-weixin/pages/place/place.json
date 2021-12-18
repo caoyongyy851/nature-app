@@ -1,9 +1,12 @@
 {
+  "navigationBarTitleText": "玩场",
   "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
   "usingComponents": {
     "u-swiper": "/node-modules/uview-ui/components/u-swiper/u-swiper",
     "u-icon": "/node-modules/uview-ui/components/u-icon/u-icon",
     "hot-cate": "/components/place/hot-cate",
-    "place-list": "/components/place/place-list"
+    "place-list": "/components/place/place-list",
+    "uni-nav-bar": "/components/uni-ui/uni-nav-bar/uni-nav-bar"
   }
 }

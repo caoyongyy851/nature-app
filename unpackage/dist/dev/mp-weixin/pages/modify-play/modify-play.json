@@ -1,0 +1,12 @@
+{
+  "navigationBarTitleText": "修改话题",
+  "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
+  "usingComponents": {
+    "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",
+    "u-input": "/node-modules/uview-ui/components/u-input/u-input",
+    "htz-image-upload": "/components/htz-image-upload/htz-image-upload",
+    "u-picker": "/node-modules/uview-ui/components/u-picker/u-picker",
+    "uni-nav-bar": "/components/uni-ui/uni-nav-bar/uni-nav-bar"
+  }
+}

@@ -13,4 +13,19 @@
 	right: 20rpx;
 	bottom: 30rpx;
 }
+button.empty::after {
+	border: none
+}
+.empty.plain {
+	border: none;
+	border-color: transparent;
+}
+.empty.button-hover {
+	background-color: transparent;
+}
+button.empty {
+	line-height: 47rpx;
+	background-color: transparent;
+	/* padding-bottom: 20rpx; */
+}
 

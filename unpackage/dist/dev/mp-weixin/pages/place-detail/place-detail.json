@@ -1,9 +1,16 @@
 {
   "navigationBarTitleText": "",
   "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
   "usingComponents": {
     "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",
+    "u-line": "/node-modules/uview-ui/components/u-line/u-line",
+    "u-number-box": "/node-modules/uview-ui/components/u-number-box/u-number-box",
+    "u-icon": "/node-modules/uview-ui/components/u-icon/u-icon",
+    "u-popup": "/node-modules/uview-ui/components/u-popup/u-popup",
     "uni-notice-bar": "/components/uni-ui/uni-notice-bar/uni-notice-bar",
-    "uni-calendar": "/components/uni-ui/uni-calendar/uni-calendar"
+    "uni-calendar": "/components/uni-ui/uni-calendar/uni-calendar",
+    "uni-nav-bar": "/components/uni-ui/uni-nav-bar/uni-nav-bar",
+    "uni-popup": "/components/uni-ui/uni-popup/uni-popup"
   }
 }

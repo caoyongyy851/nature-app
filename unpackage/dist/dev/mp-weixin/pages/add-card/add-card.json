@@ -1,10 +1,14 @@
 {
   "navigationBarTitleText": "发帖子",
   "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
   "usingComponents": {
     "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",
     "u-input": "/node-modules/uview-ui/components/u-input/u-input",
-    "u-upload": "/node-modules/uview-ui/components/u-upload/u-upload",
-    "u-picker": "/node-modules/uview-ui/components/u-picker/u-picker"
+    "u-radio-group": "/node-modules/uview-ui/components/u-radio-group/u-radio-group",
+    "u-radio": "/node-modules/uview-ui/components/u-radio/u-radio",
+    "htz-image-upload": "/components/htz-image-upload/htz-image-upload",
+    "u-picker": "/node-modules/uview-ui/components/u-picker/u-picker",
+    "uni-nav-bar": "/components/uni-ui/uni-nav-bar/uni-nav-bar"
   }
 }

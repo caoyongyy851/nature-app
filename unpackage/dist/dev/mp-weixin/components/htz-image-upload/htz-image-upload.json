@@ -1,0 +1,6 @@
+{
+  "component": true,
+  "usingComponents": {
+    "helang-compress": "/components/htz-image-upload/helang-compress/helang-compress"
+  }
+}

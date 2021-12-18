@@ -1,5 +1,6 @@
 {
   "pages": [
+    "pages/welcome/welcome",
     "pages/index/index",
     "pages/place/place",
     "pages/my/my",
@@ -7,13 +8,28 @@
     "pages/place-nav/place-nav",
     "pages/place-detail/place-detail",
     "pages/user-set/user-set",
-    "pages/user-space/user-space",
     "pages/detail/detail",
     "pages/detail/comments",
     "pages/add-card/add-card",
     "pages/activity-detail/detail",
     "pages/activity-detail/comments",
-    "pages/add-activity/add-activity"
+    "pages/add-activity/add-activity",
+    "pages/user-userinfo/user-userinfo",
+    "pages/user-space/user-space",
+    "pages/play/play",
+    "pages/play-detail/play-detail",
+    "pages/play-index/play-index",
+    "pages/add-play/add-play",
+    "pages/topic-select/topic-select",
+    "pages/user-topic/user-topic",
+    "pages/user-card/user-card",
+    "pages/order-pay/order-pay",
+    "pages/order-list/order-list",
+    "pages/order-detail/order-detail",
+    "pages/company-apply/company-apply",
+    "pages/user-activity/user-activity",
+    "pages/modify-activity/modify-activity",
+    "pages/modify-play/modify-play"
   ],
   "subPackages": [],
   "window": {
@@ -24,7 +40,7 @@
   },
   "tabBar": {
     "color": "#323232",
-    "selectedColor": "#85a363",
+    "selectedColor": "#fd5f40",
     "backgroundColor": "#FFFFFF",
     "borderStyle": "black",
     "list": [
@@ -33,6 +49,12 @@
         "text": "玩主",
         "iconPath": "static/tabbar/index.png",
         "selectedIconPath": "static/tabbar/indexed.png"
+      },
+      {
+        "pagePath": "pages/play/play",
+        "text": "来玩",
+        "iconPath": "static/tabbar/play.png",
+        "selectedIconPath": "static/tabbar/played.png"
       },
       {
         "pagePath": "pages/place/place",
@@ -47,6 +69,11 @@
         "selectedIconPath": "static/tabbar/myed.png"
       }
     ]
+  },
+  "permission": {
+    "scope.userLocation": {
+      "desc": "您的位置信息将用于获取地址信息"
+    }
   },
   "usingComponents": {
     "divider": "/components/common/divider",

@@ -4732,6 +4732,7 @@ to {
 .justify-start{justify-content:flex-start;}
 .justify-end{justify-content:flex-end;}
 .justify-between{justify-content:space-between;}
+.justify-around{justify-content:space-around;}
 .justify-center{justify-content:center;}
 .align-center{ align-items: center;
 }
@@ -4884,6 +4885,8 @@ to {
 .pt-4 { padding-top: 40rpx;
 }
 .pt-5 { padding-top: 50rpx;
+}
+.pt-20 { padding-top: 200rpx;
 }
 .pb-0 { padding-bottom: 0;
 }
@@ -5132,6 +5135,13 @@ to {
   bottom: 70rpx;
   z-index: 1030;
 }
+/* 定位 - 固定底部 */
+.fixed-bottom-right-1 {
+  position: fixed;
+  right: 50rpx;
+  bottom: 150rpx;
+  z-index: 1030;
+}
 .top-0 { top: 0;
 }
 .left-0 { left: 0;
@@ -5148,13 +5158,19 @@ to {
 
 /* 本项目公共样式 */
 .bg-main{
-	background-color: #8aa167!important;
+	background-color: #fd5f40!important;
 }
 .bg-main-disabled{
 	background-color: #F87F97!important;
 }
 .text-main{
-	color: #8aa167;
+	color: #fd5f40;
+}
+.btn-main{
+	background-color: #8afab2;
+}
+.bg-color{
+	background-color: #F5F5F5!important;
 }
 .u-relative,
 .u-rela {

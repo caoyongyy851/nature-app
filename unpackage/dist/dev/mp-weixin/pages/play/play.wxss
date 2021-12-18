@@ -1,0 +1,22 @@
+
+.viewContainer {
+	position: relative;
+}
+.textTag1 {
+	color: #fff;
+	font-size: 35rpx;
+	position: absolute;
+	left: 20rpx;
+	top: 130rpx;
+	font-weight: 600;
+}
+.textTag2 {
+	color: #fff;
+	font-size: 35rpx;
+	position: absolute;
+	left: 150rpx;
+	bottom: 120rpx;
+	font-weight: 600;
+}
+
+

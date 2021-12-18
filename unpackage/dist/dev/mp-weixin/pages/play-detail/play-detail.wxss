@@ -1,0 +1,32 @@
+
+.swiperContainer {
+	position: relative;
+}
+.imageCount {
+	width: 120rpx;
+	height: 60rpx;
+	background-color: rgba(0, 0, 0, 0.3);
+	border-radius: 40rpx;
+	color: #fff;
+	font-size: 30rpx;
+	position: absolute;
+	/* right: 20rpx; */
+	left: 20rpx;
+	bottom: 30rpx;
+}
+button.empty::after {
+	border: none
+}
+.empty.plain {
+	border: none;
+	border-color: transparent;
+}
+.empty.button-hover {
+	background-color: transparent;
+}
+button.empty {
+	line-height: 47rpx;
+	background-color: transparent;
+	/* padding-bottom: 20rpx; */
+}
+

@@ -1,6 +1,10 @@
 {
+  "enablePullDownRefresh": false,
+  "navigationStyle": "custom",
   "usingComponents": {
     "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",
-    "uni-popup": "/components/uni-ui/uni-popup/uni-popup"
+    "u-icon": "/node-modules/uview-ui/components/u-icon/u-icon",
+    "uni-popup": "/components/uni-ui/uni-popup/uni-popup",
+    "uni-nav-bar": "/components/uni-ui/uni-nav-bar/uni-nav-bar"
   }
 }

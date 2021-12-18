@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "个人信息",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",
+    "u-avatar": "/node-modules/uview-ui/components/u-avatar/u-avatar",
+    "uni-list-item": "/components/uni-ui/uni-list-item/uni-list-item"
+  }
+}

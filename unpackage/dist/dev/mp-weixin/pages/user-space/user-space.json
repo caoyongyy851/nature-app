@@ -1,4 +1,9 @@
 {
   "navigationBarTitleText": "个人空间",
-  "usingComponents": {}
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-avatar": "/node-modules/uview-ui/components/u-avatar/u-avatar",
+    "u-section": "/node-modules/uview-ui/components/u-section/u-section",
+    "u-loadmore": "/node-modules/uview-ui/components/u-loadmore/u-loadmore"
+  }
 }

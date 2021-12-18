@@ -27,14 +27,14 @@
 /* 文章场景相关 */
 .card.data-v-38bf3e96 {
   width: 700rpx;
-  height: 220rpx;
+  height: 250rpx;
   display: flex;
   flex-direction: column;
   margin: 20rpx auto;
 }
 .card .top text.data-v-38bf3e96 {
-  font-size: 30rpx;
-  font-weight: 300;
+  font-size: 32rpx;
+  font-weight: 500;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
@@ -43,28 +43,29 @@
 }
 .card .middle.data-v-38bf3e96 {
   display: flex;
-  height: 120rpx;
+  height: 150rpx;
 }
 .card .middle .left image.data-v-38bf3e96 {
   width: 150rpx;
-  height: 120rpx;
+  height: 150rpx;
   margin: 0 20rpx 10rpx 10rpx;
-  border-radius: 10rpx;
+  border-radius: 8rpx;
 }
 .card .middle .right.data-v-38bf3e96 {
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
+  justify-content: space-between;
 }
 .card .middle .right .content text.data-v-38bf3e96 {
-  font-weight: 300;
+  font-weight: 400;
   font-size: 25rpx;
   color: #6c757d;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  line-height: 1.5;
 }
 .card .middle .right .tags.data-v-38bf3e96 {
   display: flex;
