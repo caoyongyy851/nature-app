@@ -1,15 +1,15 @@
 <template>
 	<view class="">
 		<u-toast ref="uToast" />
-		<uni-nav-bar left-icon="back" @clickLeft="clickLeft" title="发话题" fixed="true">
+		<uni-nav-bar left-icon="back" @clickLeft="clickLeft" title="建我的圈子" fixed="true">
 			<view slot="left" class="flex align-center mt-4">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 120rpx; height: 120rpx;"></image>
+				<image src="/static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;"></image>
 			</view>
 		</uni-nav-bar>
-		<view class="p-2">
+		<view class="px-2 pt-5">
 			<view class="p-2 flex justify-around">
 				<view class="px-3 py-1 rounded" :class="topic.type==1?'bg-main text-white':'border text-light-muted'" @click="chageType(1)">
-					活动
+					生活
 				</view>
 				<view class="px-3 py-1 rounded-1" :class="topic.type==2?'bg-main text-white':'border text-light-muted'" @click="chageType(2)">
 					任务
@@ -25,7 +25,7 @@
 				<u-input v-model="topic.title" trim="true" placeholder="请输入标题~" maxlength="200" />
 			</view>
 			<view class="p-2">
-				<u-input v-model="topic.detail" type="textarea" trim="true" placeholder="写点东西吧~" maxlength="1000" />
+				<u-input v-model="topic.detail" type="textarea" trim="true" placeholder="写点东西吧~" maxlength="5000" />
 			</view>
 			<view>
 				<view class="px-2">
@@ -39,8 +39,8 @@
 				<view class="px-2">
 					<u-input disabled="true" placeholder="上传照片" />
 				</view>
-				<htz-image-upload :max="1" :compress="true" quality="10" :action="getImgBase + '/nature/front/topicFileImg'" :headers="headers"
-					name="file" :chooseNum="1" v-model="imgList" @uploadSuccess="successImg" mediaType="image">
+				<htz-image-upload :max="9" :compress="true" quality="10" :action="getImgBase + '/nature/front/topicFileImg'" :headers="headers"
+					name="file" :chooseNum="9" v-model="imgList" @uploadSuccess="successImg" mediaType="image">
 				</htz-image-upload>
 			</view>
 			<view class="fixed-bottom">
@@ -65,7 +65,26 @@
 			uniNavBar
 		},
 		onLoad(e) {
-			this.topic.type = e.type
+			uni.getStorage({
+				key: 'add-play',
+				success: (res) => {
+					if (res.data) {
+						let store = JSON.parse(res.data)
+						console.log(store)
+						this.topic = store.topic
+						if(store.coverList.length > 0){
+							this.coverList = store.coverList
+						}
+						if(store.imgList.length > 0){
+							this.imgList = store.imgList
+						}
+						
+					}
+				}
+			})
+			if(e.type){
+				this.topic.type = e.type
+			}
 			this.init()
 		},
 		data() {
@@ -81,7 +100,8 @@
 					'Authorization': 'wx ' + uni.getStorageSync('token')
 				},
 				coverList: [],
-				imgList: []
+				imgList: [],
+				showBack: false
 			}
 		},
 		computed: {
@@ -107,6 +127,13 @@
 				}
 			},
 			topicConfirm() {
+				if (!this.topic.type) {
+					this.$refs.uToast.show({
+						type: 'warning',
+						title: '类型没选择哦~'
+					})
+					return
+				}
 				if (!this.topic.title) {
 					this.$refs.uToast.show({
 						type: 'warning',
@@ -138,6 +165,9 @@
 				}
 				this.$u.api.createTopic(this.topic).then(res => {
 					if (res.code === 200) {
+						uni.removeStorage({
+							key: 'add-play'
+						})
 						this.$refs.uToast.show({
 							type: 'success',
 							title: '上传成功'
@@ -147,16 +177,49 @@
 						let beforePage = pages[pages.length - 2]; // 上一页
 						uni.navigateBack({
 							success: function() {
-								beforePage.onLoad() // 执行上一页的onLoad方法
+								beforePage.onLoad({
+									type: that.topic.type
+								}) // 执行上一页的onLoad方法
 							}
 						})
 					}
 				})
 			},
 			clickLeft() {
-				uni.navigateBack({
-					delta: 1
-				});
+				let that = this
+				if ((that.topic.detail != '' || that.topic.title != '') && !that.showBack) {
+					uni.showModal({
+						content: '是否要保存为草稿',
+						showCancel: true,
+						cancelText: '不保存',
+						confirmText: '保存',
+						success(res) {
+							if (res.confirm) {
+								uni.setStorage({
+									key: 'add-play',
+									data: JSON.stringify({
+										topic: that.topic,
+										coverList: that.coverList,
+										imgList: that.imgList,
+									})
+								})
+							} else {
+								uni.removeStorage({
+									key: 'add-play'
+								})
+							}
+							uni.navigateBack({
+								delta: 1
+							});
+							return
+						}
+					})
+				} else {
+					this.showBack = true
+					uni.navigateBack({
+						delta: 1
+					});
+				}
 			}
 		}
 	}

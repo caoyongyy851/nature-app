@@ -2,11 +2,11 @@
 	<view>
 		<uni-nav-bar left-icon="back" @clickLeft="clickLeft" :fixed="true">
 			<view slot="left" class="flex align-center mt-4" @click="toIndex">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 120rpx; height: 120rpx;"></image>
+				<image src="/static/logo.png" mode="aspectFill" style="width: 150rpx; height: 120rpx;"></image>
 			</view>
 		</uni-nav-bar>
 		<u-toast ref="uToast" />
-		<view style="background-size: 750rpx; background-repeat:no-repeat; background-color: #f8f8f8;"
+		<view style="background-size: 750rpx; background-repeat:no-repeat; background-color: #0E151D;" 
 			:style="'background-image: url('+ getImgBase + topic.cover +')'">
 			<view class="flex flex-column align-center justify-center text-white pt-20">
 				<view class="font-lg">
@@ -21,28 +21,29 @@
 					<u-avatar :src="topic.avatar" :size="50">
 					</u-avatar>
 					<view class="text-white ml-1 font-sm">
-						发起者 | {{topic.companyName ? topic.companyName : topic.nickname}}
+						发起人 | {{topic.companyName ? topic.companyName : topic.nickname}}
 					</view>
 				</view>
-				<view class="font-sm text-white">
+				<view class="font-sm text-white" @click="toUserList()">
 					已有{{topic.joinNum}}人参与<text class="iconfont icon-jinru font-sm"></text>
 				</view>
 			</view>
-			<view class="mx-4 mt-4 p-4 rounded-1 font bg-white text-muted" style="line-height: 1.5;">
+			<view class="mx-4 mt-4 p-2 rounded-1 font bg-white text-muted">
 				<u-read-more :toggle="true" show-height="400" color="#fd5f40">
 					<view class="font-md font-weight-bolder text-main">
 						{{topic.title}}
 					</view>
-					<rich-text>
-						<text class="font text-muted" style="line-height: 1.8;">
-							{{topic.detail}}
-						</text>
-						<view class="flex align-center justify-center" v-if="topic.image">
-							<image :src="getImgBase + topic.image" mode="aspectFill" style="width: 500rpx; height: 400rpx;" lazy-load="true">
+					<rich-text selectable="true" preview="true">
+						<view class="flex align-center justify-center" style="width: 520rpx;">
+							<text class="font text-muted" space="nbsp" user-select="true" style="line-height: 1.8;" >
+								{{topic.detail}}
+							</text>
+						</view>
+						<view class="flex align-center justify-center my-2" v-if="topic.imageList.length > 0" v-for="(item, index) in topic.imageList">
+							<image :src="getImgBase + item" mode="aspectFill" style="width: 500rpx; height: 400rpx;" lazy-load="true">
 							</image>
 						</view>
 					</rich-text>
-				
 				</u-read-more>
 			</view>
 			<view class="mt-5 bg-white" style="padding-bottom: 70rpx;">
@@ -51,7 +52,7 @@
 						inactive-color="#dcdcdc" font-size="30"></u-tabs>
 				</view>
 				<view v-if="current == 0" class="mb-5 px-5" v-for="(item, index) in hotCardList" :key="index">
-					<view class="flex align-center justify-between pb-3">
+					<view class="flex align-center justify-between pb-3 position-relative">
 						<view class="flex align-center ">
 							<view class="flex align-center mr-3" @click="openSpace(item.uid)">
 								<u-avatar :src="item.avatar" :size="70">
@@ -69,7 +70,7 @@
 								</view>
 							</view>
 						</view>
-						
+						<view v-if="item.sn == 1" class="bg-main rounded-circle shadow position-absolute" style="width: 25rpx; height: 25rpx; top: -10rpx; right: -10rpx;"/>
 					</view>
 					<view class="" @click="toCard(item)">
 						<view class="swiperContainer mb-2">
@@ -92,7 +93,7 @@
 						</view>
 					</view>
 					<view class="pt-2">
-						<text class="font-md text-muted">{{item.detail}}</text>
+						<text class="font-md text-muted" space="nbsp" user-select="true" >{{item.detail}}</text>
 					</view>
 					<view class="pt-2 flex align-center justify-between">
 						<view class="">
@@ -106,8 +107,8 @@
 					</view>
 				</view>
 				<view v-if="current == 1" class="mb-5 px-5" v-for="(item, index) in newCardList" :key="index">
-					<view class="flex align-center justify-between pb-3">
-						<view class="flex align-center ">
+					<view class="flex align-center justify-between pb-3 position-relative">
+						<view class="flex align-center">
 							<view class="flex align-center mr-3" @click="openSpace(item.uid)">
 								<u-avatar :src="item.avatar" :size="70">
 								</u-avatar>
@@ -116,12 +117,15 @@
 								<view class="font" style="padding-bottom: 5rpx;">
 									{{item.nickname}}
 								</view>
-								<view class="font-sm text-muted">
+								<view class="font-sm text-muted" v-if="item.sign">
 									{{item.sign}}
+								</view>
+								<view class="font-sm text-muted" v-else>
+									玩主还没填写个人简介~
 								</view>
 							</view>
 						</view>
-						
+						<view v-if="item.sn == 1" class="bg-main rounded-circle shadow position-absolute" style="width: 25rpx; height: 25rpx; top: -10rpx; right: -10rpx;"/>
 					</view>
 					<view class="" @click="toCard(item)">
 						<view class="swiperContainer mb-2">
@@ -144,7 +148,7 @@
 						</view>
 					</view>
 					<view class="pt-2">
-						<text class="font-md text-muted">{{item.detail}}</text>
+						<text class="font-md text-muted" space="nbsp" user-select="true" >{{item.detail}}</text>
 					</view>
 					<view class="pt-2 flex align-center justify-between">
 						<view class="">
@@ -172,6 +176,35 @@
 				</view>
 			</view>
 		</view>
+		<u-modal v-model="authModal.show" title=" " width="550" :show-confirm-button="false"
+			:show-cancel-button="false">
+			<view class="mx-3 p-3 rounded-1 bg-white">
+				<view class="flex align-center justify-center">
+					<image src="../../static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
+					</image>
+				</view>
+				<view class="flex align-center justify-center">
+					<text class="font-md">还没有登录哦</text>
+				</view>
+				<view class="flex align-center justify-center mt-1">
+					<text class="font">授权登录后 </text>
+				</view>
+				<view class="flex align-center justify-center">
+					<text class="font">就能和大家一起分享啦~</text>
+				</view>
+				<view class="flex align-center justify-center mt-3">
+					<view class="text-white rounded-circle"
+						style="background: linear-gradient(90deg, #8afab2 0%, #5cbba5 100%); padding: 15rpx 100rpx 15rpx 100rpx;"
+						@click="toAuth">
+						去授权
+					</view>
+				</view>
+				<view class="flex align-center justify-center m-1" style="color: #5cbba5;"
+					@click="authModal.show = false">
+					暂不登录
+				</view>
+			</view>
+		</u-modal>
 	</view>
 </template>
 
@@ -207,7 +240,10 @@
 				},
 				hotCardList: [],
 				newCardList: [],
-				isFollow: false
+				isFollow: false,
+				authModal: {
+					show: false
+				},
 			}
 		},
 		onLoad(e) {
@@ -216,6 +252,16 @@
 		},
 		computed: {
 			...mapGetters(['getUserinfo', 'getNeedAuth', 'getIsLogin', 'getImgBase'])
+		},
+		onShareAppMessage() {
+			return {
+				title: this.topic.title,
+				path: `/pages/play/play?isshare=1&sharePage=playDetail&id=${this.id}`,
+				success: function(res) {
+				},
+				fail: function(res) {
+				}
+			}
 		},
 		methods: {
 			...mapActions(['login', 'authUserInfo']),
@@ -244,6 +290,9 @@
 				}).then(res => {
 					this.newCardList = res.data
 				})
+				if(!this.getIsLogin){
+					this.login()
+				}
 			},
 			change(index) {
 				this.current = index;
@@ -298,15 +347,23 @@
 				
 			},
 			toAddCard(){
+				if (this.getNeedAuth) {
+					this.authModal.show = true
+					return
+				}
 				uni.navigateTo({
 					url: `../add-card/add-card?topicId=${this.topic.id}&title=${this.topic.title}`
 				})
 			},
 			follow() {
+				if (this.getNeedAuth) {
+					this.authModal.show = true
+					return
+				}
 				if (this.isFollow) {
 					// 取消关注
-					this.$u.api.userToFollow({
-						followUid: this.topic.uid
+					this.$u.api.topicToFollow({
+						topicId: this.topic.id
 					}).then(res => {
 						if (res.code === 200) {
 							this.isFollow = false
@@ -314,8 +371,8 @@
 					})
 				} else {
 					// 关注
-					this.$u.api.userToFollow({
-						followUid: this.topic.uid
+					this.$u.api.topicToFollow({
+						topicId: this.topic.id
 					}).then(res => {
 						if (res.code === 200) {
 							this.isFollow = true
@@ -329,15 +386,44 @@
 			},
 			toIndex(){
 				uni.switchTab({
-					url: '../index/index'
+					url: '../play/play'
 				})
 			},
 			// 到个人中心
 			openSpace(uid) {
+				if (this.getNeedAuth) {
+					this.authModal.show = true
+					return
+				}
 				uni.navigateTo({
 					url: `../user-space/user-space?uid=${uid}`
 				})
 			},
+			toAuth() {
+				if (this.getNeedAuth) {
+					this.authUserInfo().then(res => {
+						if (res == 'success') {
+							this.$refs.uToast.show({
+								type: 'success',
+								title: '授权成功~'
+							})
+							this.authModal = false
+						} else {
+							this.$refs.uToast.show({
+								type: 'error',
+								title: '授权失败~'
+							})
+						}
+					})
+					return
+				}
+			},
+			//跳转头像列表
+			toUserList(){
+				uni.navigateTo({
+					url: `../user-list/user-list?id=${this.id}`
+				})
+			}
 		},
 		onReachBottom() {
 			this.nextPage()

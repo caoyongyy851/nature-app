@@ -29,7 +29,9 @@
     "pages/company-apply/company-apply",
     "pages/user-activity/user-activity",
     "pages/modify-activity/modify-activity",
-    "pages/modify-play/modify-play"
+    "pages/modify-play/modify-play",
+    "pages/user-list/user-list",
+    "pages/user-activity-list/user-activity-list"
   ],
   "subPackages": [],
   "window": {
@@ -45,26 +47,20 @@
     "borderStyle": "black",
     "list": [
       {
-        "pagePath": "pages/index/index",
-        "text": "玩主",
-        "iconPath": "static/tabbar/index.png",
-        "selectedIconPath": "static/tabbar/indexed.png"
-      },
-      {
         "pagePath": "pages/play/play",
-        "text": "来玩",
+        "text": "自然圈",
         "iconPath": "static/tabbar/play.png",
         "selectedIconPath": "static/tabbar/played.png"
       },
       {
         "pagePath": "pages/place/place",
-        "text": "玩场",
+        "text": "自然场",
         "iconPath": "static/tabbar/place.png",
         "selectedIconPath": "static/tabbar/placed.png"
       },
       {
         "pagePath": "pages/my/my",
-        "text": "我的",
+        "text": "玩主",
         "iconPath": "static/tabbar/my.png",
         "selectedIconPath": "static/tabbar/myed.png"
       }
@@ -78,6 +74,5 @@
   "usingComponents": {
     "divider": "/components/common/divider",
     "no-thing": "/components/common/no-thing"
-  },
-  "sitemapLocation": "sitemap.json"
+  }
 }

@@ -37,10 +37,8 @@
   width: 100%;
   height: 90rpx;
   padding: 0 40rpx;
-
   display: flex;
   flex-direction: row;
-
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
@@ -68,10 +66,8 @@
   background-color: #fff;
 }
 .u-column-item.data-v-d45639b2 {
-
   display: flex;
   flex-direction: row;
-
   align-items: center;
   justify-content: center;
   font-size: 32rpx;

@@ -94,10 +94,10 @@ var components
 try {
   components = {
     uSwipeAction: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-swipe-action/u-swipe-action */ "node-modules/uview-ui/components/u-swipe-action/u-swipe-action").then(__webpack_require__.bind(null, /*! uview-ui/components/u-swipe-action/u-swipe-action.vue */ 471))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-swipe-action/u-swipe-action */ "node-modules/uview-ui/components/u-swipe-action/u-swipe-action").then(__webpack_require__.bind(null, /*! uview-ui/components/u-swipe-action/u-swipe-action.vue */ 486))
     },
     uEmpty: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-empty/u-empty */ "node-modules/uview-ui/components/u-empty/u-empty").then(__webpack_require__.bind(null, /*! uview-ui/components/u-empty/u-empty.vue */ 478))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-empty/u-empty */ "node-modules/uview-ui/components/u-empty/u-empty").then(__webpack_require__.bind(null, /*! uview-ui/components/u-empty/u-empty.vue */ 472))
     }
   }
 } catch (e) {

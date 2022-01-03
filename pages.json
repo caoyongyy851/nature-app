@@ -107,7 +107,8 @@
 			"path": "pages/add-activity/add-activity",
 			"style": {
 				"navigationBarTitleText": "发活动",
-				"enablePullDownRefresh": false
+				"enablePullDownRefresh": false,
+				"navigationStyle":"custom"
 			}
 		}, {
 			"path": "pages/user-userinfo/user-userinfo",
@@ -256,6 +257,26 @@
             }
             
         }
+       
+        ,{
+            "path" : "pages/user-list/user-list",
+            "style" :                                                                                    
+            {
+                "navigationBarTitleText": "参与玩主",
+                "enablePullDownRefresh": false
+            }
+            
+        },
+		{
+		    "path" : "pages/user-activity-list/user-activity-list",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "参与活动人员",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+        
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
@@ -268,26 +289,21 @@
 		"selectedColor": "#fd5f40",
 		"backgroundColor": "#FFFFFF",
 		"borderStyle": "black",
-		"list": [{
-				"pagePath": "pages/index/index",
-				"text": "玩主",
-				"iconPath": "static/tabbar/index.png",
-				"selectedIconPath": "static/tabbar/indexed.png"
-			},
+		"list": [
 			{
 				"pagePath": "pages/play/play",
-				"text": "来玩",
+				"text": "自然圈",
 				"iconPath": "static/tabbar/play.png",
 				"selectedIconPath": "static/tabbar/played.png"
 			},
 			{
 				"pagePath": "pages/place/place",
-				"text": "玩场",
+				"text": "自然场",
 				"iconPath": "static/tabbar/place.png",
 				"selectedIconPath": "static/tabbar/placed.png"
 			}, {
 				"pagePath": "pages/my/my",
-				"text": "我的",
+				"text": "玩主",
 				"iconPath": "static/tabbar/my.png",
 				"selectedIconPath": "static/tabbar/myed.png"
 			}

@@ -124,10 +124,10 @@
 				mediaTypeData: ['image', 'video', 'all'],
 				previewVideoSrc: '',
 				params: {
-					maxSize: 600,
+					maxSize: 750,
 					fileType: 'png',
 					quality: 1,
-					minSize: 400
+					minSize: 600
 				}
 				// cWidth: 0,
 				// cHeight: 0,
@@ -329,113 +329,38 @@
 					title: '压缩中...'
 				});
 				let that = this
-				let limitSize = 100; //大小限制2048kb
-				let drawWidth = uni.getSystemInfoSync().windowWidth
-				let compressImgs = [];
-				let results = [];
-				tempFilePaths.forEach((item, index) => {
-					uni.getImageInfo({
-						src: item,
+				this.$refs.helangCompress.batchCompress({
+					batchSrc: tempFilePaths,
+					maxSize: this.params.maxSize,
+					fileType: this.params.fileType,
+					quality: this.params.quality,
+					minSize: this.params.minSize,
+					progress: (res) => {
+						uni.showLoading({
+							title: `进度:${res.done+res.fail}/${res.count}`
+						})
+						console.log(res);
+					}
+				}).then((res) => {
+					uni.hideLoading();
+					uni.showToast({
+						title: "压缩完成",
+						icon: "success"
+					})
+					wx.getFileInfo({
+						filePath: res,
 						success: res => {
-							var cW = res.width,
-								cH = res.height,
-								rat = 1.1
-							that.cWidth = cW
-							that.cHeight = cH
-							console.log('宽：', res.width)
-							console.log('高：', res.height)
+							console.log('压缩后: ' + res.size / 1024 + 'kb')
 						}
 					})
-					compressImgs.push(new Promise((resolve, reject) => {
-						// #ifndef H5	
-						// ----------------------------------------------------------------------------------------------//
-						// uni.compressImage({
-						// 	src: item,
-						// 	quality: this.quality,
-						// 	success: res => {
-						// 		console.log('compressImage', res.tempFilePath)
-						// 		results.push(res.tempFilePath)
-						// 		resolve(res.tempFilePath)
-						// 	},
-						// 	fail: (err) => {
-						// 		//console.log(err.errMsg);
-						// 		reject(err);
-						// 	},
-						// 	complete: () => {
-						// 		//uni.hideLoading();
-						// 	}
-						// })
-						// ----------------------------------------------------------------------------------------------//
-						// uni.showLoading({
-						// 	title: '图片压缩中...',
-						// 	mask: true
-						// }) //不需要你可以删掉
-						// getLessLimitSizeImage(that, 'canvas', item, 150, drawWidth, (resPath) => {
-						// 	uni.getFileInfo({
-						// 		filePath: resPath,
-						// 		success: res => {
-						// 			console.log('压缩后: '+res.size/1024 + 'kb')
-						// 		}
-						// 	})
-						// 	uni.getImageInfo({
-						// 		src:resPath,
-						// 		success: res => {
-						// 			console.log('压缩后:',res.width, res.height)
-						// 		}
-						// 	})
-						// 	uni.hideLoading(); //不需要你可以删掉
-						// 	results.push(resPath)
-						// 	resolve(resPath)
-						// })
-						// ----------------------------------------------------------------------------------------------//
-						uni.showLoading({
-							title: '压缩中',
-							mask: true
-						});
-						this.$refs.helangCompress.compress({
-							src: item,
-							maxSize: this.params.maxSize,
-							fileType: this.params.fileType,
-							quality: this.params.quality,
-							minSize: this.params.minSize
-						}).then((res) => {
-							uni.hideLoading();
-							uni.showToast({
-								title: "压缩成功",
-								icon: "success"
-							})
-							this.compressPaths = [res];
-							results.push(res)
-							resolve(res)
-						}).catch((err) => {
-							uni.hideLoading();
-							uni.showToast({
-								title: "压缩失败",
-								icon: "none"
-							})
-						})
-
-
-						// #endif
-						// // #ifdef H5
-						// this.canvasDataURL(item, {
-						// 	quality: this.quality / 100
-						// }, (base64Codes) => {
-						// 	results.push(base64Codes);
-						// 	resolve(base64Codes);
-						// })
-						// // #endif
-					}))
-				})
-				Promise.all(compressImgs) //执行所有需请求的接口
-					.then((results) => {
-						uni.hideLoading();
-						console.log('imgUpload', results)
-						this.imgUpload(results);
+					this.imgUpload(res);
+				}).catch((err) => {
+					uni.hideLoading();
+					uni.showToast({
+						title: "压缩失败",
+						icon: "none"
 					})
-					.catch((res, object) => {
-						uni.hideLoading();
-					});
+				})
 			},
 			imgUpload(tempFilePaths) {
 				uni.showLoading({
@@ -483,40 +408,7 @@
 						this.$emit("uploadFail", res);
 					});
 
-			},
-			// canvasDataURL(path, obj, callback) {
-			// 	var img = new Image();
-			// 	img.src = path;
-			// 	img.onload = function() {
-			// 		var that = this;
-			// 		// 默认按比例压缩
-			// 		var w = that.width,
-			// 			h = that.height,
-			// 			scale = w / h;
-			// 		w = obj.width || w;
-			// 		h = obj.height || (w / scale);
-			// 		var quality = 0.8; // 默认图片质量为0.8
-			// 		//生成canvas
-			// 		var canvas = document.createElement('canvas');
-			// 		var ctx = canvas.getContext('2d');
-			// 		// 创建属性节点
-			// 		var anw = document.createAttribute("width");
-			// 		anw.nodeValue = w;
-			// 		var anh = document.createAttribute("height");
-			// 		anh.nodeValue = h;
-			// 		canvas.setAttributeNode(anw);
-			// 		canvas.setAttributeNode(anh);
-			// 		ctx.drawImage(that, 0, 0, w, h);
-			// 		// 图像质量
-			// 		if (obj.quality && obj.quality <= 1 && obj.quality > 0) {
-			// 			quality = obj.quality;
-			// 		}
-			// 		// quality值越小，所绘制出的图像越模糊
-			// 		var base64 = canvas.toDataURL('image/jpeg', quality);
-			// 		// 回调函数返回base64的值
-			// 		callback(base64);
-			// 	}
-			// },
+			}
 		}
 	}
 </script>

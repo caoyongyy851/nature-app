@@ -3,8 +3,10 @@
   "enablePullDownRefresh": false,
   "navigationStyle": "custom",
   "usingComponents": {
+    "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",
     "u-swiper": "/node-modules/uview-ui/components/u-swiper/u-swiper",
     "u-icon": "/node-modules/uview-ui/components/u-icon/u-icon",
+    "u-modal": "/node-modules/uview-ui/components/u-modal/u-modal",
     "hot-cate": "/components/place/hot-cate",
     "place-list": "/components/place/place-list",
     "uni-nav-bar": "/components/uni-ui/uni-nav-bar/uni-nav-bar"

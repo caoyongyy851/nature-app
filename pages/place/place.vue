@@ -1,18 +1,20 @@
 <template>
 	<view class="">
+		<u-toast ref="uToast" />
 		<uni-nav-bar fixed="true">
 			<view slot="left" class="flex align-center mt-4">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 120rpx; height: 120rpx;" lazy-load="true"></image>
+				<image src="/static/logo.png" mode="aspectFill" style="width: 150rpx; height: 120rpx;" lazy-load="true">
+				</image>
 			</view>
 		</uni-nav-bar>
 		<!-- 轮播图 -->
 		<view class="p-2">
-			<u-swiper :list="imgList" height="300" @click="swiperClick"></u-swiper>
+			<u-swiper :list="imgList" height="530" @click="swiperClick"></u-swiper>
 		</view>
 		<!-- <divider></divider> -->
 		<!-- 推荐玩场 -->
 		<view class="px-2 pb-2 font-md">
-			推荐活动
+			线下活动
 		</view>
 		<view class="px-1">
 			<scroll-view scroll-y="true" style="height: 700rpx;" @scrolltolower="nextPage()">
@@ -110,6 +112,35 @@
 			<text class="text-white iconfont icon-zengjia rounded-circle btn-main text-main"
 				style="font-size: 80rpx;"></text>
 		</view>
+		<u-modal v-model="authModal.show" title=" " width="550" :show-confirm-button="false"
+			:show-cancel-button="false">
+			<view class="mx-3 p-3 rounded-1 bg-white">
+				<view class="flex align-center justify-center">
+					<image src="../../static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
+					</image>
+				</view>
+				<view class="flex align-center justify-center">
+					<text class="font-md">还没有登录哦</text>
+				</view>
+				<view class="flex align-center justify-center mt-1">
+					<text class="font">授权登录后 </text>
+				</view>
+				<view class="flex align-center justify-center">
+					<text class="font">就能和大家一起分享啦~</text>
+				</view>
+				<view class="flex align-center justify-center mt-3">
+					<view class="text-white rounded-circle"
+						style="background: linear-gradient(90deg, #8afab2 0%, #5cbba5 100%); padding: 15rpx 100rpx 15rpx 100rpx;"
+						@click="toAuth">
+						去授权
+					</view>
+				</view>
+				<view class="flex align-center justify-center m-1" style="color: #5cbba5;"
+					@click="authModal.show = false">
+					暂不登录
+				</view>
+			</view>
+		</u-modal>
 	</view>
 </template>
 
@@ -143,7 +174,10 @@
 					pageSize: 4
 				},
 				activityList: [],
-				placeList: []
+				placeList: [],
+				authModal: {
+					show: false
+				},
 			}
 		},
 		onLoad() {
@@ -172,6 +206,11 @@
 				})
 				this.$u.api.getReferPlaceList(this.placeQueryParams).then(res => {
 					this.placeList = res.data
+				})
+				this.login().then(res => {
+					if (this.getNeedAuth) {
+						this.authModal.show = true
+					}
 				})
 			},
 			nextPage() {
@@ -209,17 +248,45 @@
 			//创建活动
 			toAddActivity() {
 				if (this.getNeedAuth) {
-					this.authUserInfo()
+					this.authModal.show = true
 					return
 				}
-				uni.navigateTo({
-					url: '../add-activity/add-activity'
+				uni.requestSubscribeMessage({
+				  tmplIds: ['hH4D8B3ddf7b3d3o3VLHGCfwLdNajdiRNsN9NgACg0U'],
+				  success (res) {
+					  uni.navigateTo({
+					  	url: '../add-activity/add-activity'
+					  })
+					  return
+				  },
+				  fail(res) {
+					  return
+				  }
 				})
 			},
 			toPlaceDetal(item) {
 				uni.navigateTo({
 					url: `/pages/place-detail/place-detail?id=${item.id}`
 				})
+			},
+			toAuth() {
+				if (this.getNeedAuth) {
+					this.authUserInfo().then(res => {
+						if (res == 'success') {
+							this.$refs.uToast.show({
+								type: 'success',
+								title: '授权成功~'
+							})
+							this.authModal = false
+						} else {
+							this.$refs.uToast.show({
+								type: 'error',
+								title: '授权失败~'
+							})
+						}
+					})
+					return
+				}
 			}
 		}
 	}

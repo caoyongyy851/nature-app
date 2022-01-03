@@ -3,9 +3,15 @@
   "enablePullDownRefresh": false,
   "navigationStyle": "custom",
   "usingComponents": {
+    "u-notice-bar": "/node-modules/uview-ui/components/u-notice-bar/u-notice-bar",
     "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",
     "u-circle-progress": "/node-modules/uview-ui/components/u-circle-progress/u-circle-progress",
     "u-icon": "/node-modules/uview-ui/components/u-icon/u-icon",
+    "u-modal": "/node-modules/uview-ui/components/u-modal/u-modal",
+    "u-popup": "/node-modules/uview-ui/components/u-popup/u-popup",
+    "u-line": "/node-modules/uview-ui/components/u-line/u-line",
+    "u-number-box": "/node-modules/uview-ui/components/u-number-box/u-number-box",
+    "u-input": "/node-modules/uview-ui/components/u-input/u-input",
     "uni-popup": "/components/uni-ui/uni-popup/uni-popup",
     "uni-nav-bar": "/components/uni-ui/uni-nav-bar/uni-nav-bar"
   }

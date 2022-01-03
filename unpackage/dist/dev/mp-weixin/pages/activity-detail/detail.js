@@ -95,14 +95,32 @@ __webpack_require__.r(__webpack_exports__);
 var components
 try {
   components = {
+    uNoticeBar: function() {
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-notice-bar/u-notice-bar */ "node-modules/uview-ui/components/u-notice-bar/u-notice-bar").then(__webpack_require__.bind(null, /*! uview-ui/components/u-notice-bar/u-notice-bar.vue */ 618))
+    },
     uToast: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-toast/u-toast */ "node-modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! uview-ui/components/u-toast/u-toast.vue */ 265))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-toast/u-toast */ "node-modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! uview-ui/components/u-toast/u-toast.vue */ 273))
     },
     uCircleProgress: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-circle-progress/u-circle-progress */ "node-modules/uview-ui/components/u-circle-progress/u-circle-progress").then(__webpack_require__.bind(null, /*! uview-ui/components/u-circle-progress/u-circle-progress.vue */ 436))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-circle-progress/u-circle-progress */ "node-modules/uview-ui/components/u-circle-progress/u-circle-progress").then(__webpack_require__.bind(null, /*! uview-ui/components/u-circle-progress/u-circle-progress.vue */ 451))
     },
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */ "node-modules/uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 279))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */ "node-modules/uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 287))
+    },
+    uModal: function() {
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-modal/u-modal */ "node-modules/uview-ui/components/u-modal/u-modal").then(__webpack_require__.bind(null, /*! uview-ui/components/u-modal/u-modal.vue */ 306))
+    },
+    uPopup: function() {
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */ "node-modules/uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 382))
+    },
+    uLine: function() {
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-line/u-line */ "node-modules/uview-ui/components/u-line/u-line").then(__webpack_require__.bind(null, /*! uview-ui/components/u-line/u-line.vue */ 368))
+    },
+    uNumberBox: function() {
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-number-box/u-number-box */ "node-modules/uview-ui/components/u-number-box/u-number-box").then(__webpack_require__.bind(null, /*! uview-ui/components/u-number-box/u-number-box.vue */ 375))
+    },
+    uInput: function() {
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-input/u-input.vue */ 412))
     }
   }
 } catch (e) {
@@ -126,6 +144,15 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      _vm.authModal.show = false
+    }
+
+    _vm.e1 = function($event) {
+      _vm.authPhoneShow = false
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -340,9 +367,102 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var uniPopup = function uniPopup() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-popup/uni-popup */ "components/uni-ui/uni-popup/uni-popup").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-popup/uni-popup.vue */ 374));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-nav-bar/uni-nav-bar */ "components/uni-ui/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-nav-bar/uni-nav-bar.vue */ 291));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _vuex = __webpack_require__(/*! vuex */ 42);
+
+
+
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var uniPopup = function uniPopup() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-popup/uni-popup */ "components/uni-ui/uni-popup/uni-popup").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-popup/uni-popup.vue */ 389));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-nav-bar/uni-nav-bar */ "components/uni-ui/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-nav-bar/uni-nav-bar.vue */ 299));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 {
@@ -355,25 +475,52 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
       content: '',
       isLike: false,
       isJoin: false,
+      join: {},
       imageList: ['/static/bgimg/3.jpg', '/static/demo/datapic/16.jpg'],
       current: 0,
       percent: 0,
-      activeColor: '#fd5f40' };
+      activeColor: '#fd5f40',
+      authPhoneShow: false,
+      authModal: {
+        show: false },
+
+      joinModal: {
+        show: false,
+        person: 0,
+        remark: '' },
+
+      narList: ['自然玩主作为平台，只提供活动信息发布功能，活动的一切法律风险，由活动发起方负责，活动过程中的一切纠纷，与自然玩主平台无关。'] };
 
   },
   components: {
     uniPopup: uniPopup,
     uniNavBar: uniNavBar },
 
-  computed: _objectSpread({},
-  (0, _vuex.mapGetters)(['getUserinfo', 'getNeedAuth', 'getIsLogin', 'getImgBase'])),
+  computed: _objectSpread(_objectSpread({},
+  (0, _vuex.mapGetters)(['getUserinfo', 'getNeedAuth', 'getIsLogin', 'getImgBase', 'getIsAuthPhone'])), {}, {
+    getFinish: function getFinish() {
+      if (new Date().getTime() > new Date(this.activityDetail.time).getTime() + 86400000 - 1) {
+        return false;
+      } else {
+        return true;
+      }
+    } }),
 
   onLoad: function onLoad(options) {
     this.id = options.id;
     // this.id = '1426473061225357313'
     this.init();
   },
-  methods: {
+  onShareAppMessage: function onShareAppMessage() {
+    return {
+      title: this.activityDetail.title,
+      path: "/pages/play/play?isshare=1&sharePage=activityDetail&id=".concat(this.id),
+      success: function success(res) {},
+      fail: function fail(res) {} };
+
+  },
+  methods: _objectSpread(_objectSpread({},
+  (0, _vuex.mapActions)(['login', 'authUserInfo', 'setPhone'])), {}, {
     init: function init(data) {var _this = this;
       // 请求详情api
       this.$u.api.getActivityDetailById({
@@ -384,7 +531,9 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
         _this.activityDetail.imgsNum = _this.activityDetail.imgsList.length;
 
       });
-
+      if (!this.getIsLogin) {
+        this.login();
+      }
       //获取评论
       this.getComments();
     },
@@ -395,7 +544,8 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
         aid: this.id }).
       then(function (res) {
         _this2.activityUserStatus = res.data;
-        _this2.isJoin = res.data.join;
+        _this2.isJoin = res.data.join ? true : false;
+        _this2.join = res.data.join;
         _this2.isLike = res.data.appreciate;
         //获取评论
         _this2.$u.api.getCommentsByAid({
@@ -413,36 +563,78 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
     swiperChange: function swiperChange(e) {
       this.current = e.detail.current;
     },
+    getPhoneNumber: function getPhoneNumber(e) {var _this3 = this;
+      if (e.detail.errMsg == 'getPhoneNumber:ok') {
+        uni.login({
+          provider: 'weixin',
+          success: function success(response) {
+            _this3.$u.api.phone({
+              encryptedData: e.detail.encryptedData,
+              iv: e.detail.iv,
+              appid: _vue.default.prototype.appid,
+              code: response.code }).
+            then(function (res) {
+              if (res.code == 200) {
+                _this3.setPhone(res.data.phoneNumber);
+                _this3.authPhoneShow = false;
+              } else {
+                _this3.$refs.uToast.show({
+                  type: 'warning',
+                  title: '授权失败，请再试试~' });
+
+                _this3.authPhoneShow = false;
+              }
+            });
+          },
+          fail: function fail(res) {
+            _this3.authPhoneShow = false;
+            _vue.default.prototype.$u.toast("获取code失败");
+          } });
+
+      } else {
+        this.$refs.uToast.show({
+          type: 'warning',
+          title: '授权失败~' });
+
+        this.authPhoneShow = false;
+      }
+    },
     // 报名
-    joinActivity: function joinActivity() {var _this3 = this;
+    joinActivity: function joinActivity() {var _this4 = this;
+      if (this.getNeedAuth) {
+        this.authModal.show = true;
+        return;
+      }
       if (this.isJoin) {
         // 取消报名
         this.$u.api.joinToActive({
-          aid: this.activityDetail.id }).
+          aid: this.activityDetail.id,
+          person: this.join.person }).
         then(function (res) {
           if (res.code === 200) {
-            _this3.isJoin = false;
-            _this3.activityDetail.perLimit--;
+            _this4.isJoin = false;
+            _this4.activityDetail.perLimit = _this4.activityDetail.perLimit - _this4.join.person;
           }
         });
       } else {
-        // 报名
-        this.$u.api.joinToActive({
-          aid: this.activityDetail.id }).
-        then(function (res) {
-          if (res.code === 200) {
-            _this3.isJoin = true;
-            _this3.activityDetail.perLimit++;
-            _this3.$refs.uToast.show({
-              type: 'success',
-              title: '报名成功~' });
-
-          }
-        });
+        if (!this.getIsAuthPhone) {
+          this.authPhoneShow = true;
+          return;
+        }
+        this.joinModal.show = true;
+        return;
       }
     },
     // 写评论
-    writeAComment: function writeAComment() {var _this4 = this;
+    writeAComment: function writeAComment() {var _this5 = this;
+      if (this.getNeedAuth) {
+        this.authModal.show = true;
+        return;
+      }
+      if (this.getNeedAuth) {
+        this.authUserInfo();
+        return;
+      }
       if (!this.content) {
         this.$refs.uToast.show({
           type: 'warning',
@@ -456,31 +648,35 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
       then(function (res) {
         console.log("评论成功");
         if (res.msg == '评论成功') {
-          _this4.content = '';
-          _this4.activityDetail.comments++;
-          _this4.$refs.popup.close("bottom");
-          _this4.getComments();
-          _this4.$refs.uToast.show({
+          _this5.content = '';
+          _this5.activityDetail.comments++;
+          _this5.$refs.popup.close("bottom");
+          _this5.getComments();
+          _this5.$refs.uToast.show({
             type: 'success',
             title: '评论成功' });
 
         } else {
-          _this4.$refs.uToast.show({
+          _this5.$refs.uToast.show({
             type: 'error',
             title: '评论出错' });
 
         }
       });
     },
-    toLike: function toLike() {var _this5 = this;
+    toLike: function toLike() {var _this6 = this;
+      if (this.getNeedAuth) {
+        this.authModal.show = true;
+        return;
+      }
       if (this.isLike) {
         // 取消喜欢
         this.$u.api.activityAppreciateCancel({
           aid: this.id }).
         then(function (res) {
           if (res.code === 200) {
-            _this5.isLike = false;
-            _this5.activityDetail.likes--;
+            _this6.isLike = false;
+            _this6.activityDetail.likes--;
             // this.activityDetail.avatarLikes.splice(this.activityDetail.avatarLikes.findIndex(item =>
             // 	item === this.getUserinfo.avatar), 1)
           }
@@ -491,10 +687,10 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
           aid: this.id }).
         then(function (res) {
           if (res.code === 200) {
-            _this5.isLike = true;
-            _this5.activityDetail.likes++;
+            _this6.isLike = true;
+            _this6.activityDetail.likes++;
             // this.activityDetail.avatarLikes.push(this.getUserinfo.avatar)
-            _this5.$refs.uToast.show({
+            _this6.$refs.uToast.show({
               type: 'success',
               title: '谢谢你的喜欢~' });
 
@@ -503,6 +699,10 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
       }
     },
     toggle: function toggle() {
+      if (this.getNeedAuth) {
+        this.authModal.show = true;
+        return;
+      }
       // open 方法传入参数 等同在 uni-popup 组件上绑定 type属性
       this.$refs.popup.open("bottom");
     },
@@ -511,6 +711,10 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
     },
     //评论点赞
     commentAppreciate: function commentAppreciate(e) {
+      if (this.getNeedAuth) {
+        this.authModal.show = true;
+        return;
+      }
       if (e.isZan) {
         // 取消点赞
         this.$u.api.acommentAppreciateCancel({
@@ -533,6 +737,10 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
     },
     //进入评论区
     commentsDetail: function commentsDetail() {
+      if (this.getNeedAuth) {
+        this.authModal.show = true;
+        return;
+      }
       console.log("评论详情");
       uni.navigateTo({
         url: "comments?id=".concat(this.id) });
@@ -545,15 +753,81 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
     },
     toIndex: function toIndex() {
       uni.switchTab({
-        url: '../index/index' });
+        url: '../play/play' });
 
     },
     // 到个人中心
     openSpace: function openSpace(uid) {
+      if (this.getNeedAuth) {
+        this.authModal.show = true;
+        return;
+      }
       uni.navigateTo({
         url: "../user-space/user-space?uid=".concat(uid) });
 
-    } } };exports.default = _default;
+    },
+    toAuth: function toAuth() {var _this7 = this;
+      if (this.getNeedAuth) {
+        this.authUserInfo().then(function (res) {
+          if (res == 'success') {
+            _this7.$refs.uToast.show({
+              type: 'success',
+              title: '授权成功~' });
+
+            _this7.authModal = false;
+          } else {
+            _this7.$refs.uToast.show({
+              type: 'error',
+              title: '授权失败~' });
+
+          }
+        });
+        return;
+      }
+    },
+    joinConfirm: function joinConfirm() {var _this8 = this;
+      if (!this.isJoin) {
+        // 取消报名
+        if (this.joinModal.person <= 0) {
+          this.$refs.uToast.show({
+            type: 'warning',
+            title: '请输入参与人数~' });
+
+          return;
+        }
+        this.$u.api.joinToActive({
+          aid: this.activityDetail.id,
+          person: this.joinModal.person,
+          remark: this.joinModal.remark }).
+        then(function (res) {
+          if (res.code === 200) {
+            _this8.isJoin = true;
+            _this8.activityDetail.perLimit = _this8.activityDetail.perLimit + _this8.joinModal.person;
+            _this8.join = {
+              person: _this8.joinModal.person };
+
+            _this8.joinModal.show = false;
+            _this8.joinModal = {
+              show: false,
+              person: 0,
+              remark: '' };
+
+          } else {
+            _this8.$refs.uToast.show({
+              type: 'warning',
+              title: res.msg });
+
+          }
+        });
+      }
+    },
+    joinCancel: function joinCancel() {
+      this.joinModal = {
+        show: false,
+        person: 0,
+        remark: '' };
+
+    } }) };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

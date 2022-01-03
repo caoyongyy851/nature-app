@@ -107,11 +107,11 @@ const store=new Vuex.Store({
 							}else{
 								Vue.prototype.$u.toast("授权失败")
 							}
-							resolve("授权完毕");
+							resolve("success");
 						})
 					},
 					fail(res) {
-						reject("获取信息出错")
+						reject("error")
 					}
 				})
 			}).catch((e)=>{

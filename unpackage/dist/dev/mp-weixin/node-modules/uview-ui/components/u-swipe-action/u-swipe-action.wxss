@@ -32,10 +32,8 @@
   overflow: hidden;
 }
 .u-swipe-view.data-v-7a79cf07 {
-
   display: flex;
   flex-direction: row;
-
   height: initial;
   position: relative;
   /* 这一句很关键，覆盖默认的绝对定位 */

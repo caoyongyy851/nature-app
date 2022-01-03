@@ -4,23 +4,25 @@
 		<u-toast ref="uToast" />
 		<uni-nav-bar left-icon="back" @clickLeft="clickLeft" :title="cardDetail.title" fixed="true">
 			<view slot="left" class="flex align-center mt-4" @click="toIndex">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 120rpx; height: 120rpx;"></image>
+				<image src="/static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;"></image>
 			</view>
 		</uni-nav-bar>
 		<view class="swiperContainer mb-2">
 			<swiper @change="swiperChange" :autoplay="false" :interval="3000" :duration="1000" class=""
-				style="width: 750rpx; height: 422rpx;">
+				style="width: 750rpx; height: 562rpx;">
 				<swiper-item v-for="(item, index) in cardDetail.vidsList" :key="index">
 					<video :src="getImgBase + item" autoplay="true" loop="true" show-fullscreen-btn="false"
-						style="width: 750rpx; height: 422rpx;"></video>
+						style="width: 750rpx; height: 562rpx;"></video>
 				</swiper-item>
 				<swiper-item v-for="(item, index) in cardDetail.imgsList" :key="index">
-					<image :src="getImgBase + item" mode="aspectFill" style="width: 750rpx; height: 422rpx;" lazy-load="true">
+					<image :src="getImgBase + item" mode="aspectFill" style="width: 750rpx; height: 562rpx;"
+						lazy-load="true">
 					</image>
 				</swiper-item>
 			</swiper>
 			<view class="imageCount flex align-center justify-center">
-				{{current+1}}/{{cardDetail.imgsNum+cardDetail.vidsNum}}</view>
+				{{current+1}}/{{cardDetail.imgsNum+cardDetail.vidsNum}}
+			</view>
 		</view>
 		<!-- 头像 | 关注-->
 		<view class="flex align-center justify-between p-3 pt-2">
@@ -55,7 +57,7 @@
 
 		<!-- 内容区域 -->
 		<view class="px-3 py-4">
-			<text class="font text-muted" style="line-height: 1.8;">
+			<text class="font text-muted" space="nbsp" user-select="true" style="line-height: 1.8;">
 				{{cardDetail.detail}}
 			</text>
 			<view class="pt-3 animated faster" hover-class="bounceIn" v-if="cardDetail.position">
@@ -87,12 +89,7 @@
 			<!-- 回复 -->
 			<text class="font-lg">回复</text>
 		</view>
-		<view class="px-3 py-2 flex align-center ">
-			<image src="../../static/default.jpg" mode="aspectFill" style="width: 70rpx; height: 70rpx;"
-				class="rounded-circle"></image>
-			<input type="text" placeholder="来说点什么吧~" disabled
-				class="flex-1 ml-2 text-muted bg-light rounded-circle px-3 py-2"/>
-		</view>
+
 		<!-- 评论区 -->
 		<view class="mx-3 py-3 border-bottom" v-for="(item, index) in comments" :key="index">
 			<view class="flex align-center justify-between">
@@ -168,7 +165,35 @@
 				</uni-popup>
 			</view>
 		</view>
-
+		<u-modal v-model="authModal.show" title=" " width="550" :show-confirm-button="false"
+			:show-cancel-button="false">
+			<view class="mx-3 p-3 rounded-1 bg-white">
+				<view class="flex align-center justify-center">
+					<image src="../../static/logo.png" mode="aspectFill" style="width: 200rpx; height: 200rpx;">
+					</image>
+				</view>
+				<view class="flex align-center justify-center">
+					<text class="font-md">还没有登录哦</text>
+				</view>
+				<view class="flex align-center justify-center mt-1">
+					<text class="font">授权登录后 </text>
+				</view>
+				<view class="flex align-center justify-center">
+					<text class="font">就能和大家一起分享啦~</text>
+				</view>
+				<view class="flex align-center justify-center mt-3">
+					<view class="text-white rounded-circle"
+						style="background: linear-gradient(90deg, #8afab2 0%, #5cbba5 100%); padding: 15rpx 100rpx 15rpx 100rpx;"
+						@click="toAuth">
+						去授权
+					</view>
+				</view>
+				<view class="flex align-center justify-center m-1" style="color: #5cbba5;"
+					@click="authModal.show = false">
+					暂不登录
+				</view>
+			</view>
+		</u-modal>
 		<!-- 底部操作栏 | 发表评论 -->
 		<!-- <view class="flex align-center justify-between px-5 py-2 fixed-bottom shadow bg-white"> -->
 		<!-- <view class="flex">
@@ -208,7 +233,8 @@
 
 <script>
 	import {
-		mapGetters
+		mapGetters,
+		mapActions
 	} from 'vuex'
 	import uniPopup from '@/components/uni-ui/uni-popup/uni-popup.vue'
 	import uniNavBar from '@/components/uni-ui/uni-nav-bar/uni-nav-bar.vue'
@@ -224,6 +250,9 @@
 				isFollow: false,
 				imageList: ['/static/bgimg/3.jpg', '/static/demo/datapic/16.jpg'],
 				current: 0,
+				authModal: {
+					show: false
+				}
 			}
 		},
 		components: {
@@ -237,7 +266,19 @@
 			this.id = options.id
 			this.init()
 		},
+	
+		onShareAppMessage() {
+			return {
+				title: this.cardDetail.title,
+				path: `/pages/play/play?isshare=1&sharePage=detail&id=${this.id}`,
+				success: function(res) {
+				},
+				fail: function(res) {
+				}
+			}
+		},
 		methods: {
+			...mapActions(['login', 'authUserInfo']),
 			init(data) {
 				// 请求详情api
 				this.$u.api.getCardDetailById({
@@ -251,9 +292,11 @@
 						this.cardDetail.vidsList = res.data.vids.split(',')
 					}
 				})
-
 				//获取评论
 				this.getComments()
+				if (!this.getIsLogin) {
+					this.login()
+				}
 			},
 			//获取评论
 			getComments() {
@@ -282,6 +325,10 @@
 			},
 			// 关注
 			follow() {
+				if (this.getNeedAuth) {
+					this.authModal.show = true
+					return
+				}
 				if (this.isFollow) {
 					// 取消关注
 					this.$u.api.userToFollow({
@@ -308,6 +355,10 @@
 			},
 			// 写评论
 			toComment() {
+				if (this.getNeedAuth) {
+					this.authModal.show = true
+					return
+				}
 				if (!this.content) {
 					this.$refs.uToast.show({
 						type: 'warning',
@@ -338,6 +389,10 @@
 				})
 			},
 			toLike() {
+				if (this.getNeedAuth) {
+					this.authModal.show = true
+					return
+				}
 				if (this.isLike) {
 					// 取消喜欢
 					this.$u.api.cardToLike({
@@ -346,7 +401,8 @@
 						if (res.code === 200) {
 							this.isLike = false
 							this.cardDetail.likes--
-							this.cardDetail.avatarLikes.splice(this.cardDetail.avatarLikes.findIndex(item =>
+							this.cardDetail.avatarLikes.splice(this.cardDetail.avatarLikes.findIndex(
+								item =>
 								item === this.getUserinfo.avatar), 1)
 						}
 					})
@@ -368,6 +424,10 @@
 				}
 			},
 			toggle() {
+				if (this.getNeedAuth) {
+					this.authModal.show = true
+					return
+				}
 				// open 方法传入参数 等同在 uni-popup 组件上绑定 type属性
 				this.$refs.popup.open("bottom")
 			},
@@ -376,7 +436,10 @@
 			},
 			//评论点赞
 			commentAppreciate(e) {
-				console.log(e)
+				if (this.getNeedAuth) {
+					this.authModal.show = true
+					return
+				}
 				if (e.isZan) {
 					// 取消点赞
 					this.$u.api.commentAppreciateCancel({
@@ -399,7 +462,10 @@
 			},
 			//进入评论区
 			commentsDetail() {
-				console.log("评论详情")
+				if (this.getNeedAuth) {
+					this.authModal.show = true
+					return
+				}
 				uni.navigateTo({
 					url: `comments?id=${this.id}`
 				})
@@ -414,17 +480,40 @@
 					delta: 1
 				});
 			},
-			toIndex(){
+			toIndex() {
 				uni.switchTab({
-					url: '../index/index'
+					url: '../play/play'
 				})
 			},
 			// 到个人中心
 			openSpace(uid) {
+				if (this.getNeedAuth) {
+					this.authModal.show = true
+					return
+				}
 				uni.navigateTo({
 					url: `../user-space/user-space?uid=${uid}`
 				})
 			},
+			toAuth() {
+				if (this.getNeedAuth) {
+					this.authUserInfo().then(res => {
+						if (res == 'success') {
+							this.$refs.uToast.show({
+								type: 'success',
+								title: '授权成功~'
+							})
+							this.authModal = false
+						} else {
+							this.$refs.uToast.show({
+								type: 'error',
+								title: '授权失败~'
+							})
+						}
+					})
+					return
+				}
+			}
 		}
 	}
 </script>

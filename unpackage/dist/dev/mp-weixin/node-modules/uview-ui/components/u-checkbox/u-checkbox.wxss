@@ -36,10 +36,8 @@
 .u-checkbox__icon-wrap.data-v-532d01c7 {
   color: #606266;
   flex: none;
-
   display: flex;
   flex-direction: row;
-
   align-items: center;
   justify-content: center;
   box-sizing: border-box;

@@ -96,19 +96,22 @@ var components
 try {
   components = {
     uToast: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-toast/u-toast */ "node-modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! uview-ui/components/u-toast/u-toast.vue */ 265))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-toast/u-toast */ "node-modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! uview-ui/components/u-toast/u-toast.vue */ 273))
     },
     uLine: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-line/u-line */ "node-modules/uview-ui/components/u-line/u-line").then(__webpack_require__.bind(null, /*! uview-ui/components/u-line/u-line.vue */ 353))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-line/u-line */ "node-modules/uview-ui/components/u-line/u-line").then(__webpack_require__.bind(null, /*! uview-ui/components/u-line/u-line.vue */ 368))
     },
     uNumberBox: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-number-box/u-number-box */ "node-modules/uview-ui/components/u-number-box/u-number-box").then(__webpack_require__.bind(null, /*! uview-ui/components/u-number-box/u-number-box.vue */ 360))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-number-box/u-number-box */ "node-modules/uview-ui/components/u-number-box/u-number-box").then(__webpack_require__.bind(null, /*! uview-ui/components/u-number-box/u-number-box.vue */ 375))
     },
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */ "node-modules/uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 279))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */ "node-modules/uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 287))
     },
     uPopup: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */ "node-modules/uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 367))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */ "node-modules/uview-ui/components/u-popup/u-popup").then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 382))
+    },
+    uModal: function() {
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-modal/u-modal */ "node-modules/uview-ui/components/u-modal/u-modal").then(__webpack_require__.bind(null, /*! uview-ui/components/u-modal/u-modal.vue */ 306))
     }
   }
 } catch (e) {
@@ -135,6 +138,10 @@ var render = function() {
   if (!_vm._isMounted) {
     _vm.e0 = function($event) {
       _vm.authPhoneShow = false
+    }
+
+    _vm.e1 = function($event) {
+      _vm.authModal.show = false
     }
   }
 }
@@ -374,11 +381,40 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var _vuex = __webpack_require__(/*! vuex */ 42);
 
 
 
-var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var uniPopup = function uniPopup() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-popup/uni-popup */ "components/uni-ui/uni-popup/uni-popup").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-popup/uni-popup.vue */ 374));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniNoticeBar = function uniNoticeBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-notice-bar/uni-notice-bar */ "components/uni-ui/uni-notice-bar/uni-notice-bar").then((function () {return resolve(__webpack_require__(/*! ../../components/uni-ui/uni-notice-bar/uni-notice-bar.vue */ 381));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniCalendar = function uniCalendar() {Promise.all(/*! require.ensure | components/uni-ui/uni-calendar/uni-calendar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-ui/uni-calendar/uni-calendar")]).then((function () {return resolve(__webpack_require__(/*! ../../components/uni-ui/uni-calendar/uni-calendar.vue */ 388));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-nav-bar/uni-nav-bar */ "components/uni-ui/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-nav-bar/uni-nav-bar.vue */ 291));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));function _interopRequireDefault(obj) {return obj && obj.__esModule ? obj : { default: obj };}function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var uniPopup = function uniPopup() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-popup/uni-popup */ "components/uni-ui/uni-popup/uni-popup").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-popup/uni-popup.vue */ 389));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniNoticeBar = function uniNoticeBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-notice-bar/uni-notice-bar */ "components/uni-ui/uni-notice-bar/uni-notice-bar").then((function () {return resolve(__webpack_require__(/*! ../../components/uni-ui/uni-notice-bar/uni-notice-bar.vue */ 396));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniCalendar = function uniCalendar() {Promise.all(/*! require.ensure | components/uni-ui/uni-calendar/uni-calendar */[__webpack_require__.e("common/vendor"), __webpack_require__.e("components/uni-ui/uni-calendar/uni-calendar")]).then((function () {return resolve(__webpack_require__(/*! ../../components/uni-ui/uni-calendar/uni-calendar.vue */ 403));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-nav-bar/uni-nav-bar */ "components/uni-ui/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-nav-bar/uni-nav-bar.vue */ 299));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -424,7 +460,11 @@ var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));function _i
         planDate: '',
         used: '',
         remark: '',
-        surplus: 0 } };
+        surplus: 0 },
+
+      content: "",
+      authModal: {
+        show: false } };
 
 
   },
@@ -449,6 +489,16 @@ var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));function _i
       }
     }, 1000);
   },
+  onShareAppMessage: function onShareAppMessage() {
+    return {
+      title: this.placeDetail.name,
+      path: "/pages/play/play?isshare=1&sharePage=placeDetail&id=".concat(this.id),
+      success: function success(res) {
+      },
+      fail: function fail(res) {
+      } };
+
+  },
   methods: _objectSpread(_objectSpread({},
   (0, _vuex.mapActions)(['login', 'setPhone', 'authUserInfo'])), {}, {
     init: function init() {var _this2 = this;
@@ -464,12 +514,14 @@ var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));function _i
           title: _this2.placeDetail.name });
 
       });
-
       this.$u.api.getDoc({
         type: 1 }).
       then(function (res) {
         _this2.document = res.data;
       });
+      if (!this.getIsLogin) {
+        this.login();
+      }
     },
     // 监听swiper变化
     swiperChange: function swiperChange(e) {
@@ -483,6 +535,10 @@ var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));function _i
     },
     // 收藏
     toCollect: function toCollect() {var _this3 = this;
+      if (this.getNeedAuth) {
+        this.authModal.show = true;
+        return;
+      }
       if (this.isCollect) {
         // 取消收藏
         this.$u.api.placeToCollect({
@@ -508,6 +564,10 @@ var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));function _i
       }
     },
     toLike: function toLike() {var _this4 = this;
+      if (this.getNeedAuth) {
+        this.authModal.show = true;
+        return;
+      }
       if (this.isLike) {
         // 取消喜欢
         this.$u.api.placeToLike({
@@ -581,7 +641,7 @@ var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));function _i
     // 创建订单
     toCreateOrder: function toCreateOrder() {var _this6 = this;
       if (this.getNeedAuth) {
-        this.authUserInfo();
+        this.authModal.show = true;
         return;
       }
       if (!this.getIsAuthPhone) {
@@ -640,7 +700,6 @@ var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));function _i
 
         return;
       }
-      console.log(JSON.stringify(this.order));
       this.$u.api.createCOrder(this.order).then(function (res) {
         if (res.code == 200) {
           _this6.$refs.uToast.show({
@@ -668,10 +727,14 @@ var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));function _i
     },
     toIndex: function toIndex() {
       uni.switchTab({
-        url: '../index/index' });
+        url: '../play/play' });
 
     },
     toDoc: function toDoc() {
+      if (this.getNeedAuth) {
+        this.authModal.show = true;
+        return;
+      }
       this.docShow = true;
     },
     toCancel: function toCancel() {
@@ -680,6 +743,64 @@ var _vue = _interopRequireDefault(__webpack_require__(/*! vue */ 3));function _i
     toSource: function toSource() {
       this.docShow = false;
       this.docSource = true;
+    },
+    toggle: function toggle() {
+      if (this.getNeedAuth) {
+        this.authModal.show = true;
+        return;
+      }
+      // open 方法传入参数 等同在 uni-popup 组件上绑定 type属性
+      this.$refs.popup.open("bottom");
+    },
+    popupChange: function popupChange(e) {
+      this.content = '';
+    },
+    writePlaceConsult: function writePlaceConsult() {var _this7 = this;
+      if (this.getNeedAuth) {
+        this.authModal.show = true;
+        return;
+      }
+      if (this.getNeedAuth) {
+        this.authUserInfo();
+        return;
+      }
+      if (!this.content) {
+        this.$refs.uToast.show({
+          type: 'warning',
+          title: '咨询内容不能为空哦~' });
+
+        return;
+      }
+      this.$u.api.placeConsult({
+        placeId: this.id,
+        content: this.content }).
+      then(function (res) {
+        _this7.content = '';
+        _this7.$refs.popup.close("bottom");
+        _this7.$refs.uToast.show({
+          type: 'success',
+          title: '咨询成功~' });
+
+      });
+    },
+    toAuth: function toAuth() {var _this8 = this;
+      if (this.getNeedAuth) {
+        this.authUserInfo().then(function (res) {
+          if (res == 'success') {
+            _this8.$refs.uToast.show({
+              type: 'success',
+              title: '授权成功~' });
+
+            _this8.authModal = false;
+          } else {
+            _this8.$refs.uToast.show({
+              type: 'error',
+              title: '授权失败~' });
+
+          }
+        });
+        return;
+      }
     } }) };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

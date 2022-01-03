@@ -28,7 +28,6 @@
 .u-input.data-v-fdbb9fe6 {
   position: relative;
   flex: 1;
-
   display: flex;
   flex-direction: row;
 }

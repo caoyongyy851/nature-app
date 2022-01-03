@@ -149,7 +149,7 @@ var _default =
 
     setTimeout(function () {
       uni.reLaunch({
-        url: '../index/index' });
+        url: '../play/play' });
 
     }, 4000);
   },

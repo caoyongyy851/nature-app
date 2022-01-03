@@ -96,10 +96,13 @@ var components
 try {
   components = {
     uToast: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-toast/u-toast */ "node-modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! uview-ui/components/u-toast/u-toast.vue */ 265))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-toast/u-toast */ "node-modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! uview-ui/components/u-toast/u-toast.vue */ 273))
     },
     uIcon: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */ "node-modules/uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 279))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */ "node-modules/uview-ui/components/u-icon/u-icon").then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 287))
+    },
+    uModal: function() {
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-modal/u-modal */ "node-modules/uview-ui/components/u-modal/u-modal").then(__webpack_require__.bind(null, /*! uview-ui/components/u-modal/u-modal.vue */ 306))
     }
   }
 } catch (e) {
@@ -123,6 +126,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      _vm.authModal.show = false
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -365,7 +373,33 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var uniPopup = function uniPopup() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-popup/uni-popup */ "components/uni-ui/uni-popup/uni-popup").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-popup/uni-popup.vue */ 374));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-nav-bar/uni-nav-bar */ "components/uni-ui/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-nav-bar/uni-nav-bar.vue */ 291));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var uniPopup = function uniPopup() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-popup/uni-popup */ "components/uni-ui/uni-popup/uni-popup").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-popup/uni-popup.vue */ 389));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-nav-bar/uni-nav-bar */ "components/uni-ui/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-nav-bar/uni-nav-bar.vue */ 299));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
 
 
 
@@ -381,7 +415,10 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
       isLike: false,
       isFollow: false,
       imageList: ['/static/bgimg/3.jpg', '/static/demo/datapic/16.jpg'],
-      current: 0 };
+      current: 0,
+      authModal: {
+        show: false } };
+
 
   },
   components: {
@@ -395,7 +432,19 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
     this.id = options.id;
     this.init();
   },
-  methods: {
+
+  onShareAppMessage: function onShareAppMessage() {
+    return {
+      title: this.cardDetail.title,
+      path: "/pages/play/play?isshare=1&sharePage=detail&id=".concat(this.id),
+      success: function success(res) {
+      },
+      fail: function fail(res) {
+      } };
+
+  },
+  methods: _objectSpread(_objectSpread({},
+  (0, _vuex.mapActions)(['login', 'authUserInfo'])), {}, {
     init: function init(data) {var _this = this;
       // 请求详情api
       this.$u.api.getCardDetailById({
@@ -409,9 +458,11 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
           _this.cardDetail.vidsList = res.data.vids.split(',');
         }
       });
-
       //获取评论
       this.getComments();
+      if (!this.getIsLogin) {
+        this.login();
+      }
     },
     //获取评论
     getComments: function getComments() {var _this2 = this;
@@ -440,6 +491,10 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
     },
     // 关注
     follow: function follow() {var _this3 = this;
+      if (this.getNeedAuth) {
+        this.authModal.show = true;
+        return;
+      }
       if (this.isFollow) {
         // 取消关注
         this.$u.api.userToFollow({
@@ -466,6 +521,10 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
     },
     // 写评论
     toComment: function toComment() {var _this4 = this;
+      if (this.getNeedAuth) {
+        this.authModal.show = true;
+        return;
+      }
       if (!this.content) {
         this.$refs.uToast.show({
           type: 'warning',
@@ -496,6 +555,10 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
       });
     },
     toLike: function toLike() {var _this5 = this;
+      if (this.getNeedAuth) {
+        this.authModal.show = true;
+        return;
+      }
       if (this.isLike) {
         // 取消喜欢
         this.$u.api.cardToLike({
@@ -504,7 +567,8 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
           if (res.code === 200) {
             _this5.isLike = false;
             _this5.cardDetail.likes--;
-            _this5.cardDetail.avatarLikes.splice(_this5.cardDetail.avatarLikes.findIndex(function (item) {return (
+            _this5.cardDetail.avatarLikes.splice(_this5.cardDetail.avatarLikes.findIndex(
+            function (item) {return (
                 item === _this5.getUserinfo.avatar);}), 1);
           }
         });
@@ -526,6 +590,10 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
       }
     },
     toggle: function toggle() {
+      if (this.getNeedAuth) {
+        this.authModal.show = true;
+        return;
+      }
       // open 方法传入参数 等同在 uni-popup 组件上绑定 type属性
       this.$refs.popup.open("bottom");
     },
@@ -534,7 +602,10 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
     },
     //评论点赞
     commentAppreciate: function commentAppreciate(e) {
-      console.log(e);
+      if (this.getNeedAuth) {
+        this.authModal.show = true;
+        return;
+      }
       if (e.isZan) {
         // 取消点赞
         this.$u.api.commentAppreciateCancel({
@@ -557,7 +628,10 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
     },
     //进入评论区
     commentsDetail: function commentsDetail() {
-      console.log("评论详情");
+      if (this.getNeedAuth) {
+        this.authModal.show = true;
+        return;
+      }
       uni.navigateTo({
         url: "comments?id=".concat(this.id) });
 
@@ -574,15 +648,38 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
     },
     toIndex: function toIndex() {
       uni.switchTab({
-        url: '../index/index' });
+        url: '../play/play' });
 
     },
     // 到个人中心
     openSpace: function openSpace(uid) {
+      if (this.getNeedAuth) {
+        this.authModal.show = true;
+        return;
+      }
       uni.navigateTo({
         url: "../user-space/user-space?uid=".concat(uid) });
 
-    } } };exports.default = _default;
+    },
+    toAuth: function toAuth() {var _this6 = this;
+      if (this.getNeedAuth) {
+        this.authUserInfo().then(function (res) {
+          if (res == 'success') {
+            _this6.$refs.uToast.show({
+              type: 'success',
+              title: '授权成功~' });
+
+            _this6.authModal = false;
+          } else {
+            _this6.$refs.uToast.show({
+              type: 'error',
+              title: '授权失败~' });
+
+          }
+        });
+        return;
+      }
+    } }) };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

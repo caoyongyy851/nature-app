@@ -1,8 +1,9 @@
 <template>
 	<view >
-		<view class="p-3 flex flex-column" style="background-size: 750rpx; background-repeat:no-repeat; background-color: #f7f7f7;" :style="'background-image: url('+ userInfo.avatar +')'">
+		<!-- :style="'background-image: url('+ userInfo.avatar +')'" -->
+		<view class="p-3 flex flex-column" style="background-size: 750rpx; background-repeat:no-repeat; background-color: #d3d3d3;" >
 			<view class="">
-				<u-avatar :src="userInfo.avatar" :size="100" :show-sex="true"
+				<u-avatar :src="userInfo.avatar" :size="100" :show-sex="false"
 					:sexIcon="userInfo.sex == 1?'man':'woman'">
 				</u-avatar>
 			</view>
@@ -36,37 +37,114 @@
 				<text class="text-white">加入自然玩主~</text>
 			</view>
 		</view>
-		<view class="p-3">
-			<u-section title="TA的帖子" :right="false" color="#8aa167" font-size="32"></u-section>
+		<view class="mb-2">
+			<u-tabs :list="list" :is-scroll="false" :current="current" @change="change" active-color="#021d49"
+				inactive-color="#dcdcdc" font-size="30"></u-tabs>
 		</view>
-		<view class="">
-			<!-- <u-tabs active-color="#8aa167" :list="tabsList" :is-scroll="false" :current="current" tabsChange="change"></u-tabs> -->
-			<view class="mb-5" v-for="(item, index) in cardList" :key="index">
-				<view class="" @click="toCard(item)">
-					<view class="swiperContainer mb-2">
-						<swiper :autoplay="false" :duration="1000" style="width: 750rpx; height: 650rpx;">
-							<swiper-item v-for="(item1, index1) in item.imgList" :key="index1">
-								<image :src="getImgBase + item1" mode="aspectFill"
-									style="width: 750rpx; height: 650rpx;">
-								</image>
-							</swiper-item>
-						</swiper>
-						<view class="imageCount flex align-center justify-center">{{item.imgList.length}} 图</view>
+		<view v-if="current == 0">
+			<template v-if="topicList.length > 0">
+				<view class="mb-5" v-for="(item, index) in topicList" :key="index">
+					<view class="" @click="toTopic(item)">
+						<view class="swiperContainer mb-2">
+							<swiper :autoplay="false" :duration="1000" style="width: 750rpx; height: 650rpx;">
+								<swiper-item>
+									<image :src="getImgBase + item.cover" mode="aspectFill"
+										style="width: 750rpx; height: 650rpx;">
+									</image>
+								</swiper-item>
+							</swiper>
+						</view>
+					</view>
+				
+					<view class="px-3 pb-1">
+						<text class="font-md">{{item.title}}</text>
+					</view>
+					<view class="px-3">
+						<text class="fonte">{{item.detail}}</text>
 					</view>
 				</view>
-				<view class="px-3 flex flex-row-reverse">
-					<text class="iconfont icon-xihuan1 font-lg"></text>
+				<view v-if="isBottom" class="mb-5">
+					<u-loadmore :status="loadStatus" :load-text="loadText" />
 				</view>
-				<view class="px-3 pb-1">
-					<text class="font-md">{{item.title}}</text>
+			</template>
+			<template v-else>
+				<view class="flex align-center justify-center" style="margin-top: 400rpx;">
+					<u-empty text="数据为空" mode="list"></u-empty>
 				</view>
-				<view class="px-3">
-					<text class="fonte">{{item.detail}}</text>
+			</template>
+			
+		</view>
+		
+		<view v-if="current == 1">
+			<template v-if="activityList.length > 0">
+				<view class="mb-5" v-for="(item, index) in activityList" :key="index">
+					<view class="" @click="toActivity(item)">
+						<view class="swiperContainer mb-2">
+							<swiper :autoplay="false" :duration="1000" style="width: 750rpx; height: 650rpx;">
+								<swiper-item v-for="(item1, index1) in item.imgList" :key="index1">
+									<image :src="getImgBase + item1" mode="aspectFill"
+										style="width: 750rpx; height: 650rpx;">
+									</image>
+								</swiper-item>
+							</swiper>
+							<view class="imageCount flex align-center justify-center">{{item.imgList.length}} 图</view>
+						</view>
+					</view>
+					
+					<view class="px-3 pb-1">
+						<text class="font-md">{{item.title}}</text>
+					</view>
+					<view class="px-3">
+						<text class="fonte">{{item.detail}}</text>
+					</view>
 				</view>
-			</view>
-			<view v-if="isBottom">
-				<u-loadmore :status="loadStatus" :load-text="loadText" />
-			</view>
+				<view v-if="isBottom" class="mb-5">
+					<u-loadmore :status="loadStatus" :load-text="loadText" />
+				</view>
+			</template>
+			<template v-else>
+				<view class="flex align-center justify-center" style="margin-top: 400rpx;">
+					<u-empty text="数据为空" mode="list"></u-empty>
+				</view>
+			</template>
+			
+		</view>
+		
+		
+		<view v-if="current == 2">
+			<template v-if="cardList.length > 0">
+				<view class="mb-5" v-for="(item, index) in cardList" :key="index">
+					<view class="" @click="toCard(item)">
+						<view class="swiperContainer mb-2">
+							<swiper :autoplay="false" :duration="1000" style="width: 750rpx; height: 650rpx;">
+								<swiper-item v-for="(item1, index1) in item.imgList" :key="index1">
+									<image :src="getImgBase + item1" mode="aspectFill"
+										style="width: 750rpx; height: 650rpx;">
+									</image>
+								</swiper-item>
+							</swiper>
+							<view class="imageCount flex align-center justify-center">{{item.imgList.length}} 图</view>
+						</view>
+					</view>
+					<!-- <view class="px-3 flex flex-row-reverse">
+						<text class="iconfont icon-xihuan1 font-lg"></text>
+					</view> -->
+					<view class="px-3 pb-1">
+						<text class="font-md">{{item.title}}</text>
+					</view>
+					<view class="px-3">
+						<text class="fonte">{{item.detail}}</text>
+					</view>
+				</view>
+				<view v-if="isBottom" class="mb-5">
+					<u-loadmore :status="loadStatus" :load-text="loadText" />
+				</view>
+			</template>
+			<template v-else>
+				<view class="flex align-center justify-center" style="margin-top: 400rpx;">
+					<u-empty text="数据为空" mode="list"></u-empty>
+				</view>
+			</template>
 		</view>
 	</view>
 </template>
@@ -82,9 +160,11 @@
 				uid: null,
 				userInfo: {},
 				cardList: [],
+				topicList: [],
+				activityList:[],
 				queryParams: {
 					pageNum: 1,
-					pageSize: 6
+					pageSize: 99
 				},
 				tabsList: [{
 					name: '帖子'
@@ -94,8 +174,15 @@
 				loadText: {
 					nomore: "没有更多了"
 				},
-				loadStatus: 'nomore'
-				
+				loadStatus: 'nomore',
+				list: [{
+					name: '话题'
+				}, {
+					name: '活动'
+				},
+				{
+					name: '参与'
+				}],
 			}
 		},
 		onLoad(e) {
@@ -122,6 +209,22 @@
 				}).then(res => {
 					this.cardList = res.data
 				})
+				
+				this.$u.api.getTopicListByUid({
+					uid: this.uid,
+					pageNum: this.queryParams.pageNum,
+					pageSize: this.queryParams.pageSize
+				}).then(res => {
+					this.topicList = res.data
+				})
+				
+				this.$u.api.getActivityListByUid({
+					uid: this.uid,
+					pageNum: this.queryParams.pageNum,
+					pageSize: this.queryParams.pageSize
+				}).then(res => {
+					this.activityList = res.data
+				})
 			},
 			nextPage() {
 				if (!this.isBottom) {
@@ -145,10 +248,20 @@
 				uni.navigateTo({
 					url:`../detail/detail?id=${item.id}`
 				})
+			},
+			toTopic(item){
+				uni.navigateTo({
+					url:`../play-detail/play-detail?id=${item.id}`
+				})
+			},
+			toActivity(item){
+				uni.navigateTo({
+					url:`../activity-detail/detail?id=${item.id}`
+				})
+			},
+			change(index) {
+				this.current = index;
 			}
-			// tabsChange(index) {
-			// 	this.current = index;
-			// }
 		}
 	}
 </script>

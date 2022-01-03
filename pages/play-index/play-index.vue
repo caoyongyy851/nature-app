@@ -2,18 +2,18 @@
 	<view style="">
 		<uni-nav-bar left-icon="back" @clickLeft="clickLeft" fixed="true">
 			<view slot="left" class="flex align-center mt-4">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 120rpx; height: 120rpx;"></image>
+				<image src="/static/logo.png" mode="aspectFill" style="width: 150rpx; height: 120rpx;"></image>
 			</view>
 		</uni-nav-bar>
 		<view class="p-2">
-			<u-swiper :list="topicSwiperList" height="300" @click="swiperClick"></u-swiper>
+			<u-swiper :list="topicSwiperList" height="530" @click="swiperClick"></u-swiper>
 		</view>
 		<view class="font-md font-weight-bold m-2 flex justify-center text-main">
 			{{typeName}}
 		</view>
 		<view>
 			<view class="flex align-center flex-wrap w-100 p-1">
-				<view class="m-1 rounded shadow-sm" style="width: 47.26%; background-color: #ffffff;"
+				<view class="m-1 rounded shadow-sm position-relative" style="width: 47.26%; background-color: #ffffff;"
 					v-for="(item, index) in topicList" :key="index">
 					<view class="flex-1 flex-column flex justify-center viewContainer" @click="openDetail(item)">
 						<image :src="getImgBase + item.cover" mode="aspectFill" style="width: 100%; height: 200rpx;"
@@ -46,12 +46,42 @@
 							{{item.detail}}
 						</view>
 					</view>
+					<view v-if="item.sign == 1" class="bg-main rounded-circle shadow position-absolute" style="width: 25rpx; height: 25rpx; top: -10rpx; right: -10rpx;"/>
 				</view>
 			</view>
 		</view>
 		<view class="fixed-bottom-right" @click="toAddPlay">
 			<text class="text-white iconfont icon-zengjia rounded-circle btn-main text-main" style="font-size: 80rpx;"></text>
 		</view>
+		<u-modal v-model="authModal.show" title=" " width="550" :show-confirm-button="false"
+			:show-cancel-button="false">
+			<view class="mx-3 p-3 rounded-1 bg-white">
+				<view class="flex align-center justify-center">
+					<image src="../../static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
+					</image>
+				</view>
+				<view class="flex align-center justify-center">
+					<text class="font-md">还没有登录哦</text>
+				</view>
+				<view class="flex align-center justify-center mt-1">
+					<text class="font">授权登录后 </text>
+				</view>
+				<view class="flex align-center justify-center">
+					<text class="font">就能和大家一起分享啦~</text>
+				</view>
+				<view class="flex align-center justify-center mt-3">
+					<view class="text-white rounded-circle"
+						style="background: linear-gradient(90deg, #8afab2 0%, #5cbba5 100%); padding: 15rpx 100rpx 15rpx 100rpx;"
+						@click="toAuth">
+						去授权
+					</view>
+				</view>
+				<view class="flex align-center justify-center m-1" style="color: #5cbba5;"
+					@click="authModal.show = false">
+					暂不登录
+				</view>
+			</view>
+		</u-modal>
 	</view>
 </template>
 
@@ -76,7 +106,10 @@
 				},
 				scrollH: 0,
 				topicSwiperList: [],
-				isBottom: false
+				isBottom: false,
+				authModal: {
+					show: false
+				},
 			}
 		},
 		onLoad(e) {
@@ -94,15 +127,12 @@
 		methods: {
 			...mapActions(['login', 'authUserInfo']),
 			init() {
-				if(this.type == 1){
-					this.typeName = 'Activity / 活动'
-				}else if(this.type == 2){
-					this.typeName = 'Mission / 任务'
-				}else if(this.type == 3){
-					this.typeName = 'Knowledge / 知识'
-				}else if(this.type == 4){
-					this.typeName = 'Commonweal / 公益'
-				}
+				
+				this.$u.api.getTopicName({
+					type: this.type
+				}).then(res => {
+					this.typeName = res.data.tagEn + ' ' + res.data.tag
+				})
 				this.$u.api.getTopicList({
 					type: this.type,
 					pageNum: 1,
@@ -124,7 +154,7 @@
 			},
 			toAddPlay() {
 				if (this.getNeedAuth) {
-					this.authUserInfo()
+					this.authModal.show = true
 					return
 				}
 				uni.navigateTo({
@@ -141,6 +171,25 @@
 				uni.navigateTo({
 					url: `../play-detail/play-detail?id=${id}`
 				})
+			},
+			toAuth() {
+				if (this.getNeedAuth) {
+					this.authUserInfo().then(res => {
+						if (res == 'success') {
+							this.$refs.uToast.show({
+								type: 'success',
+								title: '授权成功~'
+							})
+							this.authModal = false
+						} else {
+							this.$refs.uToast.show({
+								type: 'error',
+								title: '授权失败~'
+							})
+						}
+					})
+					return
+				}
 			},
 			onReachBottom() {
 				if(!this.isBottom){

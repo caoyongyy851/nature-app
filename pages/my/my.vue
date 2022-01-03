@@ -3,12 +3,12 @@
 		<u-toast ref="uToast" />
 		<uni-nav-bar fixed="true">
 			<view slot="left" class="flex align-center mt-4">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 120rpx; height: 120rpx;"></image>
+				<image src="/static/logo.png" mode="aspectFill" style="width: 150rpx; height: 120rpx;"></image>
 			</view>
 		</uni-nav-bar>
 		<!-- 头像 简介 -->
-		<view class="flex align-center p-2" hover-class="bg-light" @click="toSelf">
-			<u-avatar v-if="!getNeedAuth" :src="getUserinfo.avatar" :size="100" :show-sex="true"
+		<view class="flex align-center p-2 mt-3" hover-class="bg-light" @click="toSelf">
+			<u-avatar v-if="!getNeedAuth" :src="getUserinfo.avatar" :size="100" :show-sex="false"
 				:sexIcon="getUserinfo.sex==1?'man':'woman'">
 			</u-avatar>
 			<u-avatar v-else :size="100">
@@ -42,25 +42,26 @@
 		<!-- 选项栏 -->
 		<view class="flex align-center px-7 py-2">
 			<u-grid col="4" :border="border" @click="gridClick">
-				<u-grid-item name="item1" :index="0">
-					<!-- <u-badge :count="self.cards" :offset="[20, 30]"></u-badge> -->
-					<u-icon name="bookmark" :size="46"></u-icon>
-					<view class="grid-text">帖子</view>
-				</u-grid-item>
-				<u-grid-item :index="1">
+			
+				<u-grid-item :index="0">
 					<!-- <u-badge :count="self.topics" :offset="[20, 30]"></u-badge> -->
 					<u-icon name="tags" :size="46"></u-icon>
 					<view class="grid-text">话题</view>
 				</u-grid-item>
-				<u-grid-item :index="2">
+				<u-grid-item :index="1">
 					<!-- <u-badge :count="self.topics" :offset="[20, 30]"></u-badge> -->
 					<u-icon name="order" :size="46"></u-icon>
 					<view class="grid-text">活动</view>
 				</u-grid-item>
+				<u-grid-item name="item1" :index="2">
+					<!-- <u-badge :count="self.cards" :offset="[20, 30]"></u-badge> -->
+					<u-icon name="bookmark" :size="46"></u-icon>
+					<view class="grid-text">参与</view>
+				</u-grid-item>
 				<u-grid-item :index="3">
 					<u-badge :count="self.critics" :offset="[20, 30]"></u-badge>
 					<u-icon name="more-circle" :size="46"></u-icon>
-					<view class="grid-text">评论</view>
+					<view class="grid-text">消息</view>
 				</u-grid-item>
 			</u-grid>
 		</view>
@@ -95,6 +96,34 @@
 		<uni-list-item title="申请公司/机构号" showExtraIcon @click="toCompany">
 			<text slot="icon" class="iconfont icon-guanyuwomen "></text>
 		</uni-list-item>
+		<u-modal v-model="authModal.show" title=" " width="550" :show-confirm-button="false"
+			:show-cancel-button="false">
+			<view class="mx-3 p-3 rounded-1 bg-white">
+				<view class="flex align-center justify-center">
+					<image src="../../static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
+					</image>
+				</view>
+				<view class="flex align-center justify-center">
+					<text class="font-md">还没有登录哦</text>
+				</view>
+				<view class="flex align-center justify-center mt-1">
+					<text class="font">授权登录后 </text>
+				</view>
+				<view class="flex align-center justify-center">
+					<text class="font">就能和大家一起分享啦~</text>
+				</view>
+				<view class="flex align-center justify-center mt-3">
+					<view class="text-white rounded-circle"
+						style="background: linear-gradient(90deg, #8afab2 0%, #5cbba5 100%); padding: 15rpx 100rpx 15rpx 100rpx;"
+						@click="toAuth">
+						去授权
+					</view>
+				</view>
+				<view class="flex align-center justify-center m-1" style="color: #5cbba5;" @click="authModal.show = false">
+					暂不登录
+				</view>
+			</view>
+		</u-modal>
 	</view>
 
 </template>
@@ -127,7 +156,10 @@
 					color: '#4cd964',
 					size: '22',
 					type: 'gear-filled'
-				}
+				},
+				authModal: {
+					show: false
+				},
 			}
 		},
 		onNavigationBarButtonTap() {
@@ -138,7 +170,12 @@
 		methods: {
 			...mapActions(['login', 'authUserInfo']),
 			async init() {
-				await this.login()
+				await this.login().then(res => {
+					if (this.getNeedAuth) {
+						this.authModal.show = true
+					}
+				})
+				
 			},
 			async auth() {
 				if (this.getNeedAuth) {
@@ -163,10 +200,10 @@
 			},
 			//去编辑个人信息
 			toSelf() {
-				if (this.getNeedAuth) {
-					this.auth()
-					return
-				}
+			if (this.getNeedAuth) {
+				this.authModal.show = true
+				return
+			}
 				uni.navigateTo({
 					url: '../user-userinfo/user-userinfo'
 				})
@@ -201,15 +238,15 @@
 			gridClick(e){
 				if(e == 0){
 					uni.navigateTo({
-						url: '../user-card/user-card'
+						url: '../user-topic/user-topic'
 					})
 				}else if(e == 1){
 					uni.navigateTo({
-						url: '../user-topic/user-topic'
+						url: '../user-activity/user-activity'
 					})
 				}else if(e == 2){
 					uni.navigateTo({
-						url: '../user-activity/user-activity'
+						url: '../user-card/user-card'
 					})
 				}
 				
@@ -220,6 +257,26 @@
 					url: `../user-space/user-space?uid=${uid}`
 				})
 			},
+			toAuth() {
+				if (this.getNeedAuth) {
+					this.authUserInfo().then(res => {
+						if(res == 'success'){
+							this.$refs.uToast.show({
+								type: 'success',
+								title: '授权成功~'
+							})
+							this.authModal = false
+						}else{
+							this.$refs.uToast.show({
+								type: 'error',
+								title: '授权失败~'
+							})
+						}
+						
+					})
+					return
+				}
+			}
 		}
 	}
 </script>

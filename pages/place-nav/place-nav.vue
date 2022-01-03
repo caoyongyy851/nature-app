@@ -96,11 +96,11 @@
 		},
 		methods: {
 			// 获取数据
-			getData() {
+			async getData() {
 				let arr = []
 				for (let i = 0; i < this.tabBars.length; i++) {
 					let obj
-					this.$u.api.getPlaceByCategoryId({
+					await this.$u.api.getPlaceByCategoryId({
 						categoryId: this.tabBars[i].id
 					}).then(res => {
 						arr.push({

@@ -94,22 +94,22 @@ var components
 try {
   components = {
     uToast: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-toast/u-toast */ "node-modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! uview-ui/components/u-toast/u-toast.vue */ 265))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-toast/u-toast */ "node-modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! uview-ui/components/u-toast/u-toast.vue */ 273))
     },
     uInput: function() {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-input/u-input.vue */ 397))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-input/u-input.vue */ 412))
     },
     uRadioGroup: function() {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-radio-group/u-radio-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-radio-group/u-radio-group")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-radio-group/u-radio-group.vue */ 405))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-radio-group/u-radio-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-radio-group/u-radio-group")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-radio-group/u-radio-group.vue */ 420))
     },
     uRadio: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-radio/u-radio */ "node-modules/uview-ui/components/u-radio/u-radio").then(__webpack_require__.bind(null, /*! uview-ui/components/u-radio/u-radio.vue */ 412))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-radio/u-radio */ "node-modules/uview-ui/components/u-radio/u-radio").then(__webpack_require__.bind(null, /*! uview-ui/components/u-radio/u-radio.vue */ 427))
     },
     htzImageUpload: function() {
-      return __webpack_require__.e(/*! import() | components/htz-image-upload/htz-image-upload */ "components/htz-image-upload/htz-image-upload").then(__webpack_require__.bind(null, /*! @/components/htz-image-upload/htz-image-upload.vue */ 419))
+      return __webpack_require__.e(/*! import() | components/htz-image-upload/htz-image-upload */ "components/htz-image-upload/htz-image-upload").then(__webpack_require__.bind(null, /*! @/components/htz-image-upload/htz-image-upload.vue */ 434))
     },
     uPicker: function() {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-picker/u-picker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-picker/u-picker")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-picker/u-picker.vue */ 426))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-picker/u-picker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-picker/u-picker")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-picker/u-picker.vue */ 441))
     }
   }
 } catch (e) {
@@ -267,7 +267,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-nav-bar/uni-nav-bar */ "components/uni-ui/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-nav-bar/uni-nav-bar.vue */ 291));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-nav-bar/uni-nav-bar */ "components/uni-ui/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-nav-bar/uni-nav-bar.vue */ 299));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -275,7 +275,7 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
   components: {
     uniNavBar: uniNavBar },
 
-  onLoad: function onLoad(e) {
+  onLoad: function onLoad(e) {var _this = this;
     this.topicId = e.topicId;
     if (this.topicId) {
       this.selected = {
@@ -283,6 +283,22 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
         title: e.title };
 
     }
+    uni.getStorage({
+      key: 'add-card',
+      success: function success(res) {
+        if (res.data) {
+          var store = JSON.parse(res.data);
+          _this.card = store.card;
+          if (store.imgList.length > 0) {
+            _this.imgList = store.imgList;
+          }
+          if (store.videoList.length > 0) {
+            _this.videoList = store.videoList;
+          }
+
+        }
+      } });
+
     this.init();
   },
   onShow: function onShow() {
@@ -325,16 +341,17 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
         'Authorization': 'wx ' + uni.getStorageSync('token') },
 
       videoList: [],
-      imgList: [] };
+      imgList: [],
+      showBack: false };
 
   },
   computed: _objectSpread({},
   (0, _vuex.mapGetters)(['getImgBase'])),
 
   methods: {
-    init: function init() {var _this = this;
+    init: function init() {var _this2 = this;
       this.$u.api.getPositionList().then(function (res) {
-        _this.selector = res.data;
+        _this2.selector = res.data;
       });
     },
     successImg: function successImg(e) {
@@ -356,7 +373,7 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
     timeConfirm: function timeConfirm(time) {
       this.card.time = time.year + '-' + time.month + '-' + time.day;
     },
-    cardConfirm: function cardConfirm() {var _this2 = this;
+    cardConfirm: function cardConfirm() {var _this3 = this;
 
       if (!this.card.detail) {
         this.$refs.uToast.show({
@@ -392,12 +409,12 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
       }
       if (this.videoList.length > 0) {
         this.card.vids = this.videoList.map(function (e) {
-          return e.replace(_this2.getImgBase, "");
+          return e.replace(_this3.getImgBase, "");
         }).join();
         this.card.vidsNum = this.videoList.length;
       }
       this.card.imgs = this.imgList.map(function (e) {
-        return e.replace(_this2.getImgBase, "");
+        return e.replace(_this3.getImgBase, "");
       }).join();
       this.card.imgsNum = this.imgList.length;
 
@@ -413,11 +430,14 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
       }
       this.$u.api.createCard(this.card).then(function (res) {
         if (res.code === 200) {
-          _this2.$refs.uToast.show({
+          uni.removeStorage({
+            key: 'add-card' });
+
+          _this3.$refs.uToast.show({
             type: 'success',
             title: '上传成功' });
 
-          var that = _this2;
+          var that = _this3;
           var pages = getCurrentPages(); // 当前页面
           var beforePage = pages[pages.length - 2]; // 上一页
           uni.navigateBack({
@@ -462,7 +482,15 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
                               uni.chooseLocation({
                                 success: function success(
                                 res)
-                                {that.card.position2 = res.address + '' + res.name;} });
+                                {
+                                  that.card.
+                                  position2 =
+                                  res.
+                                  address +
+                                  '' +
+                                  res.
+                                  name;
+                                } });
 
                             }, 1000);
                           }
@@ -491,10 +519,42 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
       }
     },
     clickLeft: function clickLeft() {
-      uni.navigateBack({
-        delta: 1 });
+      var that = this;
+      if ((that.card.detail != '' || that.card.title != '') && !that.showBack) {
+        uni.showModal({
+          content: '是否要保存为草稿',
+          showCancel: true,
+          cancelText: '不保存',
+          confirmText: '保存',
+          success: function success(res) {
+            if (res.confirm) {
+              uni.setStorage({
+                key: 'add-card',
+                data: JSON.stringify({
+                  card: that.card,
+                  imgList: that.imgList,
+                  videoList: that.videoList }) });
 
+
+            } else {
+              uni.removeStorage({
+                key: 'add-card' });
+
+            }
+            uni.navigateBack({
+              delta: 1 });
+
+            return;
+          } });
+
+      } else {
+        this.showBack = true;
+        uni.navigateBack({
+          delta: 1 });
+
+      }
     },
+
     toSelect: function toSelect() {
       uni.navigateTo({
         url: '../topic-select/topic-select' });

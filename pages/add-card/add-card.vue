@@ -3,7 +3,7 @@
 		<u-toast ref="uToast" />
 		<uni-nav-bar left-icon="back" @clickLeft="clickLeft" title="发帖子" fixed="true">
 			<view slot="left" class="flex align-center mt-4">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 120rpx; height: 120rpx;"></image>
+				<image src="/static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;"></image>
 			</view>
 		</uni-nav-bar>
 		<view class="p-2">
@@ -70,8 +70,8 @@
 					<u-input disabled="true" placeholder="上传照片" />
 				</view>
 				<htz-image-upload :max="9" :action="getImgBase + '/nature/front/cardFileImg'" :headers="headers"
-					name="file" :chooseNum="9" v-model="imgList" @uploadSuccess="successImg" mediaType="image" :compress="true"
-					quality="10">
+					name="file" :chooseNum="9" v-model="imgList" @uploadSuccess="successImg" mediaType="image"
+					:compress="true" quality="10">
 				</htz-image-upload>
 			</view>
 			<view>
@@ -110,6 +110,22 @@
 					title: e.title
 				}
 			}
+			uni.getStorage({
+				key: 'add-card',
+				success: (res) => {
+					if (res.data) {
+						let store = JSON.parse(res.data)
+						this.card = store.card
+						if(store.imgList.length > 0){
+							this.imgList = store.imgList
+						}
+						if(store.videoList.length > 0){
+							this.videoList = store.videoList
+						}
+						
+					}
+				}
+			})
 			this.init()
 		},
 		onShow() {
@@ -152,7 +168,8 @@
 					'Authorization': 'wx ' + uni.getStorageSync('token')
 				},
 				videoList: [],
-				imgList: []
+				imgList: [],
+				showBack: false
 			}
 		},
 		computed: {
@@ -240,6 +257,9 @@
 				}
 				this.$u.api.createCard(this.card).then(res => {
 					if (res.code === 200) {
+						uni.removeStorage({
+							key: 'add-card'
+						})
 						this.$refs.uToast.show({
 							type: 'success',
 							title: '上传成功'
@@ -289,7 +309,15 @@
 																	uni.chooseLocation({
 																		success: (
 																			res
-																		) => {	that.card.position2 = res.address + '' + res.name}
+																		) => {
+																			that.card
+																				.position2 =
+																				res
+																				.address +
+																				'' +
+																				res
+																				.name
+																		}
 																	})
 																}, 1000)
 														}
@@ -318,10 +346,42 @@
 				}
 			},
 			clickLeft() {
-				uni.navigateBack({
-					delta: 1
-				});
+				let that = this
+				if ((that.card.detail != '' || that.card.title != '') && !that.showBack) {
+					uni.showModal({
+						content: '是否要保存为草稿',
+						showCancel: true,
+						cancelText: '不保存',
+						confirmText: '保存',
+						success(res) {
+							if (res.confirm) {
+								uni.setStorage({
+									key: 'add-card',
+									data: JSON.stringify({
+										card: that.card,
+										imgList: that.imgList,
+										videoList: that.videoList
+									})
+								})
+							} else {
+								uni.removeStorage({
+									key: 'add-card'
+								})
+							}
+							uni.navigateBack({
+								delta: 1
+							});
+							return
+						}
+					})
+				} else {
+					this.showBack = true
+					uni.navigateBack({
+						delta: 1
+					});
+				}
 			},
+
 			toSelect() {
 				uni.navigateTo({
 					url: '../topic-select/topic-select'

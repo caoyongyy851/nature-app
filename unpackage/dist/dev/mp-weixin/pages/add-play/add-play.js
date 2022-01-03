@@ -94,16 +94,16 @@ var components
 try {
   components = {
     uToast: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-toast/u-toast */ "node-modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! uview-ui/components/u-toast/u-toast.vue */ 265))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-toast/u-toast */ "node-modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! uview-ui/components/u-toast/u-toast.vue */ 273))
     },
     uInput: function() {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-input/u-input.vue */ 397))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-input/u-input */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-input/u-input")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-input/u-input.vue */ 412))
     },
     htzImageUpload: function() {
-      return __webpack_require__.e(/*! import() | components/htz-image-upload/htz-image-upload */ "components/htz-image-upload/htz-image-upload").then(__webpack_require__.bind(null, /*! @/components/htz-image-upload/htz-image-upload.vue */ 419))
+      return __webpack_require__.e(/*! import() | components/htz-image-upload/htz-image-upload */ "components/htz-image-upload/htz-image-upload").then(__webpack_require__.bind(null, /*! @/components/htz-image-upload/htz-image-upload.vue */ 434))
     },
     uPicker: function() {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-picker/u-picker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-picker/u-picker")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-picker/u-picker.vue */ 426))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-picker/u-picker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-picker/u-picker")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-picker/u-picker.vue */ 441))
     }
   }
 } catch (e) {
@@ -218,7 +218,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-nav-bar/uni-nav-bar */ "components/uni-ui/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-nav-bar/uni-nav-bar.vue */ 291));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-nav-bar/uni-nav-bar */ "components/uni-ui/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-nav-bar/uni-nav-bar.vue */ 299));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -226,8 +226,27 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
   components: {
     uniNavBar: uniNavBar },
 
-  onLoad: function onLoad(e) {
-    this.topic.type = e.type;
+  onLoad: function onLoad(e) {var _this = this;
+    uni.getStorage({
+      key: 'add-play',
+      success: function success(res) {
+        if (res.data) {
+          var store = JSON.parse(res.data);
+          console.log(store);
+          _this.topic = store.topic;
+          if (store.coverList.length > 0) {
+            _this.coverList = store.coverList;
+          }
+          if (store.imgList.length > 0) {
+            _this.imgList = store.imgList;
+          }
+
+        }
+      } });
+
+    if (e.type) {
+      this.topic.type = e.type;
+    }
     this.init();
   },
   data: function data() {
@@ -243,7 +262,8 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
         'Authorization': 'wx ' + uni.getStorageSync('token') },
 
       coverList: [],
-      imgList: [] };
+      imgList: [],
+      showBack: false };
 
   },
   computed: _objectSpread({},
@@ -268,7 +288,14 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
         this.coverList.push(this.getImgBase + res.imgUrl);
       }
     },
-    topicConfirm: function topicConfirm() {var _this = this;
+    topicConfirm: function topicConfirm() {var _this2 = this;
+      if (!this.topic.type) {
+        this.$refs.uToast.show({
+          type: 'warning',
+          title: '类型没选择哦~' });
+
+        return;
+      }
       if (!this.topic.title) {
         this.$refs.uToast.show({
           type: 'warning',
@@ -291,34 +318,70 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
         return;
       }
       this.topic.cover = this.coverList.map(function (e) {
-        return e.replace(_this.getImgBase, "");
+        return e.replace(_this2.getImgBase, "");
       }).join();
       if (this.imgList.length > 0) {
         this.topic.image = this.imgList.map(function (e) {
-          return e.replace(_this.getImgBase, "");
+          return e.replace(_this2.getImgBase, "");
         }).join();
       }
       this.$u.api.createTopic(this.topic).then(function (res) {
         if (res.code === 200) {
-          _this.$refs.uToast.show({
+          uni.removeStorage({
+            key: 'add-play' });
+
+          _this2.$refs.uToast.show({
             type: 'success',
             title: '上传成功' });
 
-          var that = _this;
+          var that = _this2;
           var pages = getCurrentPages(); // 当前页面
           var beforePage = pages[pages.length - 2]; // 上一页
           uni.navigateBack({
             success: function success() {
-              beforePage.onLoad(); // 执行上一页的onLoad方法
+              beforePage.onLoad({
+                type: that.topic.type });
+              // 执行上一页的onLoad方法
             } });
 
         }
       });
     },
     clickLeft: function clickLeft() {
-      uni.navigateBack({
-        delta: 1 });
+      var that = this;
+      if ((that.topic.detail != '' || that.topic.title != '') && !that.showBack) {
+        uni.showModal({
+          content: '是否要保存为草稿',
+          showCancel: true,
+          cancelText: '不保存',
+          confirmText: '保存',
+          success: function success(res) {
+            if (res.confirm) {
+              uni.setStorage({
+                key: 'add-play',
+                data: JSON.stringify({
+                  topic: that.topic,
+                  coverList: that.coverList,
+                  imgList: that.imgList }) });
 
+
+            } else {
+              uni.removeStorage({
+                key: 'add-play' });
+
+            }
+            uni.navigateBack({
+              delta: 1 });
+
+            return;
+          } });
+
+      } else {
+        this.showBack = true;
+        uni.navigateBack({
+          delta: 1 });
+
+      }
     } } };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 

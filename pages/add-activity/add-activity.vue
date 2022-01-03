@@ -1,6 +1,13 @@
 <template>
-	<view class="p-2">
+	<view class="">
 		<u-toast ref="uToast" />
+		<uni-nav-bar left-icon="back" @clickLeft="clickLeft" title="发活动" fixed="true">
+			<view slot="left" class="flex align-center mt-4">
+				<image src="/static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;"></image>
+			</view>
+		</uni-nav-bar>
+		<view class="mt-4"></view>
+		<u-notice-bar mode="horizontal" :list="narList"></u-notice-bar>
 		<view class="p-2">
 			<u-input v-model="activity.title" type="text" trim="true" placeholder="活动标题~" maxlength="200" />
 		</view>
@@ -31,11 +38,26 @@
 			<text class="font text-light-muted">活动人数</text>
 			<u-number-box v-model="activity.person"></u-number-box>
 		</view>
+		
 		<view>
+			<view class="px-2">
+				<u-input disabled="true" placeholder="上传活动照片" />
+			</view>
 			<htz-image-upload :max="6" :action="getImgBase + '/nature/front/activityFile'" :headers="headers"
-				name="file" :chooseNum="6" v-model="picList" @uploadSuccess="successImg" mediaType="image" :compress="true" quality="10">
+				name="file" :chooseNum="6" v-model="picList" @uploadSuccess="successImg" mediaType="image"
+				:compress="true" quality="10">
 			</htz-image-upload>
 		</view>
+		<view>
+			<view class="px-2">
+				<u-input disabled="true" placeholder="上传二维码" />
+			</view>
+			<htz-image-upload :max="1" :action="getImgBase + '/nature/front/activityFile'" :headers="headers"
+				name="file" :chooseNum="1" v-model="qrcodeList" @uploadSuccess="successQrImg" mediaType="image"
+				:compress="true" quality="10">
+			</htz-image-upload>
+		</view>
+		<view style="height: 100rpx;"></view>
 		<view class="fixed-bottom">
 			<button @click="activityConfirm" class="font btn-main text-main animated faster" hover-class="bounceIn">
 				上传</button>
@@ -50,8 +72,25 @@
 	import {
 		mapGetters
 	} from 'vuex'
+	import uniNavBar from '@/components/uni-ui/uni-nav-bar/uni-nav-bar.vue'
 	export default {
+		components:{
+			uniNavBar
+		},
 		onLoad() {
+			uni.getStorage({
+				key: 'add-activity',
+				success: (res) => {
+					if (res.data) {
+						let store = JSON.parse(res.data)
+						this.activity = store.activity
+						if(store.picList.length > 0){
+							this.picList = store.picList
+						}
+						
+					}
+				}
+			})
 			this.init()
 		},
 		data() {
@@ -63,14 +102,18 @@
 					label: "",
 					person: null,
 					time: "",
-					imgs: ""
+					imgs: "",
+					
 				},
 				positionShow: false,
 				timeShow: false,
 				headers: {
 					'Authorization': 'wx ' + uni.getStorageSync('token')
 				},
-				picList: []
+				picList: [],
+				qrcodeList: [],
+				showBack: false,
+				narList: ['自然玩主作为平台，只提供活动信息发布功能，活动的一切法律风险，由活动发起方负责，活动过程中的一切纠纷，与自然玩主平台无关。']
 			}
 		},
 		computed: {
@@ -87,6 +130,12 @@
 				var res = JSON.parse(e.data);
 				if (res.code === 200) {
 					this.picList.push(this.getImgBase + res.imgUrl)
+				}
+			},
+			successQrImg(e) {
+				var res = JSON.parse(e.data);
+				if (res.code === 200) {
+					this.qrcodeList.push(this.getImgBase + res.imgUrl)
 				}
 			},
 
@@ -126,7 +175,13 @@
 																		success: (
 																			res
 																		) => {
-																			that.activity.position = res.address + '' + res.name
+																			that.activity
+																				.position =
+																				res
+																				.address +
+																				'' +
+																				res
+																				.name
 																		}
 																	})
 																}, 1000)
@@ -198,8 +253,16 @@
 				this.activity.img = this.picList.map(e => {
 					return e.replace(this.getImgBase, "")
 				}).join()
+				if(this.qrcodeList.length > 0){
+					this.activity.qrcodeUrl = this.qrcodeList.map(e => {
+						return e.replace(this.getImgBase, "")
+					}).join()
+				}
 				this.$u.api.createActivity(this.activity).then(res => {
 					if (res.code === 200) {
+						uni.removeStorage({
+							key: 'add-activity'
+						})
 						this.$refs.uToast.show({
 							type: 'success',
 							title: '上传成功'
@@ -215,7 +278,42 @@
 					}
 				})
 			},
-
+			
+			clickLeft() {
+				let that = this
+				if ((that.activity.detail != '' || that.activity.title != '') && !that.showBack) {
+					uni.showModal({
+						content: '是否要保存为草稿',
+						showCancel: true,
+						cancelText: '不保存',
+						confirmText: '保存',
+						success(res) {
+							if (res.confirm) {
+								uni.setStorage({
+									key: 'add-activity',
+									data: JSON.stringify({
+										activity: that.activity,
+										picList: that.picList
+									})
+								})
+							} else {
+								uni.removeStorage({
+									key: 'add-activity'
+								})
+							}
+							uni.navigateBack({
+								delta: 1
+							});
+							return
+						}
+					})
+				} else {
+					this.showBack = true
+					uni.navigateBack({
+						delta: 1
+					});
+				}
+			},
 		}
 	}
 </script>

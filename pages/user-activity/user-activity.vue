@@ -1,6 +1,7 @@
 <template>
 	<view>
 		<template v-if="activityList.length > 0">
+		<u-toast ref="uToast" />
 			<u-swipe-action :show="item.show" :index="index" v-for="(item, index) in activityList" :key="item.id"
 				@click="click" @open="open" :options="options" @content-click="contentClick">
 				<view class="m-2 flex">
@@ -13,9 +14,17 @@
 						<view class="font-md">
 							<text class="">{{ item.title }}</text>
 						</view>
-						<view class="mt-1 font text-muted font-weight-light"
+						<view class="mt-1 font text-muted "
 							style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;">
 							<text class="">{{ item.detail }}</text>
+						</view>
+						<view class="mt-1 font flex justify-between" v-if="item.activityStatus == 1">
+							<text class="text-muted">人数：{{item.perLimit}}/{{item.person}}</text>
+							<text class="text-main">进行中</text>
+						</view>
+						<view class="mt-1 font flex justify-between" v-else>
+							<text class="text-muted">人数：{{item.perLimit}}/{{item.person}}</text>
+							<text class="text-muted">已结束</text>
 						</view>
 					</view>
 				</view>
@@ -46,13 +55,19 @@
 				btnWidth: 180,
 				show: false,
 				options: [{
-						text: '修改',
+						text: '修改活动',
 						style: {
 							backgroundColor: '#007aff'
 						}
 					},
 					{
-						text: '删除',
+							text: '参与玩主',
+							style: {
+								backgroundColor: '#8afab2'
+							}
+						},
+					{
+						text: '删除活动',
 						style: {
 							backgroundColor: '#dd524d'
 						}
@@ -73,21 +88,32 @@
 				})
 			},
 			click(index, index1) {
-				if (index1 == 1) {
+				if (index1 == 2) {
 					this.$u.api.deleteActivity({
 						id: this.activityList[index].id
 					}).then(res => {
-						if (res.msg == '删除成功') {
+						if (res.code == 200) {
 							this.activityList.splice(index, 1);
-							this.$u.toast(res.mag);
+							this.$refs.uToast.show({
+								type: 'success',
+								title: res.msg
+							})
 						} else {
-							this.$u.toast(res.mag);
+							this.$refs.uToast.show({
+								type: 'warning',
+								title: res.msg
+							})
 						}
 					})
-				}else{
+				}else if(index1 == 0){
 					// 修改
 					uni.navigateTo({
 						url: `../modify-activity/modify-activity?id=${this.activityList[index].id}`
+					})
+				}else if(index1 == 1){
+					// 详情
+					uni.navigateTo({
+						url: `../user-activity-list/user-activity-list?id=${this.activityList[index].id}`
 					})
 				}
 			},

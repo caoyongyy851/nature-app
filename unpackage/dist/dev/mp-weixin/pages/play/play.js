@@ -95,8 +95,14 @@ __webpack_require__.r(__webpack_exports__);
 var components
 try {
   components = {
+    uToast: function() {
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-toast/u-toast */ "node-modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! uview-ui/components/u-toast/u-toast.vue */ 273))
+    },
     uSwiper: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-swiper/u-swiper */ "node-modules/uview-ui/components/u-swiper/u-swiper").then(__webpack_require__.bind(null, /*! uview-ui/components/u-swiper/u-swiper.vue */ 272))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-swiper/u-swiper */ "node-modules/uview-ui/components/u-swiper/u-swiper").then(__webpack_require__.bind(null, /*! uview-ui/components/u-swiper/u-swiper.vue */ 280))
+    },
+    uModal: function() {
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-modal/u-modal */ "node-modules/uview-ui/components/u-modal/u-modal").then(__webpack_require__.bind(null, /*! uview-ui/components/u-modal/u-modal.vue */ 306))
     }
   }
 } catch (e) {
@@ -120,6 +126,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  if (!_vm._isMounted) {
+    _vm.e0 = function($event) {
+      _vm.authModal.show = false
+    }
+  }
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -199,7 +210,45 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-nav-bar/uni-nav-bar */ "components/uni-ui/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-nav-bar/uni-nav-bar.vue */ 291));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var uniNavBar = function uniNavBar() {__webpack_require__.e(/*! require.ensure | components/uni-ui/uni-nav-bar/uni-nav-bar */ "components/uni-ui/uni-nav-bar/uni-nav-bar").then((function () {return resolve(__webpack_require__(/*! @/components/uni-ui/uni-nav-bar/uni-nav-bar.vue */ 299));}).bind(null, __webpack_require__)).catch(__webpack_require__.oe);};var _default =
 
 
 
@@ -211,24 +260,60 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
   data: function data() {
     return {
       cover: [],
-      topicSwiperList: [] };
+      topicSwiperList: [],
+      authModal: {
+        show: false } };
+
 
   },
-  onLoad: function onLoad() {
+  onLoad: function onLoad(option) {
     this.init();
+    if (option.isshare == 1) {
+      if (option.sharePage == 'detail') {
+        setTimeout(function () {
+          uni.navigateTo({
+            url: "../detail/detail?id=".concat(option.id) });
+
+        }, 2000);
+      } else if (option.sharePage == 'playDetail') {
+        setTimeout(function () {
+          uni.navigateTo({
+            url: "../play-detail/play-detail?id=".concat(option.id) });
+
+        }, 2000);
+      } else if (option.sharePage == 'activityDetail') {
+        setTimeout(function () {
+          uni.navigateTo({
+            url: "../activity-detail/detail?id=".concat(option.id) });
+
+        }, 2000);
+      } else if (option.sharePage == 'placeDetail') {
+        setTimeout(function () {
+          uni.navigateTo({
+            url: "../place-detail/place-detail?id=".concat(option.id) });
+
+        }, 2000);
+      }
+    }
   },
   computed: _objectSpread({},
   (0, _vuex.mapGetters)(['getUserinfo', 'getNeedAuth', 'getIsLogin', 'getImgBase'])),
 
-  methods: {
+  methods: _objectSpread(_objectSpread({},
+  (0, _vuex.mapActions)(['login', 'authUserInfo'])), {}, {
     init: function init() {var _this = this;
-      this.$u.api.getCover().then(function (res) {
-        _this.cover = res.data;
-      });
-      this.$u.api.getTopicSwiper().then(function (res) {
-        _this.topicSwiperList = res.data.map(function (item, index) {
-          item.image = _this.getImgBase + item.image;
-          return item;
+      this.login().then(function (res) {
+        if (_this.getNeedAuth) {
+          _this.authModal.show = true;
+        }
+        _this.$u.api.getTopicCover().then(function (res) {
+          _this.cover = res.data;
+        });
+        _this.$u.api.getTopicSwiper().then(function (res) {
+          _this.topicSwiperList = res.data.map(function (item, index) {
+            item.image = _this.getImgBase + item.image;
+            return item;
+          });
         });
       });
     },
@@ -245,13 +330,33 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
     },
     toAddPlay: function toAddPlay() {
       if (this.getNeedAuth) {
-        this.authUserInfo();
+        this.authModal.show = true;
         return;
       }
       uni.navigateTo({
         url: "../add-play/add-play" });
 
-    } } };exports.default = _default;
+    },
+    toAuth: function toAuth() {var _this2 = this;
+      if (this.getNeedAuth) {
+        this.authUserInfo().then(function (res) {
+          if (res == 'success') {
+            _this2.$refs.uToast.show({
+              type: 'success',
+              title: '授权成功~' });
+
+            _this2.authModal = false;
+          } else {
+            _this2.$refs.uToast.show({
+              type: 'error',
+              title: '授权失败~' });
+
+          }
+
+        });
+        return;
+      }
+    } }) };exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 1)["default"]))
 
 /***/ }),

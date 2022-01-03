@@ -3,7 +3,7 @@
 		<u-toast ref="uToast" />
 		<uni-nav-bar left-icon="back" @clickLeft="clickLeft" :fixed="true" :title="placeDetail.name">
 			<view slot="left" class="flex align-center mt-4" @click="toIndex">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 120rpx; height: 120rpx;" lazy-load="true"></image>
+				<image src="/static/logo.png" mode="aspectFill" style="width: 150rpx; height: 120rpx;" lazy-load="true"></image>
 			</view>
 		</uni-nav-bar>
 		<u-toast ref="uToast" />
@@ -41,7 +41,7 @@
 		</view>
 		<view class="mx-3">
 			<view class="font pt-1 font-weight-bolder">基本信息</view>
-			<text class="font text-muted" style="line-height: 1.8;">
+			<text class="font text-muted" space="nbsp" user-select="true"  style="line-height: 1.8;">
 				{{placeDetail.detail}}
 			</text>
 		</view>
@@ -132,11 +132,11 @@
 				<uni-popup ref="popup" background-color="#fff" @change="popupChange">
 					<view class="flex align-center justify-between px-2 py-3">
 						<view class="flex-1">
-							<input class="px-2 py-2 bg-light rounded-1" type="text" placeholder="快来写下你的评论吧"
+							<input class="px-2 py-2 bg-light rounded-1" type="text" placeholder="咨询内容"
 								v-model="content" />
 						</view>
 						<view class="font-md text-primary px-3 animated faster" hover-class="bounceIn"
-							@click="writeAComment">
+							@click="writePlaceConsult">
 							发送
 						</view>
 					</view>
@@ -197,6 +197,35 @@
 
 			</view>
 		</u-popup>
+		<u-modal v-model="authModal.show" title=" " width="550" :show-confirm-button="false"
+			:show-cancel-button="false">
+			<view class="mx-3 p-3 rounded-1 bg-white">
+				<view class="flex align-center justify-center">
+					<image src="../../static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
+					</image>
+				</view>
+				<view class="flex align-center justify-center">
+					<text class="font-md">还没有登录哦</text>
+				</view>
+				<view class="flex align-center justify-center mt-1">
+					<text class="font">授权登录后 </text>
+				</view>
+				<view class="flex align-center justify-center">
+					<text class="font">就能和大家一起分享啦~</text>
+				</view>
+				<view class="flex align-center justify-center mt-3">
+					<view class="text-white rounded-circle"
+						style="background: linear-gradient(90deg, #8afab2 0%, #5cbba5 100%); padding: 15rpx 100rpx 15rpx 100rpx;"
+						@click="toAuth">
+						去授权
+					</view>
+				</view>
+				<view class="flex align-center justify-center m-1" style="color: #5cbba5;"
+					@click="authModal.show = false">
+					暂不登录
+				</view>
+			</view>
+		</u-modal>
 	</view>
 
 </template>
@@ -253,7 +282,11 @@
 					used: '',
 					remark: '',
 					surplus:0
-				}
+				},
+				content: "",
+				authModal: {
+					show: false
+				},
 			}
 		},
 		onLoad(e) {
@@ -277,6 +310,16 @@
 				}
 			}, 1000)
 		},
+		onShareAppMessage() {
+			return {
+				title: this.placeDetail.name,
+				path: `/pages/play/play?isshare=1&sharePage=placeDetail&id=${this.id}`,
+				success: function(res) {
+				},
+				fail: function(res) {
+				}
+			}
+		},
 		methods: {
 			...mapActions(['login', 'setPhone', 'authUserInfo']),
 			init() {
@@ -292,12 +335,14 @@
 						title: this.placeDetail.name
 					})
 				})
-
 				this.$u.api.getDoc({
 					type: 1
 				}).then(res => {
 					this.document = res.data
 				})
+				if(!this.getIsLogin){
+					this.login()
+				}
 			},
 			// 监听swiper变化
 			swiperChange(e) {
@@ -311,6 +356,10 @@
 			},
 			// 收藏
 			toCollect() {
+				if (this.getNeedAuth) {
+					this.authModal.show = true
+					return
+				}
 				if (this.isCollect) {
 					// 取消收藏
 					this.$u.api.placeToCollect({
@@ -336,6 +385,10 @@
 				}
 			},
 			toLike() {
+				if (this.getNeedAuth) {
+					this.authModal.show = true
+					return
+				}
 				if (this.isLike) {
 					// 取消喜欢
 					this.$u.api.placeToLike({
@@ -409,7 +462,7 @@
 			// 创建订单
 			toCreateOrder() {
 				if (this.getNeedAuth) {
-					this.authUserInfo()
+					this.authModal.show = true
 					return
 				}
 				if (!this.getIsAuthPhone) {
@@ -468,7 +521,6 @@
 					})
 					return
 				}
-				console.log(JSON.stringify(this.order))
 				this.$u.api.createCOrder(this.order).then(res => {
 					if(res.code == 200){
 						this.$refs.uToast.show({
@@ -494,12 +546,16 @@
 					delta: 1
 				});
 			},
-			toIndex() {
-				uni.switchTab({
-					url: '../index/index'
-				})
-			},
+		toIndex(){
+			uni.switchTab({
+				url: '../play/play'
+			})
+		},
 			toDoc() {
+				if (this.getNeedAuth) {
+					this.authModal.show = true
+					return
+				}
 				this.docShow = true
 			},
 			toCancel() {
@@ -508,6 +564,64 @@
 			toSource() {
 				this.docShow = false
 				this.docSource = true
+			},
+			toggle() {
+				if (this.getNeedAuth) {
+					this.authModal.show = true
+					return
+				}
+				// open 方法传入参数 等同在 uni-popup 组件上绑定 type属性
+				this.$refs.popup.open("bottom")
+			},
+			popupChange(e) {
+				this.content = ''
+			},
+			writePlaceConsult(){
+				if (this.getNeedAuth) {
+					this.authModal.show = true
+					return
+				}
+				if (this.getNeedAuth) {
+					this.authUserInfo()
+					return
+				}
+				if (!this.content) {
+					this.$refs.uToast.show({
+						type: 'warning',
+						title: '咨询内容不能为空哦~'
+					})
+					return
+				}
+				this.$u.api.placeConsult({
+					placeId: this.id,
+					content: this.content
+				}).then(res => {
+					this.content = ''
+					this.$refs.popup.close("bottom")
+					this.$refs.uToast.show({
+						type: 'success',
+						title: '咨询成功~'
+					})
+				})
+			},
+			toAuth() {
+				if (this.getNeedAuth) {
+					this.authUserInfo().then(res => {
+						if (res == 'success') {
+							this.$refs.uToast.show({
+								type: 'success',
+								title: '授权成功~'
+							})
+							this.authModal = false
+						} else {
+							this.$refs.uToast.show({
+								type: 'error',
+								title: '授权失败~'
+							})
+						}
+					})
+					return
+				}
 			}
 		}
 	}

@@ -93,11 +93,14 @@ __webpack_require__.r(__webpack_exports__);
 var components
 try {
   components = {
+    uToast: function() {
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-toast/u-toast */ "node-modules/uview-ui/components/u-toast/u-toast").then(__webpack_require__.bind(null, /*! uview-ui/components/u-toast/u-toast.vue */ 273))
+    },
     uSwipeAction: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-swipe-action/u-swipe-action */ "node-modules/uview-ui/components/u-swipe-action/u-swipe-action").then(__webpack_require__.bind(null, /*! uview-ui/components/u-swipe-action/u-swipe-action.vue */ 471))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-swipe-action/u-swipe-action */ "node-modules/uview-ui/components/u-swipe-action/u-swipe-action").then(__webpack_require__.bind(null, /*! uview-ui/components/u-swipe-action/u-swipe-action.vue */ 486))
     },
     uEmpty: function() {
-      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-empty/u-empty */ "node-modules/uview-ui/components/u-empty/u-empty").then(__webpack_require__.bind(null, /*! uview-ui/components/u-empty/u-empty.vue */ 478))
+      return __webpack_require__.e(/*! import() | node-modules/uview-ui/components/u-empty/u-empty */ "node-modules/uview-ui/components/u-empty/u-empty").then(__webpack_require__.bind(null, /*! uview-ui/components/u-empty/u-empty.vue */ 472))
     }
   }
 } catch (e) {
@@ -186,6 +189,15 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
+
+
+
+
+
+
+
+
 var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumerableOnly) {var keys = Object.keys(object);if (Object.getOwnPropertySymbols) {var symbols = Object.getOwnPropertySymbols(object);if (enumerableOnly) symbols = symbols.filter(function (sym) {return Object.getOwnPropertyDescriptor(object, sym).enumerable;});keys.push.apply(keys, symbols);}return keys;}function _objectSpread(target) {for (var i = 1; i < arguments.length; i++) {var source = arguments[i] != null ? arguments[i] : {};if (i % 2) {ownKeys(Object(source), true).forEach(function (key) {_defineProperty(target, key, source[key]);});} else if (Object.getOwnPropertyDescriptors) {Object.defineProperties(target, Object.getOwnPropertyDescriptors(source));} else {ownKeys(Object(source)).forEach(function (key) {Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key));});}}return target;}function _defineProperty(obj, key, value) {if (key in obj) {Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true });} else {obj[key] = value;}return obj;}var _default =
 
 
@@ -202,13 +214,19 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
       btnWidth: 180,
       show: false,
       options: [{
-        text: '修改',
+        text: '修改活动',
         style: {
           backgroundColor: '#007aff' } },
 
 
       {
-        text: '删除',
+        text: '参与玩主',
+        style: {
+          backgroundColor: '#8afab2' } },
+
+
+      {
+        text: '删除活动',
         style: {
           backgroundColor: '#dd524d' } }] };
 
@@ -229,21 +247,32 @@ var _vuex = __webpack_require__(/*! vuex */ 42);function ownKeys(object, enumera
       });
     },
     click: function click(index, index1) {var _this2 = this;
-      if (index1 == 1) {
+      if (index1 == 2) {
         this.$u.api.deleteActivity({
           id: this.activityList[index].id }).
         then(function (res) {
-          if (res.msg == '删除成功') {
+          if (res.code == 200) {
             _this2.activityList.splice(index, 1);
-            _this2.$u.toast(res.mag);
+            _this2.$refs.uToast.show({
+              type: 'success',
+              title: res.msg });
+
           } else {
-            _this2.$u.toast(res.mag);
+            _this2.$refs.uToast.show({
+              type: 'warning',
+              title: res.msg });
+
           }
         });
-      } else {
+      } else if (index1 == 0) {
         // 修改
         uni.navigateTo({
           url: "../modify-activity/modify-activity?id=".concat(this.activityList[index].id) });
+
+      } else if (index1 == 1) {
+        // 详情
+        uni.navigateTo({
+          url: "../user-activity-list/user-activity-list?id=".concat(this.activityList[index].id) });
 
       }
     },
