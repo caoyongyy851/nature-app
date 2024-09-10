@@ -3,22 +3,30 @@
 		<u-toast ref="uToast" />
 		<uni-nav-bar left-icon="back" @clickLeft="clickLeft" title="建我的圈子" fixed="true">
 			<view slot="left" class="flex align-center mt-4">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;"></image>
+				<image src="/static/logo.jpg" mode="aspectFill" style="width: 200rpx; height: 150rpx;"></image>
 			</view>
 		</uni-nav-bar>
 		<view class="px-2 pt-5">
+			<view class="p-2" v-if="getUserinfo.companyId">
+				<u-radio-group>
+					<u-radio @change="sourceChange" v-for="(item, index) in sourceList" :key="index"
+						:name="item.name" :disabled="item.disabled" shape="square" active-color="#fd5f40">
+						{{item.name}}
+					</u-radio>
+				</u-radio-group>
+			</view>
 			<view class="p-2 flex justify-around">
-				<view class="px-3 py-1 rounded" :class="topic.type==1?'bg-main text-white':'border text-light-muted'" @click="chageType(1)">
-					生活
+				<view class="px-3 py-1 rounded font-sm" :class="topic.type==1?'bg-main text-white':'border text-light-muted'" @click="chageType(coverCategory[0].topicType)">
+					{{coverCategory[0].tagName}}
 				</view>
-				<view class="px-3 py-1 rounded-1" :class="topic.type==2?'bg-main text-white':'border text-light-muted'" @click="chageType(2)">
-					任务
+				<view class="px-3 py-1 rounded-1 font-sm" :class="topic.type==2?'bg-main text-white':'border text-light-muted'" @click="chageType(coverCategory[1].topicType)">
+					{{coverCategory[1].tagName}}
 				</view>
-				<view class="px-3 py-1 rounded-1" :class="topic.type==3?'bg-main text-white':'border text-light-muted'" @click="chageType(3)">
-					知识
+				<view class="px-3 py-1 rounded-1 font-sm" :class="topic.type==3?'bg-main text-white':'border text-light-muted'" @click="chageType(coverCategory[2].topicType)">
+					{{coverCategory[2].tagName}}
 				</view>
-				<view class="px-3 py-1 rounded-1" :class="topic.type==4?'bg-main text-white':'border text-light-muted'" @click="chageType(4)">
-					公益
+				<view class="px-3 py-1 rounded-1 font-sm" :class="topic.type==4?'bg-main text-white':'border text-light-muted'" @click="chageType(coverCategory[3].topicType)">
+					{{coverCategory[3].tagName}}
 				</view>
 			</view>
 			<view class="p-2">
@@ -78,7 +86,7 @@
 						if(store.imgList.length > 0){
 							this.imgList = store.imgList
 						}
-						
+
 					}
 				}
 			})
@@ -99,17 +107,32 @@
 				headers: {
 					'Authorization': 'wx ' + uni.getStorageSync('token')
 				},
+				sourceList: [{
+						name: '以个人',
+						disabled: false
+					},
+					{
+						name: '以机构',
+						disabled: false
+					}
+				],
 				coverList: [],
 				imgList: [],
-				showBack: false
+				showBack: false,
+				coverCategory: [],
 			}
 		},
 		computed: {
-			...mapGetters(['getImgBase'])
+			...mapGetters(['getImgBase','getUserinfo'])
+		},
+		onLoad() {
+			this.init();
 		},
 		methods: {
 			init() {
-			
+				this.$u.api.getTopicCover().then(res => {
+					this.coverCategory = res.data
+				})
 			},
 			chageType(type){
 				this.topic.type = type
@@ -184,6 +207,13 @@
 						})
 					}
 				})
+			},
+			sourceChange(e) {
+				if (e == '以个人') {
+					this.topic.source = 0
+				} else if (e == '以机构') {
+					this.topic.source = 1
+				}
 			},
 			clickLeft() {
 				let that = this

@@ -3,7 +3,7 @@
 		<u-toast ref="uToast" />
 		<uni-list-item title="头像" @click="changeUserpic">
 			<view class="flex align-center" slot="right">
-				<u-avatar :src="userInfo.avatar" :size="100" :show-sex="true"
+				<u-avatar :src="userInfo.avatar" :size="100" :show-sex="false"
 					:sexIcon="userInfo.sex==1?'man':'woman'">
 				</u-avatar>
 			</view>
@@ -36,7 +36,7 @@
 		mapGetters,
 		mapActions
 	} from 'vuex'
-	
+	import store from '@/store/index.js';
 	export default {
 		components: {
 			uniListItem,
@@ -49,6 +49,39 @@
 
 		onLoad() {
 			this.userInfo = this.getUserinfo
+		},
+		computed: {
+			...mapGetters(['getImgBase'])
+		},
+		created() {
+			// 监听从裁剪页发布的事件，获得裁剪结果
+			uni.$on('uAvatarCropper', path => {
+				this.avatar = path;
+				// 可以在此上传到服务端
+				uni.uploadFile({
+					url: this.getImgBase + '/nature/nocheck/avatar',
+					filePath: path,
+					name: 'file',
+					complete: (res) => {
+						var img = JSON.parse(res.data)
+						console.log(JSON.stringify(img))
+						if (img.code == 200) {
+							let avatarUrl = {
+								avatar: this.getImgBase + img.imgUrl
+							} 
+							this.$u.api.changeAvatar(avatarUrl).then(res => {
+								if (res.code == 200) {
+									this.userInfo.avatar = this.getImgBase + img.imgUrl
+									store.commit('setUserinfo', this.userInfo)
+									this.$u.toast('修改成功~')
+								}
+							})
+						} else {
+							this.$u.toast(res.errMsg)
+						}
+					}
+				});
+			})
 		},
 		computed: {
 			...mapGetters(['getUserinfo', 'getNeedAuth', 'getIsLogin', 'getImgBase'])
@@ -76,6 +109,11 @@
 						})
 					}
 					
+				})
+			},
+			changeUserpic(){
+				uni.navigateTo({
+					url:'./image-cut?destWidth=300&rectWidth=200&fileType=jpg'
 				})
 			}
 		}

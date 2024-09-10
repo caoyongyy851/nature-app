@@ -1,0 +1,8 @@
+{
+  "navigationBarTitleText": "参与玩主",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-avatar": "/node-modules/uview-ui/components/u-avatar/u-avatar",
+    "u-empty": "/node-modules/uview-ui/components/u-empty/u-empty"
+  }
+}

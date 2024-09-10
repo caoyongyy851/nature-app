@@ -4,18 +4,18 @@
 		<u-toast ref="uToast" />
 		<uni-nav-bar left-icon="back" @clickLeft="clickLeft" :title="cardDetail.title" fixed="true">
 			<view slot="left" class="flex align-center mt-4" @click="toIndex">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;"></image>
+				<image src="/static/logo.jpg" mode="aspectFill" style="width: 200rpx; height: 150rpx;"></image>
 			</view>
 		</uni-nav-bar>
 		<view class="swiperContainer mb-2">
 			<swiper @change="swiperChange" :autoplay="false" :interval="3000" :duration="1000" class=""
-				style="width: 750rpx; height: 562rpx;">
+				style="width: 750rpx; height: 562rpx; background-color: #0E151D;">
 				<swiper-item v-for="(item, index) in cardDetail.vidsList" :key="index">
 					<video :src="getImgBase + item" autoplay="true" loop="true" show-fullscreen-btn="false"
 						style="width: 750rpx; height: 562rpx;"></video>
 				</swiper-item>
 				<swiper-item v-for="(item, index) in cardDetail.imgsList" :key="index">
-					<image :src="getImgBase + item" mode="aspectFill" style="width: 750rpx; height: 562rpx;"
+					<image :src="getImgBase + item" mode="aspectFit" style="width: 750rpx; height: 562rpx;"
 						lazy-load="true">
 					</image>
 				</swiper-item>
@@ -57,7 +57,7 @@
 
 		<!-- 内容区域 -->
 		<view class="px-3 py-4">
-			<text class="font text-muted" space="nbsp" user-select="true" style="line-height: 1.8;">
+			<text class="font-md text-muted" space="nbsp" user-select="true" style="line-height: 1.8;">
 				{{cardDetail.detail}}
 			</text>
 			<view class="pt-3 animated faster" hover-class="bounceIn" v-if="cardDetail.position">
@@ -169,7 +169,7 @@
 			:show-cancel-button="false">
 			<view class="mx-3 p-3 rounded-1 bg-white">
 				<view class="flex align-center justify-center">
-					<image src="../../static/logo.png" mode="aspectFill" style="width: 200rpx; height: 200rpx;">
+					<image src="../../static/logo.jpg" mode="aspectFill" style="width: 200rpx; height: 200rpx;">
 					</image>
 				</view>
 				<view class="flex align-center justify-center">
@@ -266,7 +266,7 @@
 			this.id = options.id
 			this.init()
 		},
-	
+
 		onShareAppMessage() {
 			return {
 				title: this.cardDetail.title,

@@ -9,8 +9,8 @@ const store=new Vuex.Store({
 		needAuth:true,
 		isLogin:false,
 		isAuthPhone: false,
-		// imgBase: "http://192.168.2.10:7777/nature"
-		imgBase: "https://ziranwanzhu.com/nature"
+		imgBase: "http://127.0.0.1:7777/nature"
+		// imgBase: "https://ziranwanzhu.com/nature"
 	},
 	//computed
 	getters:{
@@ -47,6 +47,7 @@ const store=new Vuex.Store({
 	},
 	//异步的方法
 	actions:{
+		//微信登录
 		login(context) {
 			return new Promise((resolve,reject)=>{
 				uni.login({
@@ -84,7 +85,7 @@ const store=new Vuex.Store({
 				console.log(e)
 			})
 		},
-		
+		//微信授权
 		authUserInfo(context) {
 			// let that = this
 			return new Promise((resolve,reject)=>{

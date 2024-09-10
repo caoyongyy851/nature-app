@@ -1,25 +1,37 @@
 <template>
 	<view>
 		<template v-if="topicList.length > 0">
-			<u-swipe-action :show="item.show" :index="index" v-for="(item, index) in topicList" :key="item.id"
-				@click="click" @open="open" :options="options" @content-click="contentClick">
-				<view class="m-2 flex">
-					<view class="">
-						<image mode="aspectFill" class="rounded" style="height: 150rpx; width: 150rpx;"
-							:src="getImgBase + item.cover" />
+		<u-toast ref="uToast" />
+			<view class="m-2 p-2 flex bg-white rounded-1" :key="index" v-for="(item, index) in topicList">
+				<view class="" @click="contentClick(item)">
+					<image mode="aspectFill" class="rounded" style="height: 150rpx; width: 150rpx;"
+						:src="getImgBase + item.cover" />
+				</view>
+				<!-- 此层wrap在此为必写的，否则可能会出现标题定位错误 -->
+				<view class="flex flex-column flex-1 ml-2">
+					<view class="font-md" @click="contentClick(item)">
+						<text class="">{{ item.title }}</text>
 					</view>
-					<!-- 此层wrap在此为必写的，否则可能会出现标题定位错误 -->
-					<view class="flex-column flex-1 ml-2">
-						<view class="font-md">
-							<text class="">{{ item.title }}</text>
+					<view @click="contentClick(item)" class="mt-1 font text-muted font-weight-light"
+						style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;">
+						<text class="">{{ item.detail }}</text>
+					</view>
+					<view class="mt-1 font flex justify-between">
+						<view class="">
 						</view>
-						<view class="mt-1 font text-muted font-weight-light"
-							style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 3;-webkit-box-orient: vertical;">
-							<text class="">{{ item.detail }}</text>
+						<view class="flex align-center">
+							<view class="font-sm px-1 py-1 rounded btn-main mr-2" 
+								@click="del(item)">
+								删除
+							</view>
+							<view class="font-sm px-1 py-1 rounded btn-main"
+								@click="modify(item)">
+								修改
+							</view>
 						</view>
 					</view>
 				</view>
-			</u-swipe-action>
+			</view>
 		</template>
 		<template v-else>
 			<view class="flex align-center justify-center" style="margin-top: 400rpx;">
@@ -72,32 +84,29 @@
 					this.topicList = res.data
 				})
 			},
-			click(index, index1) {
-				if (index1 == 1) {
-					this.$u.api.deleteTopic({
-						id: this.topicList[index].id
-					}).then(res => {
-						if (res.msg == '删除成功') {
-							this.topicList.splice(index, 1);
-							this.$u.toast(res.mag);
-						} else {
-							this.$u.toast(res.mag);
-						}
-					})
-				} else {
-					// 修改
-					uni.navigateTo({
-						url: `../modify-play/modify-play?id=${this.topicList[index].id}`
-					})
-				}
+			
+			del(item){
+				this.$u.api.deleteTopic({
+					id: item.id
+				}).then(res => {
+					if (res.code == 200) {
+						this.init()
+						this.$refs.uToast.show({
+							type: 'success',
+							title: res.msg
+						})
+					} else {
+						this.$refs.uToast.show({
+							type: 'warning',
+							title: res.msg
+						})
+					}
+				})
 			},
-			// 如果打开一个的时候，不需要关闭其他，则无需实现本方法
-			open(index) {
-				// 先将正在被操作的swipeAction标记为打开状态，否则由于props的特性限制，
-				// 原本为'false'，再次设置为'false'会无效
-				this.topicList[index].show = true;
-				this.topicList.map((val, idx) => {
-					if (index != idx) this.topicList[idx].show = false;
+			modify(item){
+				// 修改
+				uni.navigateTo({
+					url: `../modify-play/modify-play?id=${item.id}`
 				})
 			},
 			contentClick(e) {
@@ -111,5 +120,7 @@
 </script>
 
 <style>
-
+page {
+		background-color: #f7f7f7;
+	}
 </style>

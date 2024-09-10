@@ -3,6 +3,7 @@
   "enablePullDownRefresh": false,
   "usingComponents": {
     "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",
-    "u-input": "/node-modules/uview-ui/components/u-input/u-input"
+    "u-input": "/node-modules/uview-ui/components/u-input/u-input",
+    "htz-image-upload": "/components/htz-image-upload/htz-image-upload"
   }
 }

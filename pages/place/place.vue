@@ -3,7 +3,7 @@
 		<u-toast ref="uToast" />
 		<uni-nav-bar fixed="true">
 			<view slot="left" class="flex align-center mt-4">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 150rpx; height: 120rpx;" lazy-load="true">
+				<image src="/static/logo.jpg" mode="aspectFill" style="width: 150rpx; height: 120rpx;" lazy-load="true">
 				</image>
 			</view>
 		</uni-nav-bar>
@@ -116,7 +116,7 @@
 			:show-cancel-button="false">
 			<view class="mx-3 p-3 rounded-1 bg-white">
 				<view class="flex align-center justify-center">
-					<image src="../../static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
+					<image src="../../static/logo.jpg" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
 					</image>
 				</view>
 				<view class="flex align-center justify-center">
@@ -182,6 +182,12 @@
 		},
 		onLoad() {
 			this.init()
+		},
+		onPullDownRefresh: function() {
+			this.init();
+			setTimeout(function() {
+				uni.stopPullDownRefresh()
+			}, 1000);
 		},
 		methods: {
 			...mapActions(['login', 'authUserInfo']),
@@ -251,6 +257,7 @@
 					this.authModal.show = true
 					return
 				}
+
 				uni.requestSubscribeMessage({
 				  tmplIds: ['hH4D8B3ddf7b3d3o3VLHGCfwLdNajdiRNsN9NgACg0U'],
 				  success (res) {
@@ -263,6 +270,10 @@
 					  return
 				  }
 				})
+
+				// uni.navigateTo({
+				// 	url: '../add-activity/add-activity'
+				// })
 			},
 			toPlaceDetal(item) {
 				uni.navigateTo({

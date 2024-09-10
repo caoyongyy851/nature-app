@@ -1,6 +1,6 @@
 {
   "navigationBarTitleText": "",
-  "enablePullDownRefresh": false,
+  "enablePullDownRefresh": true,
   "navigationStyle": "custom",
   "usingComponents": {
     "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",

@@ -3,10 +3,18 @@
 		<u-toast ref="uToast" />
 		<uni-nav-bar left-icon="back" @clickLeft="clickLeft" title="发帖子" fixed="true">
 			<view slot="left" class="flex align-center mt-4">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;"></image>
+				<image src="/static/logo.jpg" mode="aspectFill" style="width: 200rpx; height: 150rpx;"></image>
 			</view>
 		</uni-nav-bar>
 		<view class="p-2">
+			<view class="p-2" v-if="getUserinfo.companyId">
+				<u-radio-group>
+					<u-radio @change="sourceChange" v-for="(item, index) in sourceList" :key="index"
+						:name="item.name" :disabled="item.disabled" shape="square" active-color="#fd5f40">
+						{{item.name}}
+					</u-radio>
+				</u-radio-group>
+			</view>
 			<view class="p-2" v-if="!selected">
 				<u-input v-model="card.title" trim="true" placeholder="请输入标题~" maxlength="200" />
 			</view>
@@ -122,7 +130,7 @@
 						if(store.videoList.length > 0){
 							this.videoList = store.videoList
 						}
-						
+
 					}
 				}
 			})
@@ -150,6 +158,16 @@
 						disabled: false
 					}
 				],
+
+				sourceList: [{
+						name: '以个人',
+						disabled: false
+					},
+					{
+						name: '以机构',
+						disabled: false
+					}
+				],
 				card: {
 					title: "",
 					detail: "",
@@ -173,7 +191,7 @@
 			}
 		},
 		computed: {
-			...mapGetters(['getImgBase'])
+			...mapGetters(['getImgBase','getUserinfo'])
 		},
 		methods: {
 			init() {
@@ -343,6 +361,13 @@
 					this.positionType = 1
 				} else if (e == '地址') {
 					this.positionType = 2
+				}
+			},
+			sourceChange(e) {
+				if (e == '以个人') {
+					this.card.source = 0
+				} else if (e == '以机构') {
+					this.card.source = 1
 				}
 			},
 			clickLeft() {

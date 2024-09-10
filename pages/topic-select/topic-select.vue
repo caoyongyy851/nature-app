@@ -3,7 +3,7 @@
 		<view class="">
 			<uni-nav-bar left-icon="back" @clickLeft="clickLeft" :fixed="true" title="选一个">
 				<view slot="left" class="flex align-center mt-4">
-					<image src="/static/logo.png" mode="aspectFill" style="width: 120rpx; height: 120rpx;"></image>
+					<image src="/static/logo.jpg" mode="aspectFill" style="width: 120rpx; height: 120rpx;"></image>
 				</view>
 			</uni-nav-bar>
 		</view>

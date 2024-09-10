@@ -131,7 +131,7 @@ const install = (Vue, vm) => {
 	let getCover = (params = {}) => vm.$u.get(`/nature/nocheck/getCover`);
 	// 获取话题列表
 	let getTopicList = (params = {}) => vm.$u.get(
-		`/nature/front/getTopicList/${params.type}/${params.pageNum}/${params.pageSize}`);
+		`/nature/front/getTopicList/${params.search}/${params.type}/${params.pageNum}/${params.pageSize}`);
 	// 创建话题
 	let createTopic = (params = {}) => vm.$u.post(`/nature/front/createTopic`, params);
 	// 获取话题详情
@@ -182,18 +182,37 @@ const install = (Vue, vm) => {
 	let getOrderById = (params = {}) => vm.$u.get(
 		`/nature/pay/getOrderById`, params);
 
+	// 获取订单号
+	let getActOrderById = (params = {}) => vm.$u.get(
+		`/nature/pay/getActOrderById`, params);
+
 	// 创建玩场订单
 	let createCOrder = (params = {}) => vm.$u.post(
 		`/nature/pay/createCOrder`, params);
 	// 创建微信预支付订单
 	let createOrder = (params = {}) => vm.$u.post(
 		`/nature/pay/createOrder`, params);
+	// 创建微信预支付订单
+	let payActOrder = (params = {}) => vm.$u.post(
+		`/nature/pay/payActOrder`, params);
+	// 创建微信预支付订单
+	let createActOrder = (params = {}) => vm.$u.post(
+		`/nature/pay/createActOrder`, params);
 	// 获取用户订单列表
 	let getOrderByUid = (params = {}) => vm.$u.get(
 		`/nature/front/getOrderByUid/${params.pageNum}/${params.pageSize}`, params);
 	// 取消订单
 	let closeOrder = (params = {}) => vm.$u.get(
 		`/nature/pay/closeOrder/${params.orderNo}`, params);
+	// 取消订单
+	let closeActOrder = (params = {}) => vm.$u.get(
+		`/nature/pay/closeActOrder/${params.orderNo}`, params);
+	// 活动订单退款
+	let refundActOrder = (params = {}) => vm.$u.get(
+		`/nature/pay/refundActOrder/${params.id}`);
+	// 确认活动订单
+	let confirmActOrder = (params = {}) => vm.$u.get(
+		`/nature/pay/confirmActOrder/${params.id}`);
 	// 申请退款
 	let refundAudit = (params = {}) => vm.$u.post(
 		`/nature/front/refundAudit`, params);
@@ -220,15 +239,56 @@ const install = (Vue, vm) => {
 		`/nature/front/getTopicCover`);
 	// 获取话题用户列表
 	let getTopicUserList = (params = {}) => vm.$u.get(
-		`/nature/nocheck/getTopicUserList/${params.topicId}`);	
-		
+		`/nature/nocheck/getTopicUserList/${params.topicId}`);
+
 	// 获取活动用户列表
 	let getActivityUserList = (params = {}) => vm.$u.get(
-		`/nature/front/getActivityUserList/${params.id}`);	
-		
+		`/nature/front/getActivityUserList/${params.id}`);
+
 	// 获取话题标签
 	let getTopicName = (params = {}) => vm.$u.get(
-		`/nature/nocheck/getTopicName/${params.type}`);		
+		`/nature/nocheck/getTopicName/${params.type}`);
+	// 获取活动评论列表
+	let getContextByUser = (params = {}) => vm.$u.get(
+		`/nature/front/getContextByUser/${params.pageNum}/${params.pageSize}`);
+
+	// 获取话题标签
+	let getFollower = (params = {}) => vm.$u.get(
+		`/nature/front/getFollower`);
+	// 获取话题标签
+	let getFanser = (params = {}) => vm.$u.get(
+		`/nature/front/getFanser`);
+	// 获取话题标签
+	let getCeller = (params = {}) => vm.$u.get(
+		`/nature/front/getCeller`);
+	// 获取话题标签
+	let changeAvatar = (params = {}) => vm.$u.post(
+		`/nature/front/changeUserAvatar`, params);
+	// 获取关注的话题
+	let getFollowTopicList = (params = {}) => vm.$u.get(
+		`/nature/front/getFollowTopicList/${params.pageNum}/${params.pageSize}`);
+
+	// 写私信
+	let writeLetter = (params = {}) => vm.$u.post(
+		`/nature/front/writerLetter`, params);
+
+	// 获取关注的话题
+	let getLetterList = (params = {}) => vm.$u.get(
+		`/nature/front/getLetterList`);
+	// 获取关注的话题
+	let setLetter = (params = {}) => vm.$u.get(
+		`/nature/front/setLetter`);
+
+	// 获取文档
+	let getQrcode = (params = {}) => vm.$u.get(
+		`/nature/nocheck/getQrCode/${params.aid}`);
+	// 获取关注的话题
+	let getFollowStatus = (params = {}) => vm.$u.get(
+		`/nature/front/getFollowStatus/${params.fid}`);
+
+	// 获取关注的话题
+	let getMyJoin = (params = {}) => vm.$u.get(
+		`/nature/front/getMyJoin`);
 	vm.$u.api = {
 		login,
 		auth,
@@ -286,9 +346,13 @@ const install = (Vue, vm) => {
 		createCOrder,
 		phone,
 		getOrderById,
+		getActOrderById,
 		createOrder,
+		payActOrder,
+		createActOrder,
 		getOrderByUid,
 		closeOrder,
+		closeActOrder,
 		refundAudit,
 		createCompany,
 		getCompanyByUid,
@@ -302,7 +366,21 @@ const install = (Vue, vm) => {
 		getTopicCover,
 		getTopicUserList,
 		getActivityUserList,
-		getTopicName
+		getTopicName,
+		getContextByUser,
+		getFollower,
+		getFanser,
+		getCeller,
+		changeAvatar,
+		getFollowTopicList,
+		writeLetter,
+		getLetterList,
+		setLetter,
+		getQrcode,
+		getFollowStatus,
+		getMyJoin,
+		refundActOrder,
+		confirmActOrder
 	};
 }
 

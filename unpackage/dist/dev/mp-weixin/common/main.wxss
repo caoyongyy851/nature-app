@@ -5053,6 +5053,11 @@ to {
   border-bottom-style: solid;
   border-bottom-color: #dee2e6;
 }
+.border-bottom-1 {
+  border-bottom-width: 1rpx;
+  border-bottom-style: solid;
+  border-bottom-color: #fd5f40;
+}
 .border-left {
   border-left-width: 1rpx;
   border-left-style: solid;
@@ -5167,7 +5172,7 @@ to {
 	color: #fd5f40;
 }
 .btn-main{
-	background-color: #8afab2;
+	background-color: #89aa9a;
 }
 .bg-color{
 	background-color: #F5F5F5!important;

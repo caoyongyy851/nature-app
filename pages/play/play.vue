@@ -3,11 +3,10 @@
 		<u-toast ref="uToast" />
 		<uni-nav-bar fixed="true">
 			<view slot="left" class="flex align-center mt-4">
-				<image src="/static/logo.png" lazy-load="true" mode="aspectFill" style="width: 150rpx; height: 120rpx;">
+				<image src="/static/logo.jpg" lazy-load="true" mode="aspectFill" style="width: 150rpx; height: 120rpx;">
 				</image>
 			</view>
 		</uni-nav-bar>
-
 		<!-- 轮播图 -->
 		<view class="p-2">
 			<u-swiper :list="topicSwiperList" height="530" @click="swiperClick"></u-swiper>
@@ -19,14 +18,16 @@
 						style="width: 345rpx; height: 345rpx;"></image>
 					<text class="textTag1">{{cover[0].tagEn}}</text>
 					<text class="textTag2">{{cover[0].tag}}</text>
-					<view v-if="cover[0].sign == 1" class="bg-main rounded-circle shadow position-absolute" style="width: 25rpx; height: 25rpx; top: -10rpx; right: -10rpx;"/>
+					<view v-if="cover[0].sign == 1" class="bg-main rounded-circle shadow position-absolute"
+						style="width: 25rpx; height: 25rpx; top: -10rpx; right: -10rpx;" />
 				</view>
 				<view class="viewContainer position-relative" v-if="cover[1]" @click="goto(cover[1].topicType)">
 					<image :src="getImgBase + cover[1].coverImg" lazy-load="true" class="rounded" mode="aspectFill"
 						style="width: 345rpx; height: 345rpx;"></image>
 					<text class="textTag1">{{cover[1].tagEn}}</text>
 					<text class="textTag2">{{cover[1].tag}}</text>
-					<view v-if="cover[1].sign == 1" class="bg-main rounded-circle shadow position-absolute" style="width: 25rpx; height: 25rpx; top: -10rpx; right: -10rpx;"/>
+					<view v-if="cover[1].sign == 1" class="bg-main rounded-circle shadow position-absolute"
+						style="width: 25rpx; height: 25rpx; top: -10rpx; right: -10rpx;" />
 				</view>
 			</view>
 			<view class="flex">
@@ -35,14 +36,16 @@
 						style="width: 345rpx; height: 345rpx;"></image>
 					<text class="textTag1">{{cover[2].tagEn}}</text>
 					<text class="textTag2">{{cover[2].tag}}</text>
-					<view v-if="cover[2].sign == 1" class="bg-main rounded-circle shadow position-absolute" style="width: 25rpx; height: 25rpx; top: -10rpx; right: -10rpx;"/>
+					<view v-if="cover[2].sign == 1" class="bg-main rounded-circle shadow position-absolute"
+						style="width: 25rpx; height: 25rpx; top: -10rpx; right: -10rpx;" />
 				</view>
 				<view class="viewContainer position-relative" v-if="cover[3]" @click="goto(cover[3].topicType)">
 					<image :src="getImgBase + cover[3].coverImg" lazy-load="true" class="rounded" mode="aspectFill"
 						style="width: 345rpx; height: 345rpx;"></image>
 					<text class="textTag1">{{cover[3].tagEn}}</text>
 					<text class="textTag2">{{cover[3].tag}}</text>
-					<view v-if="cover[3].sign == 1" class="bg-main rounded-circle shadow position-absolute" style="width: 25rpx; height: 25rpx; top: -10rpx; right: -10rpx;"/>
+					<view v-if="cover[3].sign == 1" class="bg-main rounded-circle shadow position-absolute"
+						style="width: 25rpx; height: 25rpx; top: -10rpx; right: -10rpx;" />
 				</view>
 			</view>
 		</view>
@@ -54,7 +57,7 @@
 			:show-cancel-button="false">
 			<view class="mx-3 p-3 rounded-1 bg-white">
 				<view class="flex align-center justify-center">
-					<image src="../../static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
+					<image src="../../static/logo.jpg" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
 					</image>
 				</view>
 				<view class="flex align-center justify-center">
@@ -73,9 +76,23 @@
 						去授权
 					</view>
 				</view>
-				<view class="flex align-center justify-center m-1" style="color: #5cbba5;" @click="authModal.show = false">
+				<view class="flex align-center justify-center m-1" style="color: #5cbba5;"
+					@click="authModal.show = false">
 					暂不登录
 				</view>
+			</view>
+		</u-modal>
+		<u-modal v-model="advModal.show" :title="advModal.title" width="650" :show-confirm-button="true"
+			:show-cancel-button="true" mask-close-able>
+			<view class="mx-3 p-3 rounded-1 bg-white">
+				<view class="flex align-center justify-center">
+					<image src="../../static/logo.jpg" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
+					</image>
+				</view>
+				<view class="flex align-center justify-center mt-1">
+					<text class="font">{{advModal.remark}}</text>
+				</view>
+				
 			</view>
 		</u-modal>
 	</view>
@@ -98,35 +115,50 @@
 				authModal: {
 					show: false
 				},
+				advModal: {
+					show: false,
+					title: '',
+					remark: '',
+				},
+				loadShow: false
 			}
+		},
+		onShareAppMessage: function() {
+
+		},
+		onPullDownRefresh: function() {
+			this.init();
+			setTimeout(function() {
+				uni.stopPullDownRefresh()
+			}, 1000);
 		},
 		onLoad(option) {
 			this.init()
-			if(option.isshare == 1){
-				if(option.sharePage == 'detail'){
-					setTimeout(function(){
+			if (option.isshare == 1) {
+				if (option.sharePage == 'detail') {
+					setTimeout(function() {
 						uni.navigateTo({
 							url: `../detail/detail?id=${option.id}`
 						})
-					},2000)
-				}else if(option.sharePage == 'playDetail'){
-					setTimeout(function(){
+					}, 2000)
+				} else if (option.sharePage == 'playDetail') {
+					setTimeout(function() {
 						uni.navigateTo({
 							url: `../play-detail/play-detail?id=${option.id}`
 						})
-					},2000)
-				}else if(option.sharePage == 'activityDetail'){
-					setTimeout(function(){
+					}, 2000)
+				} else if (option.sharePage == 'activityDetail') {
+					setTimeout(function() {
 						uni.navigateTo({
 							url: `../activity-detail/detail?id=${option.id}`
 						})
-					},2000)
-				}else if(option.sharePage == 'placeDetail'){
-					setTimeout(function(){
+					}, 2000)
+				} else if (option.sharePage == 'placeDetail') {
+					setTimeout(function() {
 						uni.navigateTo({
 							url: `../place-detail/place-detail?id=${option.id}`
 						})
-					},2000)
+					}, 2000)
 				}
 			}
 		},
@@ -157,10 +189,17 @@
 				})
 			},
 			swiperClick(index) {
-				let id = this.topicSwiperList[index].id
-				uni.navigateTo({
-					url: `../play-detail/play-detail?id=${id}`
-				})
+				if (this.topicSwiperList[index].topicType == 0) {
+					uni.navigateTo({
+						url: `../play-detail/play-detail?id=${this.topicSwiperList[index].topicId}`
+					})
+				}else if(this.topicSwiperList[index].topicType == 1){
+					this.advModal = {
+						show: true,
+						title: this.topicSwiperList[index].title,
+						remark: this.topicSwiperList[index].remark
+					}
+				}
 			},
 			toAddPlay() {
 				if (this.getNeedAuth) {
@@ -174,23 +213,23 @@
 			toAuth() {
 				if (this.getNeedAuth) {
 					this.authUserInfo().then(res => {
-						if(res == 'success'){
+						if (res == 'success') {
 							this.$refs.uToast.show({
 								type: 'success',
 								title: '授权成功~'
 							})
 							this.authModal = false
-						}else{
+						} else {
 							this.$refs.uToast.show({
 								type: 'error',
 								title: '授权失败~'
 							})
 						}
-						
+
 					})
 					return
 				}
-			}
+			},
 		}
 	}
 </script>

@@ -3,7 +3,7 @@
 		<u-toast ref="uToast" />
 		<uni-nav-bar left-icon="back" @clickLeft="clickLeft" :fixed="true" :title="placeDetail.name">
 			<view slot="left" class="flex align-center mt-4" @click="toIndex">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 150rpx; height: 120rpx;" lazy-load="true"></image>
+				<image src="/static/logo.jpg" mode="aspectFill" style="width: 150rpx; height: 120rpx;" lazy-load="true"></image>
 			</view>
 		</uni-nav-bar>
 		<u-toast ref="uToast" />
@@ -201,7 +201,7 @@
 			:show-cancel-button="false">
 			<view class="mx-3 p-3 rounded-1 bg-white">
 				<view class="flex align-center justify-center">
-					<image src="../../static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
+					<image src="../../static/logo.jpg" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
 					</image>
 				</view>
 				<view class="flex align-center justify-center">
@@ -293,7 +293,7 @@
 			this.id = e.id
 			this.order.placeId = e.id
 			this.init()
-			
+
 			setTimeout(() => {
 				this.scheInfo.selected = []
 				// 设置日期与价格
@@ -328,7 +328,7 @@
 				}).then(res => {
 					this.placeDetail = res.data
 					this.placeDetail.videosLength = this.placeDetail.videos ? 1 : 0
-					this.order.price = this.placeDetail.sches[0].price 			
+					this.order.price = this.placeDetail.sches[0].price
 					this.order.planDate = this.placeDetail.sches[0].ytd
 					this.order.surplus = this.placeDetail.sches[0].surplus
 					uni.setNavigationBarTitle({

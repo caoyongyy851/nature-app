@@ -2,14 +2,14 @@
 	<view class="p-2">
 		<u-toast ref="uToast" />
 		<view class="p-2">
-			<u-input v-model="activity.title" type="text" trim="true" placeholder="活动标题~" maxlength="12" />
+			<u-input v-model="activity.title" type="text" trim="true" placeholder="活动标题~" maxlength="500" />
 		</view>
 
 		<view class="p-2">
-			<u-input v-model="activity.detail" type="textarea" trim="true" placeholder="活动详情~" maxlength="500" />
+			<u-input v-model="activity.detail" type="textarea" trim="true" placeholder="活动详情~" maxlength="5000" />
 		</view>
 		<view class="p-2">
-			<u-input v-model="activity.label" type="text" trim="true" placeholder="标签多个空格隔开~" maxlength="50" />
+			<u-input v-model="activity.label" type="text" trim="true" placeholder="标签多个空格隔开~" maxlength="500" />
 		</view>
 		<view class="p-2">
 			<view class="flex justify-between text-muted" @click="mapShow">

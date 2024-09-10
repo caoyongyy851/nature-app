@@ -1,6 +1,6 @@
 {
   "navigationBarTitleText": "玩场",
-  "enablePullDownRefresh": false,
+  "enablePullDownRefresh": true,
   "navigationStyle": "custom",
   "usingComponents": {
     "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",

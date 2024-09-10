@@ -1,0 +1,9 @@
+{
+  "navigationBarTitleText": "参与活动人员",
+  "enablePullDownRefresh": false,
+  "usingComponents": {
+    "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",
+    "u-avatar": "/node-modules/uview-ui/components/u-avatar/u-avatar",
+    "u-icon": "/node-modules/uview-ui/components/u-icon/u-icon"
+  }
+}

@@ -2,7 +2,7 @@
   "navigationBarTitleText": "我的帖子",
   "enablePullDownRefresh": false,
   "usingComponents": {
-    "u-swipe-action": "/node-modules/uview-ui/components/u-swipe-action/u-swipe-action",
+    "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",
     "u-empty": "/node-modules/uview-ui/components/u-empty/u-empty"
   }
 }

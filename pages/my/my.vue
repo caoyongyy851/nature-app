@@ -3,11 +3,11 @@
 		<u-toast ref="uToast" />
 		<uni-nav-bar fixed="true">
 			<view slot="left" class="flex align-center mt-4">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 150rpx; height: 120rpx;"></image>
+				<image src="/static/logo.jpg" mode="aspectFill" style="width: 150rpx; height: 120rpx;"></image>
 			</view>
 		</uni-nav-bar>
 		<!-- 头像 简介 -->
-		<view class="flex align-center p-2 mt-3" hover-class="bg-light" @click="toSelf">
+		<view class="flex align-center p-2 mt-3" hover-class="bg-light" >
 			<u-avatar v-if="!getNeedAuth" :src="getUserinfo.avatar" :size="100" :show-sex="false"
 				:sexIcon="getUserinfo.sex==1?'man':'woman'">
 			</u-avatar>
@@ -19,18 +19,18 @@
 					<text v-else class="font-lg text-dark">点击授权~</text>
 				</view>
 				<view class="flex">
-					<view class="mr-3">
+					<view class="mr-3" @click="toFollow()">
 						{{self.follows}}<text class="text-muted ml-1">关注</text>
 					</view>
-					<view class="mr-3">
+					<view class="mr-3" @click="toFans()">
 						{{self.fans}}<text class="text-muted ml-1">粉丝</text>
 					</view>
-					<view class="mr-3">
+					<view class="mr-3" @click="toCaller()">
 						{{self.callers}}<text class="text-muted ml-1">访客</text>
 					</view>
 				</view>
 			</view>
-			<view class="iconfont icon-jinru font-lg">
+			<view class="iconfont icon-jinru font-lg pl-5" @click="toSelf">
 			</view>
 		</view>
 		<!-- 关注、粉丝、访客 -->
@@ -42,11 +42,11 @@
 		<!-- 选项栏 -->
 		<view class="flex align-center px-7 py-2">
 			<u-grid col="4" :border="border" @click="gridClick">
-			
+
 				<u-grid-item :index="0">
 					<!-- <u-badge :count="self.topics" :offset="[20, 30]"></u-badge> -->
 					<u-icon name="tags" :size="46"></u-icon>
-					<view class="grid-text">话题</view>
+					<view class="grid-text">圈子</view>
 				</u-grid-item>
 				<u-grid-item :index="1">
 					<!-- <u-badge :count="self.topics" :offset="[20, 30]"></u-badge> -->
@@ -59,7 +59,7 @@
 					<view class="grid-text">参与</view>
 				</u-grid-item>
 				<u-grid-item :index="3">
-					<u-badge :count="self.critics" :offset="[20, 30]"></u-badge>
+					<!-- <u-badge :count="self.critics" :offset="[20, 30]"></u-badge> -->
 					<u-icon name="more-circle" :size="46"></u-icon>
 					<view class="grid-text">消息</view>
 				</u-grid-item>
@@ -84,23 +84,31 @@
 				<text class="font text-muted">现金账户</text>
 			</view>
 		</view>
+		<uni-list-item title="我的私信" showExtraIcon :showBadge="self.newLetters > 0 ? true : false" :badgeText="self.newLetters" @click="toLetter">
+			<text slot="icon" class="iconfont icon-xiaoxi"></text>
+
+		</uni-list-item>
+		<uni-list-item title="关注话题" showExtraIcon @click="toTopicList">
+			<text slot="icon" class="iconfont icon-xihuan1"></text>
+		</uni-list-item>
 		<uni-list-item title="我的订单" showExtraIcon @click="toOrderList">
 			<text slot="icon" class="iconfont icon-bianji1"></text>
 		</uni-list-item>
+
 		<uni-list-item title="种子商城" showExtraIcon @click="toShop">
 			<text slot="icon" class="iconfont icon-caidan"></text>
 		</uni-list-item>
 		<uni-list-item title="个人主页" showExtraIcon @click="openSpace(getUserinfo.id)">
 			<text slot="icon" class="iconfont icon-huiyuanvip"></text>
 		</uni-list-item>
-		<uni-list-item title="申请公司/机构号" showExtraIcon @click="toCompany">
+		<uni-list-item title="申请公司/机构号" showExtraIcon @click="toCompany" v-if="!getUserinfo.companyId">
 			<text slot="icon" class="iconfont icon-guanyuwomen "></text>
 		</uni-list-item>
 		<u-modal v-model="authModal.show" title=" " width="550" :show-confirm-button="false"
 			:show-cancel-button="false">
 			<view class="mx-3 p-3 rounded-1 bg-white">
 				<view class="flex align-center justify-center">
-					<image src="../../static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
+					<image src="../../static/logo.jpg" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
 					</image>
 				</view>
 				<view class="flex align-center justify-center">
@@ -175,7 +183,7 @@
 						this.authModal.show = true
 					}
 				})
-				
+
 			},
 			async auth() {
 				if (this.getNeedAuth) {
@@ -186,7 +194,7 @@
 				// })
 			},
 			cardClick(e) {
-				
+
 			}, // authFinsh(e) {
 			// 	console.log('------', e)
 			// }
@@ -235,6 +243,11 @@
 					url: '../order-list/order-list'
 				})
 			},
+			toTopicList(){
+				uni.navigateTo({
+					url: '../follow-topic/follow-topic'
+				})
+			},
 			gridClick(e){
 				if(e == 0){
 					uni.navigateTo({
@@ -248,8 +261,12 @@
 					uni.navigateTo({
 						url: '../user-card/user-card'
 					})
+				}else if(e == 3){
+					uni.navigateTo({
+						url: '../content-list/content-list'
+					})
 				}
-				
+
 			},
 			// 到个人中心
 			openSpace(uid) {
@@ -272,10 +289,30 @@
 								title: '授权失败~'
 							})
 						}
-						
+
 					})
 					return
 				}
+			},
+			toFollow() {
+				uni.navigateTo({
+					url: '../user-list/user-list?type=1'
+				})
+			},
+			toFans(){
+				uni.navigateTo({
+					url: '../user-list/user-list?type=2'
+				})
+			},
+			toCaller(){
+				uni.navigateTo({
+					url: '../user-list/user-list?type=3'
+				})
+			},
+			toLetter(){
+				uni.navigateTo({
+					url: '../user-letter/user-letter'
+				})
 			}
 		}
 	}

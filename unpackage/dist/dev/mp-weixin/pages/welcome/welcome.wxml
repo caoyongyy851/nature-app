@@ -1,1 +1,1 @@
-<view><image style="{{'width:750rpx;'+('height: '+scrollH+'px')}}" src="/static/nature/welcome.png" mode="aspectFill"></image></view>
+<view><image style="{{'width:750rpx;'+('height: '+scrollH+'px')}}" src="/static/nature/welcome.jpg" mode="aspectFill"></image></view>

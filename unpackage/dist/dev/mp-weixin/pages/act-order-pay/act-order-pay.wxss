@@ -1,0 +1,9 @@
+
+page {
+	background-color: #f7f7f7;
+}
+.item {
+	/* background-color: rgba(0, 0, 0, 0.05); */
+	padding: 5rpx 10rpx;
+}
+

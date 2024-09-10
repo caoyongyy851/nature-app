@@ -2,15 +2,17 @@
 	<view style="">
 		<uni-nav-bar left-icon="back" @clickLeft="clickLeft" fixed="true">
 			<view slot="left" class="flex align-center mt-4">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 150rpx; height: 120rpx;"></image>
+				<image src="/static/logo.jpg" mode="aspectFill" style="width: 150rpx; height: 120rpx;"></image>
 			</view>
 		</uni-nav-bar>
 		<view class="p-2">
 			<u-swiper :list="topicSwiperList" height="530" @click="swiperClick"></u-swiper>
 		</view>
-		<view class="font-md font-weight-bold m-2 flex justify-center text-main">
+		<!-- 	<view class="font-md font-weight-bold m-2 flex justify-center text-main">
 			{{typeName}}
-		</view>
+		</view> -->
+		<u-tabs :list="tabList" :is-scroll="false" :current="tabCurrent" @change="tabChange" bg-color="#f7f7f7"
+			active-color="#fd5f40"></u-tabs>
 		<view>
 			<view class="flex align-center flex-wrap w-100 p-1">
 				<view class="m-1 rounded shadow-sm position-relative" style="width: 47.26%; background-color: #ffffff;"
@@ -32,32 +34,36 @@
 									style="width:117rpx;text-overflow :ellipsis;white-space :nowrap;overflow : hidden;">
 									发布者
 								</text>
-								<text class="font-sm text-muted">{{item.companyName ? item.companyName:item.nickname}}</text>
+								<text
+									class="font-sm text-muted">{{item.companyName ? item.companyName:item.nickname}}</text>
 							</view>
 						</view>
 					</view>
 
 					<view class="flex flex-column justify-start px-2 my-3">
 						<view class="mt-2">
-							<text class="font text-dark" style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;">{{item.title}}</text>
+							<text class="font text-dark"
+								style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;">{{item.title}}</text>
 						</view>
 						<view class="mt-1 font-sm text-muted font-weight-light"
 							style="overflow: hidden;text-overflow: ellipsis;display: -webkit-box;-webkit-line-clamp: 1;-webkit-box-orient: vertical;">
 							{{item.detail}}
 						</view>
 					</view>
-					<view v-if="item.sign == 1" class="bg-main rounded-circle shadow position-absolute" style="width: 25rpx; height: 25rpx; top: -10rpx; right: -10rpx;"/>
+					<view v-if="item.sign == 1" class="bg-main rounded-circle shadow position-absolute"
+						style="width: 25rpx; height: 25rpx; top: -10rpx; right: -10rpx;" />
 				</view>
 			</view>
 		</view>
 		<view class="fixed-bottom-right" @click="toAddPlay">
-			<text class="text-white iconfont icon-zengjia rounded-circle btn-main text-main" style="font-size: 80rpx;"></text>
+			<text class="text-white iconfont icon-zengjia rounded-circle btn-main text-main"
+				style="font-size: 80rpx;"></text>
 		</view>
 		<u-modal v-model="authModal.show" title=" " width="550" :show-confirm-button="false"
 			:show-cancel-button="false">
 			<view class="mx-3 p-3 rounded-1 bg-white">
 				<view class="flex align-center justify-center">
-					<image src="../../static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
+					<image src="../../static/logo.jpg" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
 					</image>
 				</view>
 				<view class="flex align-center justify-center">
@@ -98,7 +104,7 @@
 		data() {
 			return {
 				type: 0,
-				topicList:[],
+				topicList: [],
 				typeName: '',
 				queryParams: {
 					pageNum: 1,
@@ -110,6 +116,14 @@
 				authModal: {
 					show: false
 				},
+				tabList: [{
+					name: '精选'
+				}, {
+					name: '最新'
+				}, {
+					name: '关注'
+				}],
+				tabCurrent: 0
 			}
 		},
 		onLoad(e) {
@@ -127,13 +141,14 @@
 		methods: {
 			...mapActions(['login', 'authUserInfo']),
 			init() {
-				
+
 				this.$u.api.getTopicName({
 					type: this.type
 				}).then(res => {
 					this.typeName = res.data.tagEn + ' ' + res.data.tag
 				})
 				this.$u.api.getTopicList({
+					search: this.tabCurrent,
 					type: this.type,
 					pageNum: 1,
 					pageSize: this.queryParams.pageSize
@@ -141,15 +156,21 @@
 					this.topicList = res.data
 				})
 				this.$u.api.getTopicSwiper().then(res => {
-					this.topicSwiperList = res.data.map((item,index) => {
+					this.topicSwiperList = res.data.map((item, index) => {
 						item.image = this.getImgBase + item.image
 						return item
 					})
 				})
 			},
-			clickLeft(){
+			onPullDownRefresh: function() {
+				this.init();
+				setTimeout(function() {
+					uni.stopPullDownRefresh()
+				}, 1000);
+			},
+			clickLeft() {
 				uni.navigateBack({
-				    delta: 1
+					delta: 1
 				});
 			},
 			toAddPlay() {
@@ -161,16 +182,23 @@
 					url: `../add-play/add-play?type=${this.type}`
 				})
 			},
-			openDetail(item){
+			openDetail(item) {
 				uni.navigateTo({
 					url: `../play-detail/play-detail?id=${item.id}`
 				})
 			},
-			swiperClick(index){
-				let id = this.topicSwiperList[index].id
-				uni.navigateTo({
-					url: `../play-detail/play-detail?id=${id}`
-				})
+			swiperClick(index) {
+				if (this.topicSwiperList[index].topicType == 0) {
+					uni.navigateTo({
+						url: `../play-detail/play-detail?id=${this.topicSwiperList[index].topicId}`
+					})
+				} else if (this.topicSwiperList[index].topicType == 1) {
+					this.advModal = {
+						show: true,
+						title: this.topicSwiperList[index].title,
+						remark: this.topicSwiperList[index].remark
+					}
+				}
 			},
 			toAuth() {
 				if (this.getNeedAuth) {
@@ -192,22 +220,36 @@
 				}
 			},
 			onReachBottom() {
-				if(!this.isBottom){
-					this.queryParams.pageNum ++
+				if (!this.isBottom) {
+					this.queryParams.pageNum++
 					let newList = []
 					this.$u.api.getTopicList({
+						search: this.tabCurrent,
 						type: this.type,
 						pageNum: this.queryParams.pageNum,
 						pageSize: this.queryParams.pageSize
 					}).then(res => {
-						if(res.data.length > 0){
+						if (res.data.length > 0) {
 							newList = res.data
 							this.topicList = [...this.topicList, ...newList]
-						}else{
+						} else {
 							this.isBottom = true
 						}
 					})
 				}
+			},
+			tabChange(index) {
+				this.tabCurrent = index
+				this.isBottom = false
+				this.queryParams.pageNum = 1
+				this.$u.api.getTopicList({
+					search: this.tabCurrent,
+					type: this.type,
+					pageNum: 1,
+					pageSize: this.queryParams.pageSize
+				}).then(res => {
+					this.topicList = res.data
+				})
 			}
 		}
 	}
@@ -223,6 +265,7 @@
 		left: 20rpx;
 		bottom: -32rpx;
 	}
+
 	page {
 		background-color: #f7f7f7;
 	}

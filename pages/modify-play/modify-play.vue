@@ -3,7 +3,7 @@
 		<u-toast ref="uToast" />
 		<uni-nav-bar left-icon="back" @clickLeft="clickLeft" title="修改话题" fixed="true">
 			<view slot="left" class="flex align-center mt-4">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 120rpx; height: 120rpx;"></image>
+				<image src="/static/logo.jpg" mode="aspectFill" style="width: 120rpx; height: 120rpx;"></image>
 			</view>
 		</uni-nav-bar>
 		<view class="p-2">
@@ -26,10 +26,10 @@
 				</view>
 			</view>
 			<view class="p-2">
-				<u-input v-model="topic.title" trim="true" placeholder="请输入标题~" maxlength="12" />
+				<u-input v-model="topic.title" trim="true" placeholder="请输入标题~" maxlength="500" />
 			</view>
 			<view class="p-2">
-				<u-input v-model="topic.detail" type="textarea" trim="true" placeholder="写点东西吧~" maxlength="500" />
+				<u-input v-model="topic.detail" type="textarea" trim="true" placeholder="写点东西吧~" maxlength="5000" />
 			</view>
 			<view>
 				<view class="px-2">

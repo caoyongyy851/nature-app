@@ -2,9 +2,12 @@
   "navigationBarTitleText": "个人空间",
   "enablePullDownRefresh": false,
   "usingComponents": {
+    "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",
     "u-avatar": "/node-modules/uview-ui/components/u-avatar/u-avatar",
     "u-tabs": "/node-modules/uview-ui/components/u-tabs/u-tabs",
     "u-loadmore": "/node-modules/uview-ui/components/u-loadmore/u-loadmore",
-    "u-empty": "/node-modules/uview-ui/components/u-empty/u-empty"
+    "u-empty": "/node-modules/uview-ui/components/u-empty/u-empty",
+    "u-modal": "/node-modules/uview-ui/components/u-modal/u-modal",
+    "u-input": "/node-modules/uview-ui/components/u-input/u-input"
   }
 }

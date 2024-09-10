@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<image src="/static/nature/welcome.png" mode="aspectFill" style="width: 750rpx;" :style="'height: ' + scrollH + 'px'"></image>
+		<image src="/static/nature/welcome.jpg" mode="aspectFill" style="width: 750rpx;" :style="'height: ' + scrollH + 'px'"></image>
 	</view>
 </template>
 
@@ -24,7 +24,7 @@
 			}, 4000)
 		},
 		methods: {
-			
+
 		}
 	}
 </script>

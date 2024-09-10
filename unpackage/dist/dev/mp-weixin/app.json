@@ -31,12 +31,17 @@
     "pages/modify-activity/modify-activity",
     "pages/modify-play/modify-play",
     "pages/user-list/user-list",
-    "pages/user-activity-list/user-activity-list"
+    "pages/user-activity-list/user-activity-list",
+    "pages/content-list/content-list",
+    "pages/user-userinfo/image-cut",
+    "pages/follow-topic/follow-topic",
+    "pages/user-letter/user-letter",
+    "pages/act-order-pay/act-order-pay"
   ],
   "subPackages": [],
   "window": {
     "navigationBarTextStyle": "black",
-    "navigationBarTitleText": "自然玩主",
+    "navigationBarTitleText": "WeEAST物与",
     "navigationBarBackgroundColor": "#FFFFFF",
     "backgroundColor": "#FFFFFF"
   },

@@ -2,11 +2,11 @@
 	<view>
 		<uni-nav-bar left-icon="back" @clickLeft="clickLeft" :fixed="true">
 			<view slot="left" class="flex align-center mt-4" @click="toIndex">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 150rpx; height: 120rpx;"></image>
+				<image src="/static/logo.jpg" mode="aspectFill" style="width: 150rpx; height: 120rpx;"></image>
 			</view>
 		</uni-nav-bar>
 		<u-toast ref="uToast" />
-		<view style="background-size: 750rpx; background-repeat:no-repeat; background-color: #0E151D;" 
+		<view style="background-size: 750rpx; background-repeat:no-repeat; background-color: #0E151D;"
 			:style="'background-image: url('+ getImgBase + topic.cover +')'">
 			<view class="flex flex-column align-center justify-center text-white pt-20">
 				<view class="font-lg">
@@ -35,12 +35,14 @@
 					</view>
 					<rich-text selectable="true" preview="true">
 						<view class="flex align-center justify-center" style="width: 520rpx;">
-							<text class="font text-muted" space="nbsp" user-select="true" style="line-height: 1.8;" >
+							<text class="font text-muted" space="nbsp" user-select="true" style="line-height: 1.8;">
 								{{topic.detail}}
 							</text>
 						</view>
-						<view class="flex align-center justify-center my-2" v-if="topic.imageList.length > 0" v-for="(item, index) in topic.imageList">
-							<image :src="getImgBase + item" mode="aspectFill" style="width: 500rpx; height: 400rpx;" lazy-load="true">
+						<view class="flex align-center justify-center my-2" v-if="topic.imageList.length > 0"
+							v-for="(item, index) in topic.imageList" :key="index">
+							<image :src="getImgBase + item" mode="aspectFill" style="width: 500rpx; height: 400rpx;"
+								lazy-load="true">
 							</image>
 						</view>
 					</rich-text>
@@ -70,15 +72,16 @@
 								</view>
 							</view>
 						</view>
-						<view v-if="item.sn == 1" class="bg-main rounded-circle shadow position-absolute" style="width: 25rpx; height: 25rpx; top: -10rpx; right: -10rpx;"/>
+						<view v-if="item.sn == 1" class="bg-main rounded-circle shadow position-absolute"
+							style="width: 25rpx; height: 25rpx; top: -10rpx; right: -10rpx;" />
 					</view>
 					<view class="" @click="toCard(item)">
 						<view class="swiperContainer mb-2">
 							<swiper :autoplay="false" :duration="1000" style="width: 100%; height: 400rpx;">
-								<swiper-item v-if="item.vidList.length > 0" v-for="(item1, index1) in item.vidList" :key="index1">
-									<video :src="getImgBase + item1"
-										autoplay="true" muted="true" loop="true" object-fit="fill"
-										:show-play-btn="false" :show-fullscreen-btn="false"
+								<swiper-item v-if="item.vidList.length > 0" v-for="(item1, index1) in item.vidList"
+									:key="index1">
+									<video :src="getImgBase + item1" autoplay="true" muted="true" loop="true"
+										object-fit="fill" :show-play-btn="false" :show-fullscreen-btn="false"
 										style="width: 100%; height: 400rpx;" class="rounded-top-1">
 									</video>
 								</swiper-item>
@@ -92,8 +95,8 @@
 							</view>
 						</view>
 					</view>
-					<view class="pt-2">
-						<text class="font-md text-muted" space="nbsp" user-select="true" >{{item.detail}}</text>
+					<view class="pt-2" @click="toCard(item)">
+						<text class="font text-muted" space="nbsp"  style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;overflow: hidden;">{{item.detail}}</text>
 					</view>
 					<view class="pt-2 flex align-center justify-between">
 						<view class="">
@@ -125,15 +128,16 @@
 								</view>
 							</view>
 						</view>
-						<view v-if="item.sn == 1" class="bg-main rounded-circle shadow position-absolute" style="width: 25rpx; height: 25rpx; top: -10rpx; right: -10rpx;"/>
+						<view v-if="item.sn == 1" class="bg-main rounded-circle shadow position-absolute"
+							style="width: 25rpx; height: 25rpx; top: -10rpx; right: -10rpx;" />
 					</view>
 					<view class="" @click="toCard(item)">
 						<view class="swiperContainer mb-2">
 							<swiper :autoplay="false" :duration="1000" style="width: 100%; height: 400rpx;">
-								<swiper-item v-if="item.vidList.length > 0" v-for="(item1, index1) in item.vidList" :key="index1">
-									<video :src="getImgBase + item1"
-										autoplay="true" muted="true" loop="true" object-fit="fill"
-										:show-play-btn="false" :show-fullscreen-btn="false"
+								<swiper-item v-if="item.vidList.length > 0" v-for="(item1, index1) in item.vidList"
+									:key="index1">
+									<video :src="getImgBase + item1" autoplay="true" muted="true" loop="true"
+										object-fit="fill" :show-play-btn="false" :show-fullscreen-btn="false"
 										style="width: 100%; height: 400rpx;" class="rounded-top-1">
 									</video>
 								</swiper-item>
@@ -147,8 +151,8 @@
 							</view>
 						</view>
 					</view>
-					<view class="pt-2">
-						<text class="font-md text-muted" space="nbsp" user-select="true" >{{item.detail}}</text>
+					<view class="pt-2" @click="toCard(item)">
+						<text class="font text-muted" space="nbsp" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 3;overflow: hidden;">{{item.detail}}</text>
 					</view>
 					<view class="pt-2 flex align-center justify-between">
 						<view class="">
@@ -165,7 +169,8 @@
 			<!-- 预定栏 -->
 			<view class="flex align-center justify-around px-5 py-3 fixed-bottom shadow bg-white">
 				<view class="">
-					<button class="empty iconfont icon-bianji font animated faster" hover-class="bounceIn" @click="toAddCard">参与</button>
+					<button class="empty iconfont icon-bianji font animated faster" hover-class="bounceIn"
+						@click="toAddCard">参与</button>
 				</view>
 				<view class="">
 					|
@@ -180,7 +185,7 @@
 			:show-cancel-button="false">
 			<view class="mx-3 p-3 rounded-1 bg-white">
 				<view class="flex align-center justify-center">
-					<image src="../../static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
+					<image src="../../static/logo.jpg" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
 					</image>
 				</view>
 				<view class="flex align-center justify-center">
@@ -257,11 +262,18 @@
 			return {
 				title: this.topic.title,
 				path: `/pages/play/play?isshare=1&sharePage=playDetail&id=${this.id}`,
-				success: function(res) {
-				},
-				fail: function(res) {
-				}
+				success: function(res) {},
+				fail: function(res) {}
 			}
+		},
+		onShareTimeline(){
+
+		},
+		onPullDownRefresh: function() {
+			this.init();
+			setTimeout(function() {
+				uni.stopPullDownRefresh()
+			}, 1000);
 		},
 		methods: {
 			...mapActions(['login', 'authUserInfo']),
@@ -290,7 +302,7 @@
 				}).then(res => {
 					this.newCardList = res.data
 				})
-				if(!this.getIsLogin){
+				if (!this.getIsLogin) {
 					this.login()
 				}
 			},
@@ -302,22 +314,22 @@
 					delta: 1
 				});
 			},
-			toCard(item){
+			toCard(item) {
 				uni.navigateTo({
 					url: `../detail/detail?id=${item.id}`
 				})
 			},
 			nextPage() {
 				//热门
-				if(this.current == 0){
+				if (this.current == 0) {
 					if (!this.queryHotParams.isBottom) {
 						this.queryHotParams.pageNum++;
 						let newHotCardList;
 						this.$u.api.getHotCardByTopicId({
-						id: this.id,
-						pageNum: this.queryHotParams.pageNum,
-						pageSize: this.queryHotParams.pageSize
-					}).then(res => {
+							id: this.id,
+							pageNum: this.queryHotParams.pageNum,
+							pageSize: this.queryHotParams.pageSize
+						}).then(res => {
 							if (res.data.length != 0) {
 								newHotCardList = res.data;
 								this.hotCardList = [...this.hotCardList, ...newHotCardList]
@@ -326,15 +338,15 @@
 							}
 						})
 					}
-				}else{
+				} else {
 					if (!this.queryNewParams.isBottom) {
 						this.queryNewParams.pageNum++;
 						let newNewCardList;
 						this.$u.api.getNewCardByTopicId({
-						id: this.id,
-						pageNum: this.queryNewParams.pageNum,
-						pageSize: this.queryNewParams.pageSize
-					}).then(res => {
+							id: this.id,
+							pageNum: this.queryNewParams.pageNum,
+							pageSize: this.queryNewParams.pageSize
+						}).then(res => {
 							if (res.data.length != 0) {
 								newNewCardList = res.data;
 								this.newCardList = [...this.newCardList, ...newNewCardList]
@@ -344,9 +356,9 @@
 						})
 					}
 				}
-				
+
 			},
-			toAddCard(){
+			toAddCard() {
 				if (this.getNeedAuth) {
 					this.authModal.show = true
 					return
@@ -384,7 +396,7 @@
 					})
 				}
 			},
-			toIndex(){
+			toIndex() {
 				uni.switchTab({
 					url: '../play/play'
 				})
@@ -419,17 +431,17 @@
 				}
 			},
 			//跳转头像列表
-			toUserList(){
+			toUserList() {
 				uni.navigateTo({
-					url: `../user-list/user-list?id=${this.id}`
+					url: `../user-list/user-list?id=${this.id}&type=0`
 				})
 			}
 		},
 		onReachBottom() {
 			this.nextPage()
 		},
-		
-		
+
+
 	}
 </script>
 

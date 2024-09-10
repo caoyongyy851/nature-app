@@ -2,7 +2,7 @@
 	<view>
 		<uni-nav-bar left-icon="back" :title="activityDetail.title" @clickLeft="clickLeft" :fixed="true">
 			<view slot="left" class="flex align-center mt-4" @click="toIndex">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 150rpx; height: 120rpx;" lazy-load="true">
+				<image src="/static/logo.jpg" mode="aspectFill" style="width: 150rpx; height: 120rpx;" lazy-load="true">
 				</image>
 			</view>
 		</uni-nav-bar>
@@ -54,32 +54,16 @@
 				<text class="font-sm text-light-muted">{{activityDetail.position}}</text>
 			</view>
 		</view>
-		<!-- <view class="flex align-center justify-between px-3 ">
-			<view class="rounded-circle px-2 py-1"
-				style="border: 1rpx solid #0E151D;">
-				<text class="font iconfont icon-dizhi mr-1"></text>
-				<text class="font">{{activityDetail.position}}</text>
-			</view>
-		</view> -->
-		<!-- 地点 | 举报 -->
-		<view class="flex align-center justify-between px-3">
-			<!-- <view class="mr-1 text-secondary">
-				<text class="font iconfont icon-guanyuwomen mr-1"></text>
-				<text class="font">举报</text>
-			</view> -->
-		</view>
-		<!-- 内容区域 -->
+
 		<!-- 发布时间 -->
-		<view class="px-3 pb-3">
+		<view class="px-3 pb-3 flex align-center justify-between">
 			<text class="font" style="color: #bdbfc2;">报名截止于{{activityDetail.time}}</text>
+			<text class="font text-main border-bottom-1" @click="showQrcode()">分享二维码</text>
 		</view>
-		<!-- 二维码 -->
-		<view class="flex align-center justify-center px-3" v-if="activityDetail.qrcodeUrl">
-			<image :src="getImgBase + activityDetail.qrcodeUrl" mode="aspectFit" show-menu-by-longpress="true"
-				style="width: 500rpx; height: 500rpx;"></image>
-		</view>
+
 		<view class="flex align-center justify-between px-3">
-			<view class="rounded-circle px-2 py-1 animated faster border btn-main" hover-class="bounceIn" @click="joinActivity" v-if="getFinish">
+			<view class="rounded-circle px-2 py-1 animated faster border btn-main" hover-class="bounceIn"
+				@click="joinActivity" v-if="getFinish">
 				<text v-if="activityDetail.perLimit != activityDetail.person"
 					class="font-md text-main ">{{isJoin ? '已报名' : '报名活动'}}</text>
 				<text v-else class="font-md text-main">名额已满</text>
@@ -195,7 +179,7 @@
 			:show-cancel-button="false">
 			<view class="mx-3 p-3 rounded-1 bg-white">
 				<view class="flex align-center justify-center">
-					<image src="../../static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
+					<image src="../../static/logo.jpg" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
 					</image>
 				</view>
 				<view class="flex align-center justify-center">
@@ -220,10 +204,11 @@
 				</view>
 			</view>
 		</u-modal>
-			<u-popup v-model="authPhoneShow" mode="center" border-radius="16" width="580rpx" :mask-close-able="false">
+		<u-popup v-model="authPhoneShow" mode="center" border-radius="16" width="580rpx" :mask-close-able="false">
 			<view class="">
 				<view class="flex align-center justify-center mt-5">
-					<image src="../../static/nature/tixing.png" mode="aspectFill" style="width: 80rpx; height: 80rpx;" lazy-load="true">
+					<image src="../../static/nature/tixing.png" mode="aspectFill" style="width: 80rpx; height: 80rpx;"
+						lazy-load="true">
 					</image>
 				</view>
 				<view class="flex align-center justify-center font mt-3">
@@ -249,12 +234,20 @@
 
 			</view>
 		</u-popup>
-		<u-modal v-model="joinModal.show" title=" " width="550" show-cancel-button @confirm="joinConfirm" @cancel="joinCancel">
+		<u-modal v-model="joinModal.show" title=" " width="550" show-cancel-button @confirm="joinConfirm"
+			@cancel="joinCancel">
 			<view class="mx-3 p-3 rounded-1 bg-white">
 				<view class="flex align-center justify-center">
-					<image src="../../static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
+					<image src="../../static/logo.jpg" mode="aspectFill" style="width: 200rpx; height: 150rpx;">
 					</image>
 				</view>
+				<view class="p-2 flex align-center justify-between" v-if="activityDetail.payType == 1">
+					<text class="font text-light-muted">报名费</text>
+					<view class="">
+						<text class="font-weight-bold text-main font-lg">{{activityDetail.price*joinModal.person}}</text>
+							<u-icon name="rmb"  color="#fd5f40" size="20"></u-icon>
+						</view>
+					</view>
 				<view class="p-2 flex align-center justify-between">
 					<text class="font text-light-muted">参与人数</text>
 					<u-number-box v-model="joinModal.person" :min="1" :max="activityDetail.person"></u-number-box>
@@ -264,6 +257,22 @@
 						maxlength="1000" />
 				</view>
 
+			</view>
+		</u-modal>
+
+		<u-modal v-model="codeModal.show" title="二维码" width="550" :show-confirm-button="false"
+			:show-cancel-button="false" mask-close-able>
+			<view class="flex align-center justify-center px-3" v-if="activityDetail.qrcodeUrl">
+				<image :src="getImgBase + activityDetail.qrcodeUrl" mode="aspectFit"
+					style="width: 500rpx; height: 500rpx;" @click="showImg"></image>
+			</view>
+		</u-modal>
+
+		<u-modal v-model="qrModal.show" title="长按二维码" width="550" :show-confirm-button="false"
+			:show-cancel-button="false" mask-close-able>
+			<view class="flex align-center justify-center px-3" v-if="qrcode">
+				<image :src="getImgBase + qrcode" mode="aspectFit" show-menu-by-longpress
+					style="width: 500rpx; height: 500rpx;"></image>
 			</view>
 		</u-modal>
 	</view>
@@ -293,15 +302,22 @@
 				percent: 0,
 				activeColor: '#fd5f40',
 				authPhoneShow: false,
+				qrcode: "",
 				authModal: {
 					show: false
 				},
 				joinModal: {
 					show: false,
-					person: 0,
+					person: 1,
 					remark: ''
 				},
-				narList: ['自然玩主作为平台，只提供活动信息发布功能，活动的一切法律风险，由活动发起方负责，活动过程中的一切纠纷，与自然玩主平台无关。']
+				codeModal: {
+					show: false,
+				},
+				qrModal: {
+					show: false,
+				},
+				narList: ['WeEAST物与作为平台，只提供活动信息发布功能，活动的一切法律风险，由活动发起方负责，活动过程中的一切纠纷，与WeEAST物与平台无关。']
 			}
 		},
 		components: {
@@ -310,10 +326,10 @@
 		},
 		computed: {
 			...mapGetters(['getUserinfo', 'getNeedAuth', 'getIsLogin', 'getImgBase', 'getIsAuthPhone']),
-			getFinish(){
-				if(new Date().getTime() > (new Date(this.activityDetail.time).getTime() + 86400000 - 1)){
+			getFinish() {
+				if (new Date().getTime() > (new Date(this.activityDetail.time).getTime() + 86400000 - 1)) {
 					return false
-				}else{
+				} else {
 					return true
 				}
 			}
@@ -321,7 +337,23 @@
 		onLoad(options) {
 			this.id = options.id
 			// this.id = '1426473061225357313'
+			if (options.scene) {
+				var scene = decodeURIComponent(options.scene).split('&');
+				var secneObj = {};
+				for (var i = 0; i < scene.length; i++) {
+					var arr = scene[i].split('=');
+					var key = arr[0];
+					secneObj[key] = arr[1];
+				}
+
+				if (secneObj && secneObj.id) {
+					this.id = secneObj.id
+				}
+			}
 			this.init()
+		},
+		onShow(e) {
+			console.log(JSON.stringify(e))
 		},
 		onShareAppMessage() {
 			return {
@@ -332,7 +364,7 @@
 			}
 		},
 		methods: {
-			...mapActions(['login', 'authUserInfo','setPhone']),
+			...mapActions(['login', 'authUserInfo', 'setPhone']),
 			init(data) {
 				// 请求详情api
 				this.$u.api.getActivityDetailById({
@@ -341,13 +373,13 @@
 					this.activityDetail = res.data;
 					this.activityDetail.imgsList = res.data.img.split(',')
 					this.activityDetail.imgsNum = this.activityDetail.imgsList.length
-
 				})
 				if (!this.getIsLogin) {
 					this.login()
 				}
 				//获取评论
 				this.getComments()
+
 			},
 			//获取评论
 			getComments() {
@@ -419,13 +451,17 @@
 				}
 				if (this.isJoin) {
 					// 取消报名
-					this.$u.api.joinToActive({
-						aid: this.activityDetail.id,
-						person: this.join.person
+					this.$u.api.refundActOrder({
+						id: this.join.id
 					}).then(res => {
 						if (res.code === 200) {
 							this.isJoin = false
 							this.activityDetail.perLimit = this.activityDetail.perLimit - this.join.person
+						}else{
+							this.$refs.uToast.show({
+								type: 'warning',
+								title: ' 取消报名失败~'
+							})
 						}
 					})
 				} else {
@@ -597,34 +633,54 @@
 					return
 				}
 			},
-			joinConfirm(){
+			joinConfirm() {
 				if (!this.isJoin) {
 					// 取消报名
-					if(this.joinModal.person <= 0){
+					if (this.joinModal.person <= 0) {
 						this.$refs.uToast.show({
 							type: 'warning',
 							title: '请输入参与人数~'
 						})
 						return
 					}
-					this.$u.api.joinToActive({
+					this.$u.api.createActOrder({
 						aid: this.activityDetail.id,
 						person: this.joinModal.person,
 						remark: this.joinModal.remark
 					}).then(res => {
 						if (res.code === 200) {
-							this.isJoin = true
-							this.activityDetail.perLimit = this.activityDetail.perLimit + this.joinModal.person
-							this.join = {
-								person: this.joinModal.person
+							if (this.activityDetail.payType == 0 || this.activityDetail.payType == 2) {
+								this.isJoin = true
+								this.activityDetail.perLimit = this.activityDetail.perLimit + this.joinModal.person
+								this.join = {
+									id: res.data,
+									person: this.joinModal.person
+								}
+								this.joinModal.show = false
+								this.joinModal = {
+									show: false,
+									person: 1,
+									remark: ''
+								}
+								if (this.activityDetail.payType == 2) {
+									this.codeModal.show = true
+								}
+							}else if (this.activityDetail.payType == 1){
+								this.join = {
+									person: this.joinModal.person
+								}
+								this.joinModal.show = false
+								this.joinModal = {
+									show: false,
+									person: 1,
+									remark: ''
+								}
+								uni.navigateTo({
+									url: `../act-order-pay/act-order-pay?orderId=${res.data}`
+								})
 							}
-							this.joinModal.show = false
-							this.joinModal = {
-								show: false,
-								person: 0,
-								remark: ''
-							}
-						}else{
+
+						} else {
 							this.$refs.uToast.show({
 								type: 'warning',
 								title: res.msg
@@ -633,12 +689,35 @@
 					})
 				}
 			},
-			joinCancel(){
+			joinCancel() {
 				this.joinModal = {
 					show: false,
-					person: 0,
+					person: 1,
 					remark: ''
 				}
+			},
+			codeCancel() {
+				this.codeModal = {
+					show: false,
+				}
+			},
+			showImg() {
+				let imgList = [this.getImgBase + this.activityDetail.qrcodeUrl]
+				uni.previewImage({
+					urls: imgList // 需要预览的图片http链接列表
+				})
+			},
+			showQrcode() {
+				if(!this.qrcode){
+					this.$u.api.getQrcode({
+						aid: this.id
+					}).then(res => {
+						this.qrcode = res.data
+						this.qrModal.show = true
+					})
+					return
+				}
+				this.qrModal.show = true
 			}
 		}
 	}

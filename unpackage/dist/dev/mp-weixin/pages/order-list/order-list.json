@@ -3,7 +3,9 @@
   "enablePullDownRefresh": false,
   "usingComponents": {
     "u-toast": "/node-modules/uview-ui/components/u-toast/u-toast",
+    "u-tabs": "/node-modules/uview-ui/components/u-tabs/u-tabs",
     "u-icon": "/node-modules/uview-ui/components/u-icon/u-icon",
+    "u-avatar": "/node-modules/uview-ui/components/u-avatar/u-avatar",
     "u-empty": "/node-modules/uview-ui/components/u-empty/u-empty"
   }
 }

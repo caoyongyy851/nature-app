@@ -3,25 +3,25 @@
 		<u-toast ref="uToast" />
 		<uni-nav-bar left-icon="back" @clickLeft="clickLeft" title="发活动" fixed="true">
 			<view slot="left" class="flex align-center mt-4">
-				<image src="/static/logo.png" mode="aspectFill" style="width: 200rpx; height: 150rpx;"></image>
+				<image src="/static/logo.jpg" mode="aspectFill" style="width: 200rpx; height: 150rpx;"></image>
 			</view>
 		</uni-nav-bar>
 		<view class="mt-4"></view>
 		<u-notice-bar mode="horizontal" :list="narList"></u-notice-bar>
 		<view class="p-2">
-			<u-input v-model="activity.title" type="text" trim="true" placeholder="活动标题~" maxlength="200" />
+			<u-input v-model="activity.title" type="text" trim="true" border placeholder="活动标题" maxlength="200" />
+		</view>
+		<view class="p-2">
+			<u-input v-model="activity.label" type="text" trim="true" border placeholder="标签多个空格隔开" maxlength="200" />
+		</view>
+		<view class="p-2">
+			<u-input v-model="activity.detail" type="textarea" trim="true" border placeholder="活动详情" maxlength="1000" />
 		</view>
 
 		<view class="p-2">
-			<u-input v-model="activity.detail" type="textarea" trim="true" placeholder="活动详情~" maxlength="1000" />
-		</view>
-		<view class="p-2">
-			<u-input v-model="activity.label" type="text" trim="true" placeholder="标签多个空格隔开~" maxlength="200" />
-		</view>
-		<view class="p-2">
 			<view class="flex justify-between text-muted" @click="mapShow">
 				<view class="flex align-center font" v-if="!activity.position">
-					<text>选择地址~</text>
+					<text>选择地址</text>
 				</view>
 				<view class="flex align-center font" v-else>
 					<text>{{activity.position}}</text>
@@ -31,14 +31,28 @@
 				</view>
 			</view>
 		</view>
-		<view class="p-2">
-			<u-input v-model="activity.time" disabled="true" placeholder="活动报名截止时间~" @click="timeShow = true" />
-		</view>
+
 		<view class="p-2 flex align-center justify-between">
 			<text class="font text-light-muted">活动人数</text>
 			<u-number-box v-model="activity.person"></u-number-box>
 		</view>
-		
+		<view class="p-2 flex align-center justify-between" v-if="activity.payType == 1">
+			<text class="font text-light-muted">报名费用</text>
+			<!-- <u-number-box v-model="activity.price" :max="1000"></u-number-box> -->
+			<u-input v-model="activity.price" type="number" input-align="right" placeholder="输入金额"/>
+		</view>
+		<view class="p-2 flex align-center justify-between">
+			<text class="font text-light-muted">付款方式</text>
+			<u-radio-group>
+				<u-radio @change="radioChange" v-for="(item, index) in chooseList" :key="index" :name="item.name"
+					:disabled="item.disabled" shape="square" active-color="#fd5f40">
+					{{item.name}}
+				</u-radio>
+			</u-radio-group>
+		</view>
+		<view class="p-2">
+			<u-input v-model="activity.time" disabled="true" placeholder="报名截止时间" @click="timeShow = true" />
+		</view>
 		<view>
 			<view class="px-2">
 				<u-input disabled="true" placeholder="上传活动照片" />
@@ -48,7 +62,8 @@
 				:compress="true" quality="10">
 			</htz-image-upload>
 		</view>
-		<view>
+
+		<view v-if="activity.payType == 2">
 			<view class="px-2">
 				<u-input disabled="true" placeholder="上传二维码" />
 			</view>
@@ -74,7 +89,7 @@
 	} from 'vuex'
 	import uniNavBar from '@/components/uni-ui/uni-nav-bar/uni-nav-bar.vue'
 	export default {
-		components:{
+		components: {
 			uniNavBar
 		},
 		onLoad() {
@@ -84,10 +99,10 @@
 					if (res.data) {
 						let store = JSON.parse(res.data)
 						this.activity = store.activity
-						if(store.picList.length > 0){
+						if (store.picList.length > 0) {
 							this.picList = store.picList
 						}
-						
+
 					}
 				}
 			})
@@ -103,9 +118,24 @@
 					person: null,
 					time: "",
 					imgs: "",
-					
+					payType: null,
+					price: null,
 				},
 				positionShow: false,
+				choose: "",
+				chooseList: [{
+						name: '免费',
+						disabled: false
+					},
+					{
+						name: '收费',
+						disabled: false
+					},
+					{
+						name: '其他',
+						disabled: false
+					}
+				],
 				timeShow: false,
 				headers: {
 					'Authorization': 'wx ' + uni.getStorageSync('token')
@@ -113,7 +143,7 @@
 				picList: [],
 				qrcodeList: [],
 				showBack: false,
-				narList: ['自然玩主作为平台，只提供活动信息发布功能，活动的一切法律风险，由活动发起方负责，活动过程中的一切纠纷，与自然玩主平台无关。']
+				narList: ['WeEAST物与作为平台，只提供活动信息发布功能，活动的一切法律风险，由活动发起方负责，活动过程中的一切纠纷，与WeEAST物与平台无关。']
 			}
 		},
 		computed: {
@@ -225,6 +255,21 @@
 					})
 					return
 				}
+				if (this.activity.payType == null) {
+					this.$refs.uToast.show({
+						type: 'warning',
+						title: '请选择付款方式~'
+					})
+					return
+				} else if (this.activity.payType == 1){
+					if(!this.$u.test.amount(this.activity.price)){
+						this.$refs.uToast.show({
+							type: 'warning',
+							title: '请输入准确金额~'
+						})
+						return
+					}
+				}
 				if (!this.activity.position) {
 					this.$refs.uToast.show({
 						type: 'warning',
@@ -253,10 +298,20 @@
 				this.activity.img = this.picList.map(e => {
 					return e.replace(this.getImgBase, "")
 				}).join()
-				if(this.qrcodeList.length > 0){
+				if (this.qrcodeList.length > 0) {
 					this.activity.qrcodeUrl = this.qrcodeList.map(e => {
 						return e.replace(this.getImgBase, "")
 					}).join()
+				}
+				if(this.activity.payType == 0){
+					delete this.activity.price
+					delete this.activity.qrcodeUrl
+				}
+				if(this.activity.payType == 1){
+					delete this.activity.qrcodeUrl
+				}
+				if(this.activity.payType == 2){
+					delete this.activity.price
 				}
 				this.$u.api.createActivity(this.activity).then(res => {
 					if (res.code === 200) {
@@ -278,7 +333,7 @@
 					}
 				})
 			},
-			
+
 			clickLeft() {
 				let that = this
 				if ((that.activity.detail != '' || that.activity.title != '') && !that.showBack) {
@@ -312,6 +367,15 @@
 					uni.navigateBack({
 						delta: 1
 					});
+				}
+			},
+			radioChange(e) {
+				if (e == '免费') {
+					this.activity.payType = 0
+				} else if (e == '收费') {
+					this.activity.payType = 1
+				} else if (e == '其他') {
+					this.activity.payType = 2
 				}
 			},
 		}

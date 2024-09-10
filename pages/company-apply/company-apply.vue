@@ -27,12 +27,21 @@
 					<text class="iconfont icon-jinru"></text>
 				</view>
 			</view>
+			
 		</view>
 		<view class="p-2">
 			<u-input v-model="company.phone" type="number" trim="true" placeholder="公司电话~" maxlength="20" :disabled="isComfirm"/>
 		</view>
 		<view class="p-2">
 			<u-input v-model="company.remark" type="textarea" trim="true" placeholder="公司简介~" maxlength="1000" :disabled="isComfirm"/>
+		</view>
+		<view>
+			<view class="px-2">
+				<u-input disabled="true" placeholder="上传LOGO" />
+			</view>
+			<htz-image-upload :max="1" :compress="true" quality="10" :action="getImgBase + '/nature/nocheck/avatar'"
+				name="file" :chooseNum="1" v-model="coverList" @uploadSuccess="successCover" mediaType="image">
+			</htz-image-upload>
 		</view>
 		<view class="fixed-bottom">
 			<button @click="companyConfirm" class="font btn-main text-main animated faster" hover-class="bounceIn"  v-if="!isComfirm">
@@ -68,7 +77,11 @@
 				},
 				isComfirm: false,
 				addressShow: false,
+				coverList: [],
 			}
+		},
+		computed: {
+			...mapGetters(['getImgBase'])
 		},
 		methods: {
 			init() {
@@ -137,6 +150,12 @@
 					}
 				})
 			},
+			successCover(e) {
+				var res = JSON.parse(e.data);
+				if (res.code === 200) {
+					this.coverList.push(this.getImgBase + res.imgUrl)
+				}
+			},
 			companyConfirm() {
 				if (!this.company.companyName) {
 					this.$refs.uToast.show({
@@ -166,6 +185,14 @@
 					})
 					return
 				}
+				if (this.coverList.length <= 0) {
+					this.$refs.uToast.show({
+						type: 'warning',
+						title: '上传一张封面吧~'
+					})
+					return
+				}
+				this.company.cover = this.coverList.join()
 				this.$u.api.createCompany(this.company).then(res => {
 					if (res.code === 200) {
 						this.$refs.uToast.show({

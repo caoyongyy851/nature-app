@@ -3,7 +3,7 @@
 		<u-toast ref="uToast" />
 		<uni-nav-bar fixed="true">
 			<view slot="left" class="flex align-center mt-4">
-				<image src="/static/logo.png" mode="aspectFill" lazy-load="true" style="width: 120rpx; height: 120rpx;"></image>
+				<image src="/static/logo.jpg" mode="aspectFill" lazy-load="true" style="width: 120rpx; height: 120rpx;"></image>
 			</view>
 			<view slot="default" class="flex align-center mt-3" style="margin-left: 350rpx;">
 				<uni-icons type="search" size="20"></uni-icons>

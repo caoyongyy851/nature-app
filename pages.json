@@ -3,16 +3,16 @@
 		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		
+
 		{
 		    "path" : "pages/welcome/welcome",
-		    "style" :                                                                                    
+		    "style" :
 		    {
 		        "navigationBarTitleText": "",
 		        "enablePullDownRefresh": false,
 				"navigationStyle":"custom"
 		    }
-		    
+
 		},
 		{
 			"path": "pages/index/index",
@@ -24,7 +24,7 @@
 			"path": "pages/place/place",
 			"style": {
 				"navigationBarTitleText": "玩场",
-				"enablePullDownRefresh": false,
+				"enablePullDownRefresh": true,
 				"navigationStyle":"custom"
 			}
 
@@ -127,160 +127,204 @@
 		}, {
 			"path": "pages/play/play",
 			"style": {
-				"enablePullDownRefresh": false,
+				"enablePullDownRefresh": true,
 				"navigationStyle":"custom"
 			}
 
 		}
 	    ,{
             "path" : "pages/play-detail/play-detail",
-            "style" :                                                                                    
+            "style" :
             {
                 "navigationBarTitleText": "",
-                "enablePullDownRefresh": false,
+                "enablePullDownRefresh": true,
 				"navigationStyle":"custom"
             }
-            
+
         }
         ,{
             "path" : "pages/play-index/play-index",
-            "style" :                                                                                    
+            "style" :
             {
                 "navigationStyle":"custom",
-                "enablePullDownRefresh": false
+                "enablePullDownRefresh": true
             }
-            
+
         }
         ,{
             "path" : "pages/add-play/add-play",
-            "style" :                                                                                    
+            "style" :
             {
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false,
 				"navigationStyle":"custom"
             }
-            
+
         }
         ,{
             "path" : "pages/topic-select/topic-select",
-            "style" :                                                                                    
+            "style" :
             {
                 "navigationBarTitleText": "",
                 "enablePullDownRefresh": false,
 				"navigationStyle":"custom"
             }
-            
+
         }
-     
+
         ,{
             "path" : "pages/user-topic/user-topic",
-            "style" :                                                                                    
+            "style" :
             {
                 "navigationBarTitleText": "我的话题",
                 "enablePullDownRefresh": false
             }
-            
+
         }
         ,{
             "path" : "pages/user-card/user-card",
-            "style" :                                                                                    
+            "style" :
             {
                 "navigationBarTitleText": "我的帖子",
                 "enablePullDownRefresh": false
             }
-            
+
         }
         ,{
             "path" : "pages/order-pay/order-pay",
-            "style" :                                                                                    
+            "style" :
             {
                 "navigationBarTitleText": "订单支付",
                 "enablePullDownRefresh": false
             }
-            
+
         },
 		{
 		    "path" : "pages/order-list/order-list",
-		    "style" :                                                                                    
+		    "style" :
 		    {
 		        "navigationBarTitleText": "订单列表",
 		        "enablePullDownRefresh": false
 		    }
-		    
+
 		},
        {
            "path" : "pages/order-detail/order-detail",
-           "style" :                                                                                    
+           "style" :
            {
                "navigationBarTitleText": "订单详情",
                "enablePullDownRefresh": false,
        		"navigationBarBackgroundColor":"#8afab2"
            }
-           
+
        }
-        
+
         ,{
             "path" : "pages/company-apply/company-apply",
-            "style" :                                                                                    
+            "style" :
             {
                 "navigationBarTitleText": "申请公司/机构号",
                 "enablePullDownRefresh": false
             }
-            
+
         }
         ,{
             "path" : "pages/user-activity/user-activity",
-            "style" :                                                                                    
+            "style" :
             {
-                "navigationBarTitleText": "我的",
+                "navigationBarTitleText": "我的活动",
                 "enablePullDownRefresh": false
             }
-            
+
         }
         ,{
             "path" : "pages/modify-activity/modify-activity",
-            "style" :                                                                                    
+            "style" :
             {
                 "navigationBarTitleText": "修改活动",
                 "enablePullDownRefresh": false
             }
-            
+
         }
-        
+
         ,{
             "path" : "pages/modify-play/modify-play",
-            "style" :                                                                                    
+            "style" :
             {
                 "navigationBarTitleText": "修改话题",
                 "enablePullDownRefresh": false,
 				"navigationStyle":"custom"
             }
-            
+
         }
-       
+
         ,{
             "path" : "pages/user-list/user-list",
-            "style" :                                                                                    
+            "style" :
             {
                 "navigationBarTitleText": "参与玩主",
                 "enablePullDownRefresh": false
             }
-            
+
         },
 		{
 		    "path" : "pages/user-activity-list/user-activity-list",
-		    "style" :                                                                                    
+		    "style" :
 		    {
 		        "navigationBarTitleText": "参与活动人员",
 		        "enablePullDownRefresh": false
 		    }
-		    
+
+		},
+		{
+		    "path" : "pages/content-list/content-list",
+		    "style" :
+		    {
+		        "navigationBarTitleText": "消息",
+		        "enablePullDownRefresh": false
+		    }
+
+		},
+		{
+			"path": "pages/user-userinfo/image-cut",
+			"style": {
+				"navigationBarTitleText": "修改头像",
+				"navigationBarBackgroundColor": "#000000"
+			}
 		}
-        
+
+
+        ,{
+            "path" : "pages/follow-topic/follow-topic",
+            "style" :
+            {
+                "navigationBarTitleText": "关注的话题",
+                "enablePullDownRefresh": false
+            }
+
+        }
+        ,{
+            "path" : "pages/user-letter/user-letter",
+            "style" :
+            {
+                "navigationBarTitleText": "我的私信",
+                "enablePullDownRefresh": false
+            }
+
+        }
+        ,{
+            "path" : "pages/act-order-pay/act-order-pay",
+            "style" :
+            {
+                "navigationBarTitleText": "订单支付",
+                "enablePullDownRefresh": false
+            }
+
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "自然玩主",
+		"navigationBarTitleText": "WeEAST物与",
 		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#FFFFFF"
 	},

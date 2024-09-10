@@ -7,6 +7,8 @@
     "u-notice-bar": "/node-modules/uview-ui/components/u-notice-bar/u-notice-bar",
     "u-input": "/node-modules/uview-ui/components/u-input/u-input",
     "u-number-box": "/node-modules/uview-ui/components/u-number-box/u-number-box",
+    "u-radio-group": "/node-modules/uview-ui/components/u-radio-group/u-radio-group",
+    "u-radio": "/node-modules/uview-ui/components/u-radio/u-radio",
     "htz-image-upload": "/components/htz-image-upload/htz-image-upload",
     "u-picker": "/node-modules/uview-ui/components/u-picker/u-picker",
     "uni-nav-bar": "/components/uni-ui/uni-nav-bar/uni-nav-bar"

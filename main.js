@@ -8,10 +8,10 @@ import store from './store'
 Vue.use(uView);
 Vue.prototype.$store=store
 Vue.config.productionTip = false
-Vue.prototype.baseUrl="https://ziranwanzhu.com/nature"
-Vue.prototype.appid="wx32432f81d4e9e758"
-// Vue.prototype.baseUrl="http://192.168.2.10:7777/nature"
-// Vue.prototype.appid="wx09e561cd55186b43"
+// Vue.prototype.baseUrl="https://ziranwanzhu.com/nature"
+// Vue.prototype.appid="wx32432f81d4e9e758"
+Vue.prototype.baseUrl="http://127.0.0.1:7777/nature"
+Vue.prototype.appid="wx09e561cd55186b43"
 
 import divider from './components/common/divider.vue';
 Vue.component("divider", divider)
